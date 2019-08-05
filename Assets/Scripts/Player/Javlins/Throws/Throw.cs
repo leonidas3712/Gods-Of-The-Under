@@ -33,7 +33,7 @@ public class Throw : MonoBehaviour
         pos = new Vector3(pos.x + mouse.x * 2f, pos.y + mouse.y * 2f, 0);
         //you have to be in acertein distence from anything to throw the spear
         RaycastHit2D hit = Physics2D.Raycast(transform.position, mouse, 50, 0);
-        if (Character_Controller.grounded)
+        if (Gravity.grounded)
             if (mouse.y < 0 && hit.distance < dis)
             {
 
@@ -58,13 +58,13 @@ public class Throw : MonoBehaviour
 
 
         javlin.GetComponent<Rigidbody2D>().velocity = mouse * flight_speed;
-        if (!Character_Controller.grounded)
+        if (!Gravity.grounded)
             KnockBack(mouse);
     }
     protected void KnockBack(Vector3 dir)
     {
         KnockBack_On = true;
-        rig.gravityScale = 0;
+        Gravity.gravity.ToggleGravity(false);
         timer = Time.time + KnockBack_Length;
         rig.velocity = -dir * KnockBack_Strength;
 
@@ -74,18 +74,18 @@ public class Throw : MonoBehaviour
         if (timer <= Time.time && KnockBack_On)
         {
             //starts slowing down
-            rig.gravityScale = Character_Controller.GravityScale;
+            Gravity.gravity.ToggleGravity(true);
             if (rig.velocity.x > 0)
                 rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
             else
                 rig.velocity = new Vector2(rig.velocity.x + 0.8f, rig.velocity.y);
             //stop the knockback when veloctiy hits below walking speed
-            if (Mathf.Abs(rig.velocity.x) <= Character_Controller.speed)
+            if (Mathf.Abs(rig.velocity.x) <= Character_Controller.walking.maxVelocity)
             {
                 KnockBack_On = false;
             }
         }
-        if (Character_Controller.grounded && thrown /*&& GetComponent<Javlin>().javlinOn*/)
+        if (Gravity.grounded && thrown /*&& GetComponent<Javlin>().javlinOn*/)
         {
             thrown = false;
         }

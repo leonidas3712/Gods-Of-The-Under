@@ -21,7 +21,7 @@ public class Jump : Ability
     public override void Action()
     {
 
-        if (!Character_Controller.grounded && !Character_Controller.walled)
+        if (!Gravity.grounded && !Character_Controller.walled)
         {
             ForceEnding();
             return;
@@ -30,7 +30,7 @@ public class Jump : Ability
         timesDone++;
         jumped = true;
         rig.velocity = new Vector2(rig.velocity.x, jump_speed);
-        rig.gravityScale = 0;
+        Gravity.gravity.ToggleGravity(false);
         //needs to happen after physical staff is done so it wont touch the wall while its collider returns
         if (Character_Controller.walled)
         {
@@ -42,7 +42,7 @@ public class Jump : Ability
     {
         if (jumped && !interapted&& !Character_Controller.walled)
         {
-            rig.gravityScale = Character_Controller.GravityScale;
+            Gravity.gravity.ToggleGravity(true);
             /*if (rig.velocity.y > 0)
                 rig.velocity = new Vector2(rig.velocity.x, 0.1f);*/
         }
@@ -76,7 +76,7 @@ public class Jump : Ability
     }
     private void LateUpdate()
     {
-        if (Character_Controller.grounded && jumped)
+        if (Gravity.grounded && jumped)
         {
             //needs to wait about 2 frames after space been pressed for the collision callback to stop accuring
             if (twoFramesTimer > 0)
@@ -86,7 +86,7 @@ public class Jump : Ability
                 if (AbilityOn)
                 {
                     //finished is only called in timed action after jumped has been set false
-                    rig.gravityScale = Character_Controller.GravityScale;
+                    Gravity.gravity.ToggleGravity(true);
                     ForceEnding();
                 }
                 twoFramesTimer = 3;

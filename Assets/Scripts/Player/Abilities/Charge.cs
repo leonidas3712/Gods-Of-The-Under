@@ -44,16 +44,9 @@ public class Charge : Ability
     {
         striked = false;
         //Character_Controller.anim.SetBool("isCharging", true);
-        //input press check
-        if (Input.GetKey(input))
-        {
-            inputCheck = true;
-        }
-        else
-            inputCheck = false;
-        //****
+
         timesDone++;
-        rig.gravityScale = 0;
+        Gravity.gravity.ToggleGravity(false);
 
         //this segment will be changed after controller input will be implemented***
         mouse = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
@@ -63,7 +56,7 @@ public class Charge : Ability
         //if the charge is set downwards
         if (mouse.y < 0)
             //if josie is on the ground
-            if (Character_Controller.grounded)
+            if (Gravity.grounded)
             {
                 //take the y value off the direction vector
                 mouse = new Vector3(mouse.x, 0, 0);
@@ -98,27 +91,14 @@ public class Charge : Ability
         }
         else
         {
-            /* //mouse.y < 0
-             if (HelpfulFuncs.checkIfBetween(mouse, -40, -140) && !Character_Controller.grounded && inputCheck)
-             {
-                 GetComponent<Strong_Charge>().StartCharge(mouse);
-                 return;
-             }*/
-
-            rig.gravityScale = Character_Controller.GravityScale;
+            Gravity.gravity.ToggleGravity(true);
             rig.velocity = Vector2.zero;
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
 
             if (striked)
             {
-                if (Input.GetKey(input) && hp.Hp < hp.maxHp && strikedFoe)
-                {
-                    animator.SetBool("Rodeo", true);
-                    charController.BeginRodeo(wall, strikenFoeDir);
-                }
-                else
-                    hp.KnockBack(strikenFoeDir);
+                hp.KnockBack(strikenFoeDir);
             }
             strikedFoe = false;
             inputCheck = false;
@@ -129,9 +109,6 @@ public class Charge : Ability
     public override void WhileIsOn()
     {
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
-        //whether the charge input is still pressed
-        if (Input.GetKeyUp(input) || !Input.GetKey(input))
-            inputCheck = false;
     }
     public void hitBoxCall(Collision2D coll)
     {
@@ -149,12 +126,7 @@ public class Charge : Ability
             {
                 strike(HelpfulFuncs.Norm1(coll.transform.position - transform.position));
                 strikedFoe = true;
-                if (Input.GetKey(input))
-                {
-                    wall = coll.gameObject;
-                }
-                else
-                    javlin.ExecuteStrike(coll.collider.gameObject);
+                javlin.ExecuteStrike(coll.collider.gameObject);
                 ForceEnding();
             }
             else
@@ -164,7 +136,7 @@ public class Charge : Ability
                     if (coll.GetContact(0).normal == Vector2.right && rig.velocity.x < 2)
                     {
                         isWalled = true;
-                        wallDiraction = Vector2.right; 
+                        wallDiraction = Vector2.right;
                         wall = coll.gameObject;
                     }
                     else if (coll.GetContact(0).normal == Vector2.left && (rig.velocity.x >= -2))

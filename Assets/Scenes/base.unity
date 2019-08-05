@@ -526,12 +526,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 50970183647078510, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 14
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1257429752366137949, guid: 5243a222f5663db4ab6bba8c78fdb18f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5243a222f5663db4ab6bba8c78fdb18f, type: 3}
 --- !u!1 &2070302719 stripped
 GameObject:
@@ -539,7 +535,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1545358810}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2070302735
+--- !u!114 &2070302720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -548,8 +544,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2070302719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f55b983f82ad54fb64a99d9bfa5aba, type: 3}
+  m_Script: {fileID: 11500000, guid: 62b3efe2f9359ec419fd628c7780ffb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityFinalSpeed: -20
-  gravityAcceleration: 0
+  acceleration: 3
+  maxVelocity: 7

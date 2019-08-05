@@ -45,8 +45,6 @@ public class PlayerHp : MonoBehaviour
             cont.unWall();
         invuln.condition = true;
         syncHp();
-        if (Character_Controller.anim.GetBool("Rodeo"))
-            cont.EndRodeo();
     }
     public void TakeDamage(int damage, Vector3 dir, bool resp)
     {
@@ -82,7 +80,7 @@ public class PlayerHp : MonoBehaviour
     public void KnockBack(Vector3 dir)
     {
         KnockBack_On = true;
-        rig.gravityScale = 0;
+        Gravity.gravity.ToggleGravity(false);
         timer = Time.time + KnockBack_Length;
         rig.velocity = -dir * KnockBack_Strength;
     }
@@ -104,13 +102,13 @@ public class PlayerHp : MonoBehaviour
         if (timer <= Time.time && KnockBack_On)
         {
             //starts slowing down
-            rig.gravityScale = Character_Controller.GravityScale;
+            Gravity.gravity.ToggleGravity();
             if (rig.velocity.x > 0)
                 rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
             else
                 rig.velocity = new Vector2(rig.velocity.x + 0.8f, rig.velocity.y);
             //stop the knockback when veloctiy hits below walking speed
-            if (Mathf.Abs(rig.velocity.x) <= Character_Controller.speed)
+            if (Mathf.Abs(rig.velocity.x) <= Character_Controller.walking.maxVelocity)
             {
                 KnockBack_On = false;
             }

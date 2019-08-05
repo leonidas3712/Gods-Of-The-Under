@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114111851134330460}
   - component: {fileID: 114050873045811896}
   - component: {fileID: 692988191}
+  - component: {fileID: 1257429752366137949}
+  - component: {fileID: 2070302735}
   m_Layer: 8
   m_Name: Josie
   m_TagString: Player
@@ -109,7 +111,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 6
+  m_GravityScale: 9
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -352,6 +354,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1257429752366137949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210109344468232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485b02600f34a2146989a9de5f1d22e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2070302735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210109344468232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f55b983f82ad54fb64a99d9bfa5aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityFinalSpeed: -22
+  gravityAcceleration: 0
 --- !u!1 &3681938683408673448
 GameObject:
   m_ObjectHideFlags: 0
