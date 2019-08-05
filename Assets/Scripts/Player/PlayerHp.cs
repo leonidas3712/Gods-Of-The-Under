@@ -80,7 +80,7 @@ public class PlayerHp : MonoBehaviour
     public void KnockBack(Vector3 dir)
     {
         KnockBack_On = true;
-        Gravity.gravity.ToggleGravity(false);
+        Gravity.playerGravity.ToggleGravity(false);
         timer = Time.time + KnockBack_Length;
         rig.velocity = -dir * KnockBack_Strength;
     }
@@ -102,12 +102,12 @@ public class PlayerHp : MonoBehaviour
         if (timer <= Time.time && KnockBack_On)
         {
             //starts slowing down
-            Gravity.gravity.ToggleGravity();
+            Gravity.playerGravity.ToggleGravity();
             if (rig.velocity.x > 0)
                 rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
             else
                 rig.velocity = new Vector2(rig.velocity.x + 0.8f, rig.velocity.y);
-            //stop the knockback when veloctiy hits below walking speed
+            //stop the knockback when veloctiy hits below walking speed*/
             if (Mathf.Abs(rig.velocity.x) <= Character_Controller.walking.maxVelocity)
             {
                 KnockBack_On = false;

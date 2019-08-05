@@ -11,13 +11,13 @@ public class Gravity : MonoBehaviour
     float colliderHight, colliderWidth;
     RaycastHit2D[] groundCheckHits;
     int layermask;
-    public static Gravity gravity;
+    public static Gravity playerGravity;
     void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
         layermask = ~(LayerMask.GetMask("Player", "Ignore Raycast"));
         gravityAcceleration = rig.gravityScale;
-        gravity = this;
+        playerGravity = this;
     }
     private void Start()
     {

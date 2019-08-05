@@ -17,9 +17,10 @@ public class Charge : Ability
     //soposed to fix disync in collision enter
     [SerializeField]
     float curDamage;
-    public float ChargeMovmentSpeed, baseDamage = 1;
+    public float ChargeMovmentSpeed, baseDamage = 1, knockBackMult=1;
     PlayerHp hp;
     Character_Controller charController;
+    
 
     public override bool Condition()
     {
@@ -46,7 +47,7 @@ public class Charge : Ability
         //Character_Controller.anim.SetBool("isCharging", true);
 
         timesDone++;
-        Gravity.gravity.ToggleGravity(false);
+        Gravity.playerGravity.ToggleGravity(false);
 
         //this segment will be changed after controller input will be implemented***
         mouse = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
@@ -91,14 +92,14 @@ public class Charge : Ability
         }
         else
         {
-            Gravity.gravity.ToggleGravity(true);
+            Gravity.playerGravity.ToggleGravity(true);
             rig.velocity = Vector2.zero;
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
 
             if (striked)
             {
-                hp.KnockBack(strikenFoeDir);
+                hp.KnockBack(strikenFoeDir*knockBackMult);
             }
             strikedFoe = false;
             inputCheck = false;

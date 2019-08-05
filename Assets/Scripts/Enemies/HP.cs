@@ -40,7 +40,7 @@ public class HP : MonoBehaviour
         if (timer <= Time.time && KnockBack_On)
         {
             //starts slowing down
-            Gravity.gravity.ToggleGravity(true);
+            rig.gravityScale = 6;
             if (rig.velocity.x > 0)
                 rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
             else

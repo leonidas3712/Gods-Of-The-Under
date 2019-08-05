@@ -64,7 +64,7 @@ public class Throw : MonoBehaviour
     protected void KnockBack(Vector3 dir)
     {
         KnockBack_On = true;
-        Gravity.gravity.ToggleGravity(false);
+        Gravity.playerGravity.ToggleGravity(false);
         timer = Time.time + KnockBack_Length;
         rig.velocity = -dir * KnockBack_Strength;
 
@@ -74,7 +74,7 @@ public class Throw : MonoBehaviour
         if (timer <= Time.time && KnockBack_On)
         {
             //starts slowing down
-            Gravity.gravity.ToggleGravity(true);
+            Gravity.playerGravity.ToggleGravity(true);
             if (rig.velocity.x > 0)
                 rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
             else
