@@ -33,17 +33,19 @@ public class Ability : MonoBehaviour
         return Input.GetKeyDown(input);
     }
 
-    public void DelayedAction()
+    public virtual void AbilityTrriger()
     {
-
-        if (timer < Time.time && Condition() && !AbilityOn && timesDone < maxTimes)
+        if (timer < Time.time && !AbilityOn && timesDone < maxTimes)
         {
             AbilityOn = true;
             Action();
             timer = Time.time + length;
         }
-        else
-         if (timer <= Time.time && AbilityOn == true)
+    }
+
+    void Update()
+    {
+        if (timer <= Time.time && AbilityOn == true)
         {
             timer = Time.time + intervals;
             AbilityOn = false;
@@ -51,7 +53,6 @@ public class Ability : MonoBehaviour
         }
         if (AbilityOn)
             WhileIsOn();
-
     }
 
 

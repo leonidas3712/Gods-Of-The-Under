@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    public static bool  walled, HasWallStick, HasThrow;
+    public static bool walled, HasWallStick, HasThrow;
     public static Animator anim;
     Charge charge;
     Jump jump;
@@ -13,7 +13,7 @@ public class Character_Controller : MonoBehaviour
     public static Walking walking;
     public static Rigidbody2D rig;
     public static Gravity gravity;
-
+    public AirDrag airDrag;
     Collision2D contactedColl;
 
     Vector3 wallOffset, correctPosition;
@@ -35,6 +35,7 @@ public class Character_Controller : MonoBehaviour
         walking = GetComponent<Walking>();
         gravity = GetComponent<Gravity>();
         hitbox = transform.GetChild(0).gameObject;
+        airDrag = GetComponent<AirDrag>();
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -62,37 +63,36 @@ public class Character_Controller : MonoBehaviour
     void mainControl()
     {
         if (!charge.AbilityOn)
+        {
+            if (!Throw.KnockBack_On && !playerHp.KnockBack_On)
             {
-                if (!Throw.KnockBack_On && !playerHp.KnockBack_On)
-                {
-                    gravity.GroundCheck();
-                    walking.Walk();
-                    jump.DelayedAction();
-                }
-
-                //javelin crap*******
-                if (javlin.javlinOn)
-                    charge.DelayedAction();
-                //if the javlin is equiped you may throw
-                if (Input.GetMouseButtonDown(1) && javlin.javlinOn)
-                    javlin.ExecuteThrow();
-                else
-                if (Input.GetKeyDown("e") && !javlin.javlinOn)
-                {
-                    javlin.ExecuteCallBack();
-                }
-                //*******************
-
+                gravity.GroundCheck();
+                walking.Walk();
+                if (jump.Condition()) jump.AbilityTrriger();
             }
-        if (javlin.javlinOn || charge.AbilityOn)
-            charge.DelayedAction();
+
+            //javelin crap*******
+            //if the javlin is equiped you may throw
+            if (Input.GetMouseButtonDown(1) && javlin.javlinOn)
+                javlin.ExecuteThrow();
+            else
+            if (Input.GetKeyDown("e") && !javlin.javlinOn)
+            {
+                javlin.ExecuteCallBack();
+            }
+            //*******************
+
+        }
+        if (javlin.javlinOn && charge.Condition())
+            charge.AbilityTrriger();
     }
 
     void wallControls()
     {
         if (!charge.AbilityOn)
-            jump.DelayedAction();
-        charge.DelayedAction();
+            if (jump.Condition()) jump.AbilityTrriger();
+        if (charge.Condition())
+            charge.AbilityTrriger();
         correctPosition = stuckedOnWall.transform.position + wallOffset;
         if (transform.position != correctPosition) transform.position = correctPosition;
         if (!stuckedOnWall.activeInHierarchy) unWall();

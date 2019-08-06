@@ -1,0 +1,31 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Boost : Ability
+{
+    Vector3 boostDirection;
+    Rigidbody2D rig;
+    public void StartBoost(Vector3 dir)
+    {
+        boostDirection = dir;
+        AbilityTrriger();
+    }
+    private void Start()
+    {
+        rig = GetComponent<Rigidbody2D>();
+    }
+    public override void Action()
+    {
+        Gravity.playerGravity.ToggleGravity(false);
+        rig.velocity = boostDirection;
+    }
+    public override void Finish()
+    {
+        Gravity.playerGravity.ToggleGravity();
+    }
+    public override void WhileIsOn()
+    {
+
+    }
+}
