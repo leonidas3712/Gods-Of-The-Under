@@ -6,6 +6,7 @@ public class Boost : Ability
 {
     Vector3 boostDirection;
     Rigidbody2D rig;
+    public float boostStrength;
     public void StartBoost(Vector3 dir)
     {
         boostDirection = dir;
@@ -18,7 +19,7 @@ public class Boost : Ability
     public override void Action()
     {
         Gravity.playerGravity.ToggleGravity(false);
-        rig.velocity = boostDirection;
+        rig.velocity = boostDirection*boostStrength;
     }
     public override void Finish()
     {

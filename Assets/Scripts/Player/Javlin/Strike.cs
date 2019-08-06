@@ -14,7 +14,5 @@ public class Strike : MonoBehaviour
     public virtual void OnHit(GameObject target)
     {
         target.GetComponent<HP>().TakeDamage(1, HelpfulFuncs.Norm1(target.transform.position - transform.position));
-        if (target)
-            charge.ForceEnding();
     }
 }

@@ -6,10 +6,12 @@ public class Walking : MonoBehaviour
 {
     public float acceleration = 2, maxVelocity = 7;
     Rigidbody2D rig;
+    AirDrag airDrag;
 
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        airDrag = GetComponent<AirDrag>();
     }
 
     public void Walk()

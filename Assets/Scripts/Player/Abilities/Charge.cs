@@ -20,7 +20,7 @@ public class Charge : Ability
     public float ChargeMovmentSpeed, baseDamage = 1, knockBackMult=1;
     PlayerHp hp;
     Character_Controller charController;
-    
+    Boost boost;
 
     public override bool Condition()
     {
@@ -39,6 +39,7 @@ public class Charge : Ability
         hitBox.SetActive(false);
         animator = GetComponent<Animator>();
         charController = GetComponent<Character_Controller>();
+        boost = GetComponent<Boost>();
     }
 
     public override void Action()
@@ -96,14 +97,11 @@ public class Charge : Ability
             rig.velocity = Vector2.zero;
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
-
             if (striked)
             {
-                hp.KnockBack(strikenFoeDir*knockBackMult);
+                boost.StartBoost(-strikenFoeDir*knockBackMult);
             }
             strikedFoe = false;
-            inputCheck = false;
-            //if josie is mid air and charging down strong charge will initiate
             //Character_Controller.anim.SetBool("isCharging", false);
         }
     }

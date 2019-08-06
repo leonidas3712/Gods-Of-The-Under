@@ -6,16 +6,15 @@ public class PlayerHp : MonoBehaviour
 {
 
     public int maxHp = 5, Hp;
-    public bool KnockBack_On;
     Rigidbody2D rig;
     Invuln invuln;
     Character_Controller cont;
     Javlin javlin;
     Text hpText;
+    Boost boost;
 
     Vector3 SpawnPoint, RevivePoint;
     [SerializeField]
-    float KnockBack_Length = 0.15f, KnockBack_Strength = 10, timer = 0;
 
     private void Start()
     {
@@ -25,12 +24,13 @@ public class PlayerHp : MonoBehaviour
         cont = GetComponent<Character_Controller>();
         javlin = GetComponent<Javlin>();
         hpText = GameObject.Find("hp").GetComponent<Text>();
+        boost = GetComponent<Boost>();
         syncHp();
     }
     public void TakeDamage(int damage, Vector3 dir)
     {
         Hp -= damage;
-        KnockBack(dir);
+        boost.StartBoost(-dir);
         if (Hp <= 0)
         {
             if (!javlin.javlinOn)
@@ -49,7 +49,7 @@ public class PlayerHp : MonoBehaviour
     public void TakeDamage(int damage, Vector3 dir, bool resp)
     {
         Hp -= damage;
-        KnockBack(dir);
+        boost.StartBoost(-dir);
 
         if (Character_Controller.walled)
             cont.unWall();
@@ -76,15 +76,6 @@ public class PlayerHp : MonoBehaviour
         }
 
     }
-
-    public void KnockBack(Vector3 dir)
-    {
-        KnockBack_On = true;
-        Gravity.playerGravity.ToggleGravity(false);
-        timer = Time.time + KnockBack_Length;
-        rig.velocity = -dir * KnockBack_Strength;
-    }
-
     void respawn(Vector3 point)
     {
         transform.position = point;
@@ -96,24 +87,6 @@ public class PlayerHp : MonoBehaviour
         Hp = maxHp;
         respawn(RevivePoint);
         syncHp();
-    }
-    private void FixedUpdate()
-    {
-        if (timer <= Time.time && KnockBack_On)
-        {
-            //starts slowing down
-            Gravity.playerGravity.ToggleGravity();
-            if (rig.velocity.x > 0)
-                rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
-            else
-                rig.velocity = new Vector2(rig.velocity.x + 0.8f, rig.velocity.y);
-            //stop the knockback when veloctiy hits below walking speed*/
-            if (Mathf.Abs(rig.velocity.x) <= Character_Controller.walking.maxVelocity)
-            {
-                KnockBack_On = false;
-            }
-        }
-
     }
     private void Update()
     {

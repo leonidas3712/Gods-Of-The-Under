@@ -15,6 +15,7 @@ public class Character_Controller : MonoBehaviour
     public static Gravity gravity;
     public AirDrag airDrag;
     Collision2D contactedColl;
+    Boost boost;
 
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
@@ -36,6 +37,7 @@ public class Character_Controller : MonoBehaviour
         gravity = GetComponent<Gravity>();
         hitbox = transform.GetChild(0).gameObject;
         airDrag = GetComponent<AirDrag>();
+        boost = GetComponent<Boost>();
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -64,7 +66,7 @@ public class Character_Controller : MonoBehaviour
     {
         if (!charge.AbilityOn)
         {
-            if (!Throw.KnockBack_On && !playerHp.KnockBack_On)
+            if (!boost.AbilityOn)
             {
                 gravity.GroundCheck();
                 walking.Walk();
@@ -131,10 +133,8 @@ public class Character_Controller : MonoBehaviour
             {
                 if (transform.localScale.x < 0)
                 {
-
                     transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 }
-
             }
 
             else if (rig.velocity.x < 0)
@@ -142,7 +142,6 @@ public class Character_Controller : MonoBehaviour
                 {
                     transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 }
-
         }
     }
 }
