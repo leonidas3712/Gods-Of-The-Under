@@ -43,6 +43,7 @@ public class Jump : Ability
         if (jumped && !interapted&& !Character_Controller.walled)
         {
             Gravity.playerGravity.ToggleGravity(true);
+            
             /*if (rig.velocity.y > 0)
                 rig.velocity = new Vector2(rig.velocity.x, 0.1f);*/
         }
@@ -56,10 +57,11 @@ public class Jump : Ability
         }
 
     }
-    private void Update()
+    public override void Update()
     {
         /*jumping has the lowest priority so when interapted by other abilities it is the only 
         ability that will call its finish function after the interapting ability has finished*/
+        base.Update();
         interruptionCheck();
     }
     void interruptionCheck()

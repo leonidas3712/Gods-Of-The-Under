@@ -16,6 +16,7 @@ public class Ability : MonoBehaviour
     public virtual void Finish() { }
     public virtual void WhileIsOn() { }
 
+
     public void ResetTimesDone()
     {
         timesDone = 0;
@@ -43,7 +44,7 @@ public class Ability : MonoBehaviour
         }
     }
 
-    void Update()
+    public virtual void Update()
     {
         if (timer <= Time.time && AbilityOn == true)
         {
