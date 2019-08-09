@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83893df4c6c60c14eb6e084370eb231a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 3
+  maxHp: 6
   Hp: 5
   KnockBack_On: 0
   KnockBack_Length: 0.03

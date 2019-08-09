@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spikes : MonoBehaviour {
 
-    private void OnCollisionEnter2D(Collision2D coll)
+    private void OnCollisionStay2D(Collision2D coll)
     {
         GameObject victem = coll.collider.gameObject;
         if (victem.GetComponent<HP>())
@@ -14,6 +14,10 @@ public class Spikes : MonoBehaviour {
         if (victem.GetComponent<PlayerHp>())
         {
             victem.GetComponent<PlayerHp>().TakeDamage(1, HelpfulFuncs.Norm1(coll.GetContact(0).point - (Vector2)victem.transform.position),true);
+        }
+        if(victem.GetComponentInParent<PlayerHp>())
+        {
+            victem.GetComponentInParent<PlayerHp>().TakeDamage(1, HelpfulFuncs.Norm1(coll.GetContact(0).point - (Vector2)victem.transform.position), true);
         }
         else if (victem.tag == "javlin")
         {

@@ -39,15 +39,19 @@ public class Gravity : MonoBehaviour
     {
         grounded = false;
         groundCheckHits = new RaycastHit2D[3];
-        groundCheckHits[0] = Physics2D.Raycast(transform.position, Vector2.down, colliderHight / 2 + 0.1f, layermask);
-        groundCheckHits[1] = Physics2D.Raycast(transform.position + (Vector3)Vector2.right * colliderWidth / 2, Vector2.down, colliderHight / 2 + 0.1f, layermask);
-        groundCheckHits[2] = Physics2D.Raycast(transform.position + (Vector3)Vector2.left * colliderWidth / 2, Vector2.down, colliderHight / 2 + 0.1f, layermask);
+        groundCheckHits[0] = Physics2D.Raycast(transform.position, Vector2.down, colliderHight / 2 + 0.07f, layermask);
+        groundCheckHits[1] = Physics2D.Raycast(transform.position + (Vector3)Vector2.right * colliderWidth / 2, Vector2.down, colliderHight / 2 + 0.07f, layermask);
+        groundCheckHits[2] = Physics2D.Raycast(transform.position + (Vector3)Vector2.left * colliderWidth / 2, Vector2.down, colliderHight / 2 + 0.07f, layermask);
         foreach (RaycastHit2D hit in groundCheckHits)
         {
-            if (hit.collider && (hit.normal == Vector2.up || hit.collider.tag == "javlin"))
+            if (hit.collider)
             {
-                grounded = true;
-                break;
+                Vector2 hitDir = new Vector2(Mathf.Round(hit.normal.x * 10) / 10, Mathf.Round(hit.normal.y * 10) / 10);
+                if (hitDir==Vector2.up|| hit.collider.tag == "javlin")
+                {
+                    grounded = true;
+                    break;
+                }
             }
         }
     }

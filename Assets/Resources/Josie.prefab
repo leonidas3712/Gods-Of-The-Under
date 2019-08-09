@@ -139,7 +139,7 @@ GameObject:
   m_Layer: 8
   m_Name: Josie
   m_TagString: Player
-  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -196,7 +196,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.9764151, b: 0.9764151, a: 1}
+  m_Color: {r: 0.9669811, g: 0.9981209, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -289,6 +289,7 @@ MonoBehaviour:
   input: 
   animator: {fileID: 0}
   wallDiraction: {x: 0, y: 0}
+  bounceDir: {x: 0, y: 0}
   inputCheck: 0
   isWalled: 0
   striked: 0
@@ -364,6 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eddc130bd7c2524bb0d294a103b2c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 2
 --- !u!114 &6162523230734184567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   javlin: {fileID: 0}
   dis: 1
+  damage: 1
   flight_speed: 57
   KnockBack_Strength: 2
 --- !u!114 &6162523230734184564

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Throw : MonoBehaviour
 {
-
     Rigidbody2D rig;
     public GameObject javlin;
     public static bool thrown;
@@ -12,6 +11,7 @@ public class Throw : MonoBehaviour
     [SerializeField]
     float dis = 2;
     Camera cam;
+    public int damage =1;
 
     [SerializeField]
     float flight_speed = 20,KnockBack_Strength = 20;

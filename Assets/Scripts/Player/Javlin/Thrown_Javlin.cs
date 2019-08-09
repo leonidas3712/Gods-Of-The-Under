@@ -31,7 +31,7 @@ public class Thrown_Javlin : MonoBehaviour
                 Mycoll.isTrigger = true;
             }
             rig.freezeRotation = true;
-            coll.collider.GetComponent<HP>().TakeDamage(1, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position));
+            coll.collider.GetComponent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
         }
         //just staff
         else

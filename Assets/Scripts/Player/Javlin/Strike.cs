@@ -6,6 +6,7 @@ public class Strike : MonoBehaviour
 {
 
     Charge charge;
+    public int damage = 2;
     private void Start()
     {
         charge = GetComponent<Charge>();
@@ -13,6 +14,6 @@ public class Strike : MonoBehaviour
 
     public virtual void OnHit(GameObject target)
     {
-        target.GetComponent<HP>().TakeDamage(1, HelpfulFuncs.Norm1(target.transform.position - transform.position));
+        target.GetComponent<HP>().TakeDamage(damage, HelpfulFuncs.Norm1(target.transform.position - transform.position));
     }
 }

@@ -7,7 +7,7 @@ public class Jump : Ability
     Ability[] playerAbilities;
     Rigidbody2D rig;
     [SerializeField]
-    float jump_speed = 7;
+    float jumpSpeed = 7;
     public bool jumped, interapted;
     int twoFramesTimer = 3;
 
@@ -29,7 +29,7 @@ public class Jump : Ability
         interapted = false;
         timesDone++;
         jumped = true;
-        rig.velocity = new Vector2(rig.velocity.x, jump_speed);
+        rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
         Gravity.playerGravity.ToggleGravity(false);
         //needs to happen after physical staff is done so it wont touch the wall while its collider returns
         if (Character_Controller.walled)
@@ -44,8 +44,8 @@ public class Jump : Ability
         {
             Gravity.playerGravity.ToggleGravity(true);
             
-            /*if (rig.velocity.y > 0)
-                rig.velocity = new Vector2(rig.velocity.x, 0.1f);*/
+            if (rig.velocity.y > 0)
+                rig.velocity = new Vector2(rig.velocity.x, jumpSpeed/3);
         }
     }
     public override void WhileIsOn()

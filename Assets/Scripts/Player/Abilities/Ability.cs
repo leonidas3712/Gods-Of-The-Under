@@ -40,6 +40,7 @@ public class Ability : MonoBehaviour
         {
             AbilityOn = true;
             Action();
+            WhileIsOn();
             timer = Time.time + length;
         }
     }

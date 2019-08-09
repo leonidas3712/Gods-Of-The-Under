@@ -16,29 +16,47 @@ public class Walking : MonoBehaviour
 
     public void Walk()
     {
-        if (rig.velocity.x > -maxVelocity)
+        if (Input.GetKey("a"))
         {
-            if (Input.GetKey("a"))
+            if (rig.velocity.x > -maxVelocity)
             {
                 MoveHorizontaly(-acceleration);
             }
+            //else if (rig.velocity.x != -maxVelocity) rig.velocity = new Vector2(-maxVelocity, rig.velocity.y);
         }
-        if (rig.velocity.x < maxVelocity)
-            if (Input.GetKey("d"))
+        else
+        if (Input.GetKey("d"))
+        {
+            if (rig.velocity.x < maxVelocity)
             {
                 MoveHorizontaly(acceleration);
             }
+            //else if (rig.velocity.x != maxVelocity) rig.velocity = new Vector2(maxVelocity, rig.velocity.y);
+        }
+
 
         if (!Input.GetKey("a") && !Input.GetKey("d"))
         {
+            if (Mathf.Abs(rig.velocity.x) <= maxVelocity + 0.5f || Gravity.grounded) rig.velocity = new Vector2(0, rig.velocity.y);
             //anim.SetBool("isRunning", false);
-            rig.velocity = new Vector2(0, rig.velocity.y);
         }
+        if (Gravity.grounded && Mathf.Abs(rig.velocity.x) > maxVelocity + 0.5f) rig.velocity = Vector2.zero;
     }
 
     void MoveHorizontaly(float acc)
     {
-        rig.velocity = new Vector2(acc + rig.velocity.x, rig.velocity.y);
+        float sign = acc / Mathf.Abs(acc);
+        if (Mathf.Abs(rig.velocity.x) + Mathf.Abs(acc) > maxVelocity && rig.velocity.x * sign >= 0)
+        {
+            rig.velocity = new Vector2(maxVelocity * sign, rig.velocity.y);
+        }
+        else
+        {
+            if (rig.velocity.x * sign <= 0 && Mathf.Abs(rig.velocity.x) <= maxVelocity)
+                rig.velocity *= Vector2.up;
+            rig.velocity = new Vector2(acc + rig.velocity.x, rig.velocity.y);
+        }
+
         //anim.SetBool("isRunning", true);
     }
 }
