@@ -30,7 +30,7 @@ public class PlayerHp : MonoBehaviour
     public void TakeDamage(int damage, Vector3 dir)
     {
         Hp -= damage;
-        boost.StartBoost(-dir);
+        boost.StartBoost(-dir*0.8f);
         if (Hp <= 0)
         {
             if (!javlin.javlinOn)
@@ -43,13 +43,13 @@ public class PlayerHp : MonoBehaviour
         }
         if (Character_Controller.walled)
             cont.unWall();
-        invuln.condition = true;
+        invuln.TriggerAbility();
         syncHp();
     }
     public void TakeDamage(int damage, Vector3 dir, bool resp)
     {
         Hp -= damage;
-        boost.StartBoost(-dir);
+        boost.StartBoost(-dir * 0.8f);
 
         if (Character_Controller.walled)
             cont.unWall();
@@ -87,10 +87,6 @@ public class PlayerHp : MonoBehaviour
         Hp = maxHp;
         respawn(RevivePoint);
         syncHp();
-    }
-    private void Update()
-    {
-        invuln.DelayedAction();
     }
 
     private void OnTriggerEnter2D(Collider2D coll)

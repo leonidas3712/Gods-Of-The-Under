@@ -7,7 +7,12 @@ public class CallBack : MonoBehaviour {
     GameObject javlin;
     Rigidbody2D rig;
     [SerializeField]
-    float returnSpeed = 15;
+    public float returnSpeed = 15;
+    public static CallBack call;
+    private void Start()
+    {
+        call = this;
+    }
     public virtual void OnCallBack()
     {
         
@@ -24,6 +29,5 @@ public class CallBack : MonoBehaviour {
         }
         rig.gravityScale = 0;
         rig.bodyType = RigidbodyType2D.Dynamic;
-        rig.velocity = Vector3.Normalize(transform.position - javlin.transform.position) * returnSpeed;
     }
 }

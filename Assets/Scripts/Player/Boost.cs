@@ -10,7 +10,7 @@ public class Boost : Ability
     public void StartBoost(Vector3 dir)
     {
         boostDirection = dir;
-        AbilityTrriger();
+        TriggerAbility();
     }
     private void Start()
     {

@@ -8,24 +8,26 @@ public class Gravity : MonoBehaviour
     public static bool grounded, gravityActive;
     //bool onJavlin;
     Rigidbody2D rig;
-    float colliderHight, colliderWidth;
-    RaycastHit2D[] groundCheckHits;
-    int layermask;
     public static Gravity playerGravity;
+    bool isTouching = false;
+    Vector2 hitDir;
+
     void Awake()
     {
-        rig = GetComponent<Rigidbody2D>();
-        layermask = ~(LayerMask.GetMask("Player", "Ignore Raycast"));
+        rig = GetComponentInParent<Rigidbody2D>();
         gravityAcceleration = rig.gravityScale;
         playerGravity = this;
     }
-    private void Start()
-    {
-        colliderHight = GetComponent<Collider2D>().bounds.size.y;
-        colliderWidth = GetComponent<Collider2D>().bounds.size.x;
-    }
+
     void OnCollisionStay2D(Collision2D coll)
     {
+        grounded = false;
+
+        hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
+        if (hitDir == Vector2.up)
+        {
+            grounded = true;
+        }
         if (grounded == false)
         {
             if (coll.collider.tag == "javlin")
@@ -35,25 +37,9 @@ public class Gravity : MonoBehaviour
             }
         }
     }
-    public void GroundCheck()
+    private void OnCollisionExit2D(Collision2D coll)
     {
         grounded = false;
-        groundCheckHits = new RaycastHit2D[3];
-        groundCheckHits[0] = Physics2D.Raycast(transform.position, Vector2.down, colliderHight / 2 + 0.07f, layermask);
-        groundCheckHits[1] = Physics2D.Raycast(transform.position + (Vector3)Vector2.right * colliderWidth / 2, Vector2.down, colliderHight / 2 + 0.07f, layermask);
-        groundCheckHits[2] = Physics2D.Raycast(transform.position + (Vector3)Vector2.left * colliderWidth / 2, Vector2.down, colliderHight / 2 + 0.07f, layermask);
-        foreach (RaycastHit2D hit in groundCheckHits)
-        {
-            if (hit.collider)
-            {
-                Vector2 hitDir = new Vector2(Mathf.Round(hit.normal.x * 10) / 10, Mathf.Round(hit.normal.y * 10) / 10);
-                if (hitDir==Vector2.up|| hit.collider.tag == "javlin")
-                {
-                    grounded = true;
-                    break;
-                }
-            }
-        }
     }
     void Update()
     {
@@ -75,4 +61,5 @@ public class Gravity : MonoBehaviour
         }
 
     }
+
 }

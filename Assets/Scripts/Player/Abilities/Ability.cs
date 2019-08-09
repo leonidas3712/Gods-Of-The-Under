@@ -34,7 +34,7 @@ public class Ability : MonoBehaviour
         return Input.GetKeyDown(input);
     }
 
-    public virtual void AbilityTrriger()
+    public virtual void TriggerAbility()
     {
         if (timer < Time.time && !AbilityOn && timesDone < maxTimes)
         {

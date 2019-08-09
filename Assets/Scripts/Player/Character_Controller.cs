@@ -12,7 +12,6 @@ public class Character_Controller : MonoBehaviour
     PlayerHp playerHp;
     public static Walking walking;
     public static Rigidbody2D rig;
-    public static Gravity gravity;
     public AirDrag airDrag;
     Collision2D contactedColl;
     Boost boost;
@@ -34,7 +33,6 @@ public class Character_Controller : MonoBehaviour
         playerHp = GetComponent<PlayerHp>();
         anim = GetComponent<Animator>();
         walking = GetComponent<Walking>();
-        gravity = GetComponent<Gravity>();
         hitbox = transform.GetChild(0).gameObject;
         airDrag = GetComponent<AirDrag>();
         boost = GetComponent<Boost>();
@@ -68,9 +66,9 @@ public class Character_Controller : MonoBehaviour
         {
             if (!boost.AbilityOn)
             {
-                gravity.GroundCheck();
+                //Gravity.playerGravity.GroundCheck();
                 walking.Walk();
-                if (jump.Condition()) jump.AbilityTrriger();
+                if (jump.Condition()) jump.TriggerAbility();
             }
 
             //javelin crap*******
@@ -86,15 +84,15 @@ public class Character_Controller : MonoBehaviour
 
         }
         if (javlin.javlinOn && charge.Condition())
-            charge.AbilityTrriger();
+            charge.TriggerAbility();
     }
 
     void wallControls()
     {
         if (!charge.AbilityOn)
-            if (jump.Condition()) jump.AbilityTrriger();
+            if (jump.Condition()) jump.TriggerAbility();
         if (charge.Condition())
-            charge.AbilityTrriger();
+            charge.TriggerAbility();
         correctPosition = stuckedOnWall.transform.position + wallOffset;
         if (transform.position != correctPosition) transform.position = correctPosition;
         if (!stuckedOnWall.activeInHierarchy) unWall();

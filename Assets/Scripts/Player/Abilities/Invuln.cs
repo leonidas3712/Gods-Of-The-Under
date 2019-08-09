@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Invuln : TimedAction
+public class Invuln : Ability
 {
 
     //Collider2D coll;
@@ -15,19 +15,11 @@ public class Invuln : TimedAction
     }
     public override void Action()
     {
-        foreach (GameObject foe in GameObject.FindGameObjectsWithTag("foe"))
-        {
-            foreach (Collider2D coll in GetComponents<Collider2D>())
-                Physics2D.IgnoreCollision(coll, foe.GetComponent<Collider2D>());
-        }
+        Physics2D.IgnoreLayerCollision(8,9,true);
     }
     public override void Finish()
     {
-        foreach (GameObject foe in GameObject.FindGameObjectsWithTag("foe"))
-        {
-            foreach (Collider2D coll in GetComponents<Collider2D>())
-                Physics2D.IgnoreCollision(coll, foe.GetComponent<Collider2D>(), false);
-        }
+        Physics2D.IgnoreLayerCollision(8, 9,false);
         GetComponent<SpriteRenderer>().color = color;
     }
     public override void WhileIsOn()

@@ -68,7 +68,7 @@ public class Thrown_Javlin : MonoBehaviour
         {
             spinDgree += 20f;
             transform.rotation = Quaternion.Euler(0, 0, spinDgree);
-            rig.velocity = Vector3.Normalize(player.transform.position - transform.position) * 40;
+            rig.velocity = Vector3.Normalize(player.transform.position - transform.position) * CallBack.call.returnSpeed;
         }
 
     }
