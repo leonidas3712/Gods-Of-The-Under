@@ -15,6 +15,7 @@ public class Character_Controller : MonoBehaviour
     public AirDrag airDrag;
     Collision2D contactedColl;
     Boost boost;
+    Ability[] playerAbilities;
 
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
@@ -36,6 +37,11 @@ public class Character_Controller : MonoBehaviour
         hitbox = transform.GetChild(0).gameObject;
         airDrag = GetComponent<AirDrag>();
         boost = GetComponent<Boost>();
+        playerAbilities = GetComponents<Ability>();
+        foreach (Ability ability in playerAbilities)
+        {
+            ability.triggerInterruptions += new Ability.InterruptionEvent(Interruptions);
+        }
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -49,8 +55,6 @@ public class Character_Controller : MonoBehaviour
             wallControls();
         else
             mainControl();
-
-        Flip();
 
         /*if (rig.velocity.y > 0)
             anim.SetInteger("vertiVel", 1);
@@ -66,25 +70,28 @@ public class Character_Controller : MonoBehaviour
         {
             if (!boost.AbilityOn)
             {
-                //Gravity.playerGravity.GroundCheck();
                 walking.Walk();
                 if (jump.Condition()) jump.TriggerAbility();
             }
 
-            //javelin crap*******
-            //if the javlin is equiped you may throw
             if (Input.GetMouseButtonDown(1) && javlin.javlinOn)
                 javlin.ExecuteThrow();
             else
-            if (Input.GetKeyDown("e") && !javlin.javlinOn)
+            if (Input.GetKeyDown("left shift") && !javlin.javlinOn)
             {
                 javlin.ExecuteCallBack();
             }
-            //*******************
 
         }
         if (javlin.javlinOn && charge.Condition())
             charge.TriggerAbility();
+    }
+    void Interruptions()
+    {
+        foreach (Ability ability in playerAbilities)
+        {
+            if (ability.AbilityOn&&ability.isInterruptable) ability.Interrupt();
+        }
     }
 
     void wallControls()
@@ -123,23 +130,5 @@ public class Character_Controller : MonoBehaviour
         //GetComponent<Collider2D>().isTrigger = false;
     }
 
-    void Flip()
-    {
-        if (Input.anyKeyDown)
-        {
-            if (rig.velocity.x > 0)
-            {
-                if (transform.localScale.x < 0)
-                {
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
-            }
-
-            else if (rig.velocity.x < 0)
-                if (transform.localScale.x > 0)
-                {
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
-        }
-    }
+    
 }

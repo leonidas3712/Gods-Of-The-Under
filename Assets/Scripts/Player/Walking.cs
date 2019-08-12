@@ -38,8 +38,8 @@ public class Walking : MonoBehaviour
         if (!Input.GetKey("a") && !Input.GetKey("d"))
         {
             if (Mathf.Abs(rig.velocity.x) <= maxVelocity + 0.5f || Gravity.grounded) rig.velocity = new Vector2(0, rig.velocity.y);
-            //anim.SetBool("isRunning", false);
         }
+
         if (Gravity.grounded && Mathf.Abs(rig.velocity.x) > maxVelocity + 0.5f) rig.velocity = Vector2.zero;
     }
 
@@ -56,7 +56,5 @@ public class Walking : MonoBehaviour
                 rig.velocity *= Vector2.up;
             rig.velocity = new Vector2(acc + rig.velocity.x, rig.velocity.y);
         }
-
-        //anim.SetBool("isRunning", true);
     }
 }

@@ -11,6 +11,10 @@ public class Ability : MonoBehaviour
     public bool AbilityOn = false;
     public string input;
     public Animator animator;
+    public bool canInterrupt = true, isInterruptable = true;
+
+    public delegate void InterruptionEvent();
+    public event InterruptionEvent triggerInterruptions;
 
     public virtual void Action() { }
     public virtual void Finish() { }
@@ -29,6 +33,11 @@ public class Ability : MonoBehaviour
         Finish();
     }
 
+    public virtual void Interrupt()
+    {
+        ForceEnding();
+    }
+
     public virtual bool Condition()
     {
         return Input.GetKeyDown(input);
@@ -38,6 +47,8 @@ public class Ability : MonoBehaviour
     {
         if (timer < Time.time && !AbilityOn && timesDone < maxTimes)
         {
+            if (canInterrupt)
+                triggerInterruptions();
             AbilityOn = true;
             Action();
             WhileIsOn();

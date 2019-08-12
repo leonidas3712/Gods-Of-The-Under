@@ -11,12 +11,14 @@ public class Enemy : MonoBehaviour
     Collision2D contactedColl;
     public bool grounded, sighted;
     public HP hp;
+    int layerMask;
 
     public virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         rig = GetComponent<Rigidbody2D>();
         hp = GetComponent<HP>();
+        layerMask = ~(LayerMask.GetMask("Enemies"));
     }
 
     public virtual void Move(Vector3 dir)
@@ -55,9 +57,9 @@ public class Enemy : MonoBehaviour
     {
         //check if the player is in sight
         //might be the reason for the bug you are solving!!!!!!!!
-        Vector3 pos = transform.position + dir * 1.5f;
+        Vector3 pos = transform.position /*+ dir*/;
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        RaycastHit2D playerSight = Physics2D.Raycast(pos, dir, sightRange);
+        RaycastHit2D playerSight = Physics2D.Raycast(pos, dir, sightRange,layerMask);
         if (playerSight && (playerSight.collider.tag == "Player" || playerSight.collider.tag == "javlin"))
             return true;
         return false;

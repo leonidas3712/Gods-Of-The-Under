@@ -10,6 +10,8 @@ public class Invuln : Ability
     float timerer = 0, intervalses = 0.2f;
     private void Start()
     {
+        canInterrupt = false;
+        isInterruptable = false;
         //coll = GetComponent<Collider2D>();
         color = GetComponent<SpriteRenderer>().color;
     }

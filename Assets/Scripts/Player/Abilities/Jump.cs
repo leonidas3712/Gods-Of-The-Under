@@ -8,25 +8,23 @@ public class Jump : Ability
     Rigidbody2D rig;
     [SerializeField]
     float jumpSpeed = 7;
-    public bool jumped, interapted;
+    public bool jumped;
     int twoFramesTimer = 3;
-
+    Invuln invuln;
     void Start()
     {
         playerAbilities = GetComponents<Ability>();
         input = "space";
         rig = GetComponent<Rigidbody2D>();
+        invuln = GetComponent<Invuln>();
+    }
+    public override bool Condition()
+    {
+        return base.Condition()&&( Gravity.grounded ||Character_Controller.walled);
     }
 
     public override void Action()
     {
-
-        if (!Gravity.grounded && !Character_Controller.walled)
-        {
-            ForceEnding();
-            return;
-        }
-        interapted = false;
         timesDone++;
         jumped = true;
         rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
@@ -40,12 +38,11 @@ public class Jump : Ability
     }
     public override void Finish()
     {
-        if (jumped && !interapted&& !Character_Controller.walled)
+        if (jumped && !Character_Controller.walled)
         {
             Gravity.playerGravity.ToggleGravity(true);
-            
             if (rig.velocity.y > 0)
-                rig.velocity = new Vector2(rig.velocity.x, jumpSpeed/3);
+                rig.velocity = new Vector2(rig.velocity.x, jumpSpeed/5);
         }
     }
     public override void WhileIsOn()
@@ -55,27 +52,8 @@ public class Jump : Ability
             //interruptionCheck();
             ForceEnding();
         }
+    }
 
-    }
-    public override void Update()
-    {
-        /*jumping has the lowest priority so when interapted by other abilities it is the only 
-        ability that will call its finish function after the interapting ability has finished*/
-        base.Update();
-        interruptionCheck();
-    }
-    void interruptionCheck()
-    {
-        if (AbilityOn)
-            foreach (Ability ab in playerAbilities)
-            {
-                if (ab.AbilityOn && ab != this)
-                {
-                    interapted = true;
-                    break;
-                }
-            }
-    }
     private void LateUpdate()
     {
         if (Gravity.grounded && jumped)

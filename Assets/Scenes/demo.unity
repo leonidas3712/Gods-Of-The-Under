@@ -410,7 +410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378371837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.40034, y: 61.735218, z: -10}
+  m_LocalPosition: {x: 50.100338, y: 60.33522, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 640668147}
@@ -951,7 +951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1459064484197660, guid: ca49f1d4e16b909418d6251be711d3f9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4085817281201206, guid: ca49f1d4e16b909418d6251be711d3f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1012,11 +1012,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.40034
+      value: 50.100338
       objectReference: {fileID: 0}
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 61.735218
+      value: 60.33522
       objectReference: {fileID: 0}
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalPosition.z
@@ -36008,15 +36008,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Josie
       objectReference: {fileID: 0}
+    - target: {fileID: 381747502925447890, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 381747502925447890, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundDetector
+      objectReference: {fileID: 0}
+    - target: {fileID: 381747502925447890, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6162523229926969349, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.4
+      value: 50.1
       objectReference: {fileID: 0}
     - target: {fileID: 6162523229926969349, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 61.8
+      value: 60.4
       objectReference: {fileID: 0}
     - target: {fileID: 6162523229926969349, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
@@ -36103,6 +36118,16 @@ PrefabInstance:
       propertyPath: knockBackMult
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184570, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: length
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184570, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: ChargeMovmentSpeed
+      value: 38
+      objectReference: {fileID: 0}
     - target: {fileID: 6162523230734184561, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
       propertyPath: acceleration
@@ -36133,21 +36158,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 381747502925447890, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 381747502925447890, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundDetector
-      objectReference: {fileID: 0}
-    - target: {fileID: 381747502925447890, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 1106269941933060882, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
       propertyPath: m_Offset.y
@@ -36168,8 +36178,19 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 0.16307084
       objectReference: {fileID: 0}
+    - target: {fileID: 6162523230528076536, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3506455
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230528076535, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6162523230734184560, guid: 5243a222f5663db4ab6bba8c78fdb18f, type: 3}
+    - {fileID: 6162523230734184563, guid: 5243a222f5663db4ab6bba8c78fdb18f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5243a222f5663db4ab6bba8c78fdb18f, type: 3}
 --- !u!4 &1321324509 stripped
 Transform:

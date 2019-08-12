@@ -118,7 +118,6 @@ public class Charge : Ability
         {
             if (coll.collider.tag == "hitBox")
             {
-                calculateBounceVector(coll.GetContact(0).normal,rig.velocity);
                 strike(coll.transform.position - transform.position);
                 GameObject parryEffect = (GameObject)Instantiate(Resources.Load("hitClash"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
                 Destroy(parryEffect, 0.6f);
@@ -127,7 +126,6 @@ public class Charge : Ability
             else
             if (coll.collider.tag == "foe")
             {
-                calculateBounceVector(coll.GetContact(0).normal, rig.velocity);
                 strike(coll.transform.position - transform.position);
                 strikedFoe = true;
                 javlin.ExecuteStrike(coll.collider.gameObject);
@@ -169,9 +167,5 @@ public class Charge : Ability
         {
             ResetTimesDone();
         }
-    }
-    void calculateBounceVector(Vector2 contactNormal,Vector2 enteringVel)
-    {
-        bounceDir = HelpfulFuncs.Norm1(Vector2.Reflect(enteringVel, contactNormal));
     }
 }
