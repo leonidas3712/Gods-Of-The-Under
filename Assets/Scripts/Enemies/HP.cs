@@ -24,7 +24,7 @@ public class HP : MonoBehaviour
         if (Hp <= 0)
         {
             if (GetComponentInChildren<Thrown_Javlin>())
-                GetComponentInChildren<Thrown_Javlin>().popOut();
+                GetComponentInChildren<Thrown_Javlin>().PopOut();
             Destroy(gameObject);
         }
     }

@@ -21,7 +21,7 @@ public class Spikes : MonoBehaviour {
         }
         else if (victem.tag == "javlin")
         {
-            victem.GetComponent<Thrown_Javlin>().popOut();
+            victem.GetComponent<Thrown_Javlin>().PopOut();
         }
     }
 }

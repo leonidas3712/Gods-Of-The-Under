@@ -10,10 +10,14 @@ public class Thrown_Javlin : MonoBehaviour
     float spinDgree = 0;
     Quaternion rot;
     Vector3 stickPosition;
+    Charge charge;
+    Throw throwAbility;
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+        charge =player.GetComponent<Charge>();
+        throwAbility = player.GetComponent<Throw>();
     }
     private void OnCollisionEnter2D(Collision2D coll)
     {
@@ -32,6 +36,8 @@ public class Thrown_Javlin : MonoBehaviour
             }
             rig.freezeRotation = true;
             coll.collider.GetComponent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
+            charge.ResetTimesDone();
+            throwAbility.ResetTimesDone();
         }
         //just staff
         else
@@ -52,7 +58,7 @@ public class Thrown_Javlin : MonoBehaviour
     {
         if (coll.tag == "Player" && returning)
         {
-            coll.GetComponent<Javlin>().javlinOn = true;
+            Character_Controller.javlinOn = true;
             Destroy(gameObject);
         }
     }
@@ -66,13 +72,13 @@ public class Thrown_Javlin : MonoBehaviour
         else
             if (returning)
         {
-            spinDgree += 20f;
+            spinDgree += 15f;
             transform.rotation = Quaternion.Euler(0, 0, spinDgree);
             rig.velocity = Vector3.Normalize(player.transform.position - transform.position) * CallBack.call.returnSpeed;
         }
 
     }
-    public void popOut()
+    public void PopOut()
     {
         transform.parent = null;
         rig.bodyType = RigidbodyType2D.Dynamic;

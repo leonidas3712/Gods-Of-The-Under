@@ -13,7 +13,7 @@ public class CallBack : MonoBehaviour {
     {
         call = this;
     }
-    public virtual void OnCallBack()
+    public virtual void ExecuteCallBack()
     {
         
         javlin = GameObject.FindGameObjectWithTag("javlin");

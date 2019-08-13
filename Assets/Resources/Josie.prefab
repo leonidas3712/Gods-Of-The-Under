@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5106464248470510683}
   - component: {fileID: 1106269941933060882}
+  - component: {fileID: 854612499}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: GroundDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0010335073, y: -0.01876272}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,8 +56,22 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16307084, y: 0.028963286}
   m_EdgeRadius: 0
+--- !u!114 &854612499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381747502925447890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f55b983f82ad54fb64a99d9bfa5aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityFinalSpeed: -22
+  gravityAcceleration: 0
 --- !u!1 &6162523230528076535
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +84,7 @@ GameObject:
   - component: {fileID: 6162523230528076539}
   - component: {fileID: 6162523230528076536}
   - component: {fileID: 6162523230528076537}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: long javlin
   m_TagString: hitBox
   m_Icon: {fileID: 0}
@@ -153,7 +168,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.35497418
+  m_Radius: 0.3506455
 --- !u!114 &6162523230528076537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,14 +197,11 @@ GameObject:
   - component: {fileID: 6162523230734184570}
   - component: {fileID: 6162523230734184571}
   - component: {fileID: 6162523230734184568}
-  - component: {fileID: 6162523230734184569}
   - component: {fileID: 6162523230734184566}
   - component: {fileID: 6162523230734184567}
   - component: {fileID: 6162523230734184564}
   - component: {fileID: 6162523230734184565}
   - component: {fileID: 6162523230734184562}
-  - component: {fileID: 6162523230734184563}
-  - component: {fileID: 6162523230734184560}
   - component: {fileID: 6162523230734184561}
   - component: {fileID: 6162523230734184545}
   - component: {fileID: 6162523230734184544}
@@ -207,7 +219,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162523230734184334}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 39.8, y: 59.9, z: 0}
   m_LocalScale: {x: 2.81, y: 4.5, z: 1}
   m_Children:
@@ -279,7 +291,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 9
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -339,13 +351,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2cd90bd21294df4c89405895a50c349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 0.15
+  length: 0.13
   intervals: 0.2
   timesDone: 0
   maxTimes: 1
   AbilityOn: 0
   input: 
   animator: {fileID: 0}
+  canInterrupt: 1
+  isInterruptable: 1
   wallDiraction: {x: 0, y: 0}
   bounceDir: {x: 0, y: 0}
   inputCheck: 0
@@ -353,9 +367,9 @@ MonoBehaviour:
   striked: 0
   strikedFoe: 0
   curDamage: 0
-  ChargeMovmentSpeed: 35
+  ChargeMovmentSpeed: 38
   baseDamage: 1
-  knockBackMult: 1.5
+  knockBackMult: 1.2
 --- !u!114 &6162523230734184571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,36 +395,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09af3be8ddc10214dba2b0ce6df52727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 0.3
+  length: 0.28
   intervals: 0
   timesDone: 0
   maxTimes: 1
   AbilityOn: 0
   input: 
   animator: {fileID: 0}
-  jumpSpeed: 7
+  canInterrupt: 1
+  isInterruptable: 1
+  jumpSpeed: 18
   jumped: 0
-  interapted: 0
---- !u!114 &6162523230734184569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6162523230734184334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684de4117f39f3b45b8367fac6e8040b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  javlinOn: 1
-  strikes:
-  - {fileID: 6162523230734184566}
-  throws:
-  - {fileID: 6162523230734184567}
-  callBacks:
-  - {fileID: 6162523230734184564}
 --- !u!114 &6162523230734184566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +435,7 @@ MonoBehaviour:
   dis: 1
   damage: 1
   flight_speed: 57
-  KnockBack_Strength: 2
+  KnockBack_Strength: 2.2
 --- !u!114 &6162523230734184564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,7 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69ab7c560c9c7a4a81402e0716ddbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnSpeed: 25
+  returnSpeed: 50
 --- !u!114 &6162523230734184565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,46 +475,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f798e8038798940881378a4700dea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 1.2
+  length: 1.5
   intervals: 0
   timesDone: 0
   maxTimes: 1
   AbilityOn: 0
   input: 
   animator: {fileID: 0}
---- !u!95 &6162523230734184563
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6162523230734184334}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8cab350b93c95dc4e9f62601861e237e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6162523230734184560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6162523230734184334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f55b983f82ad54fb64a99d9bfa5aba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravityFinalSpeed: -22
-  gravityAcceleration: 0
+  canInterrupt: 1
+  isInterruptable: 1
 --- !u!114 &6162523230734184561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b3efe2f9359ec419fd628c7780ffb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 3
+  acceleration: 2
   maxVelocity: 7
 --- !u!114 &6162523230734184545
 MonoBehaviour:
@@ -553,6 +517,8 @@ MonoBehaviour:
   AbilityOn: 0
   input: 
   animator: {fileID: 0}
+  canInterrupt: 1
+  isInterruptable: 1
   boostStrength: 10
 --- !u!114 &6162523230734184544
 MonoBehaviour:
@@ -566,5 +532,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9052a5859e63a049b9eb57d7191134f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragStrngth: 2
-  maxVelocity: 7.1
+  dragStrngth: 0.3
+  maxVelocity: 1

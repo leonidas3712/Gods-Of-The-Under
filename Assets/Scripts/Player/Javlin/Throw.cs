@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Throw : MonoBehaviour
+public class Throw : Ability
 {
     Rigidbody2D rig;
     public GameObject javlin;
@@ -21,8 +21,24 @@ public class Throw : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();
+        maxTimes = 1;
+        canInterrupt = true;
+        isInterruptable = false;
     }
-    public void Hurl()
+
+    public override bool Condition()
+    {
+        return Input.GetMouseButtonDown(1) && Character_Controller.javlinOn;
+    }
+    public override void Update()
+    {
+        base.Update();
+        if (Gravity.grounded && timesDone == 1 /*&& GetComponent<Javlin>().javlinOn*/)
+        {
+            ResetTimesDone(); 
+        }
+    }
+    public override void Action()
     {
         //finds mouse position
         Vector3 mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
@@ -51,24 +67,14 @@ public class Throw : MonoBehaviour
             return;
 
         //************************************************throw the javlin part************************************************
-        GetComponent<Javlin>().javlinOn = false;
-        thrown = true;
+        Character_Controller.javlinOn = false;
+        timesDone = 1;
         //spawn the spear
         javlin = (GameObject)Instantiate(Resources.Load("prototype"), pos, Quaternion.Euler(0, 0, Mathf.Atan2(mouse.x, mouse.y) * Mathf.Rad2Deg * -1));
 
-
-
         javlin.GetComponent<Rigidbody2D>().velocity = mouse * flight_speed;
         if (!Gravity.grounded)
-            boost.StartBoost(-mouse*KnockBack_Strength);
-    }
-
-    private void Update()
-    {
-        if (Gravity.grounded && thrown /*&& GetComponent<Javlin>().javlinOn*/)
-        {
-            thrown = false;
-        }
+            boost.StartBoost(-mouse * KnockBack_Strength);
     }
 
 }

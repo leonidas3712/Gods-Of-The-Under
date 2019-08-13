@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    public static bool walled, HasWallStick, HasThrow;
+    public static bool walled, HasWallStick, HasThrow,javlinOn = true;
     public static Animator anim;
     Charge charge;
     Jump jump;
-    Javlin javlin;
     PlayerHp playerHp;
     public static Walking walking;
     public static Rigidbody2D rig;
@@ -16,7 +15,8 @@ public class Character_Controller : MonoBehaviour
     Collision2D contactedColl;
     Boost boost;
     Ability[] playerAbilities;
-
+    Throw throwAbility;
+    CallBack callBack;
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
 
@@ -29,7 +29,6 @@ public class Character_Controller : MonoBehaviour
         HasWallStick = true;
         charge = GetComponent<Charge>();
         jump = GetComponent<Jump>();
-        javlin = GetComponent<Javlin>();
         rig = GetComponent<Rigidbody2D>();
         playerHp = GetComponent<PlayerHp>();
         anim = GetComponent<Animator>();
@@ -38,6 +37,8 @@ public class Character_Controller : MonoBehaviour
         airDrag = GetComponent<AirDrag>();
         boost = GetComponent<Boost>();
         playerAbilities = GetComponents<Ability>();
+        throwAbility = GetComponent<Throw>();
+        callBack = GetComponent<CallBack>();
         foreach (Ability ability in playerAbilities)
         {
             ability.triggerInterruptions += new Ability.InterruptionEvent(Interruptions);
@@ -74,16 +75,15 @@ public class Character_Controller : MonoBehaviour
                 if (jump.Condition()) jump.TriggerAbility();
             }
 
-            if (Input.GetMouseButtonDown(1) && javlin.javlinOn)
-                javlin.ExecuteThrow();
-            else
-            if (Input.GetKeyDown("left shift") && !javlin.javlinOn)
+            if (throwAbility.Condition()) throwAbility.TriggerAbility();
+
+            if (Input.GetKeyDown("left shift") && !javlinOn)
             {
-                javlin.ExecuteCallBack();
+                callBack.ExecuteCallBack();
             }
 
         }
-        if (javlin.javlinOn && charge.Condition())
+        if (javlinOn && charge.Condition())
             charge.TriggerAbility();
     }
     void Interruptions()

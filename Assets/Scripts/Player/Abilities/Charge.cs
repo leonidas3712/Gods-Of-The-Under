@@ -11,7 +11,7 @@ public class Charge : Ability
     GameObject wall;
     Vector3 mouse, strikenFoeDir;
     public Vector2 wallDiraction, bounceDir;
-    Javlin javlin;
+    Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
     public bool inputCheck, isWalled, striked, strikedFoe;
     //soposed to fix disync in collision enter
@@ -30,17 +30,18 @@ public class Charge : Ability
 
     private void Start()
     {
+        
         input = "left shift";
         rig = GetComponent<Rigidbody2D>();
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         curDamage = baseDamage;
-        javlin = GetComponent<Javlin>();
         hp = GetComponent<PlayerHp>();
         hitBox = transform.GetChild(0).gameObject;
         hitBox.SetActive(false);
         animator = GetComponent<Animator>();
         charController = GetComponent<Character_Controller>();
         boost = GetComponent<Boost>();
+        javlinStrike = GetComponent<Strike>();
     }
 
     public override void Action()
@@ -128,7 +129,7 @@ public class Charge : Ability
             {
                 strike(coll.transform.position - transform.position);
                 strikedFoe = true;
-                javlin.ExecuteStrike(coll.collider.gameObject);
+                javlinStrike.Hit(coll.collider.gameObject);
                 ForceEnding();
             }
             else

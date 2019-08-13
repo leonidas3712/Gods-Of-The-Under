@@ -9,7 +9,6 @@ public class PlayerHp : MonoBehaviour
     Rigidbody2D rig;
     Invuln invuln;
     Character_Controller cont;
-    Javlin javlin;
     Text hpText;
     Boost boost;
 
@@ -22,7 +21,6 @@ public class PlayerHp : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         invuln = GetComponent<Invuln>();
         cont = GetComponent<Character_Controller>();
-        javlin = GetComponent<Javlin>();
         hpText = GameObject.Find("hp").GetComponent<Text>();
         boost = GetComponent<Boost>();
         syncHp();
@@ -33,9 +31,9 @@ public class PlayerHp : MonoBehaviour
         boost.StartBoost(-dir*0.8f);
         if (Hp <= 0)
         {
-            if (!javlin.javlinOn)
+            if (!Character_Controller.javlinOn)
             {
-                javlin.javlinOn = true;
+                Character_Controller.javlinOn = true;
                 Throw.thrown = false;
                 Destroy(GameObject.FindGameObjectWithTag("javlin"));
             }
@@ -53,9 +51,9 @@ public class PlayerHp : MonoBehaviour
 
         if (Character_Controller.walled)
             cont.unWall();
-        if (!javlin.javlinOn)
+        if (!Character_Controller.javlinOn)
         {
-            javlin.javlinOn = true;
+            Character_Controller.javlinOn = true;
             Throw.thrown = false;
             Destroy(GameObject.FindGameObjectWithTag("javlin"));
         }
