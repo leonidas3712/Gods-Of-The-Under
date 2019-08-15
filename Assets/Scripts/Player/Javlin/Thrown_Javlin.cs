@@ -18,6 +18,7 @@ public class Thrown_Javlin : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         charge =player.GetComponent<Charge>();
         throwAbility = player.GetComponent<Throw>();
+        gameObject.layer = 11;
     }
     private void OnCollisionEnter2D(Collision2D coll)
     {
@@ -38,6 +39,7 @@ public class Thrown_Javlin : MonoBehaviour
             coll.collider.GetComponent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
             charge.ResetTimesDone();
             throwAbility.ResetTimesDone();
+            gameObject.layer = 0;
         }
         //just staff
         else
@@ -45,6 +47,7 @@ public class Thrown_Javlin : MonoBehaviour
         {
             flying = false;
             rig.bodyType = RigidbodyType2D.Static;
+            gameObject.layer = 0;
         }
         //enemy knocks out the lance
         else

@@ -28,7 +28,11 @@ public class Throw : Ability
 
     public override bool Condition()
     {
-        return Input.GetMouseButtonDown(1) && Character_Controller.javlinOn;
+        return base.Condition() && Character_Controller.javlinOn;
+    }
+    public override void CheckInput()
+    {
+        if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
     }
     public override void Update()
     {

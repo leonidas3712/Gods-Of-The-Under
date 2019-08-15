@@ -126,6 +126,7 @@ public class Character_Controller : MonoBehaviour
         //anim.SetBool("isWalled", false);
         walled = false;
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        Gravity.playerGravity.ToggleGravity();
         //rig.bodyType = RigidbodyType2D.Dynamic;
         //GetComponent<Collider2D>().isTrigger = false;
     }

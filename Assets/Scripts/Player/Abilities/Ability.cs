@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Ability : MonoBehaviour
 {
     //skips sets an interval exeption(longer or shorter then regular)
     //all skips matter is to be implamented in the diriving class
     public float length, intervals, timesDone = 0, maxTimes = 1;
     float timer = 0;
+    
     public bool AbilityOn = false;
     public string input;
     public Animator animator;
@@ -15,6 +15,8 @@ public class Ability : MonoBehaviour
 
     public delegate void InterruptionEvent();
     public event InterruptionEvent triggerInterruptions;
+
+    protected float inputTimer =0, inputTriggerTime = 0.1f;
 
     public virtual void Action() { }
     public virtual void Finish() { }
@@ -40,7 +42,12 @@ public class Ability : MonoBehaviour
 
     public virtual bool Condition()
     {
-        return Input.GetKeyDown(input);
+        return inputTimer>Time.time;
+    }
+
+    public virtual void CheckInput()
+    {
+        if (Input.GetKeyDown(input)) inputTimer = Time.time + inputTriggerTime;
     }
 
     public virtual void TriggerAbility()
@@ -58,6 +65,7 @@ public class Ability : MonoBehaviour
 
     public virtual void Update()
     {
+        CheckInput();
         if (timer <= Time.time && AbilityOn == true)
         {
             timer = Time.time + intervals;
@@ -67,7 +75,6 @@ public class Ability : MonoBehaviour
         if (AbilityOn)
             WhileIsOn();
     }
-
 
     /*
      *for deriving classes

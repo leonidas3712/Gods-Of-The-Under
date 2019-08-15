@@ -28,7 +28,7 @@ public class Jump : Ability
         timesDone++;
         jumped = true;
         rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
-        Gravity.playerGravity.ToggleGravity(false);
+        //Gravity.playerGravity.ToggleGravity(false);
         //needs to happen after physical staff is done so it wont touch the wall while its collider returns
         if (Character_Controller.walled)
         {
@@ -40,7 +40,7 @@ public class Jump : Ability
     {
         if (jumped && !Character_Controller.walled)
         {
-            Gravity.playerGravity.ToggleGravity(true);
+           // Gravity.playerGravity.ToggleGravity(true);
             if (rig.velocity.y > 0)
                 rig.velocity = new Vector2(rig.velocity.x, jumpSpeed/5);
         }
@@ -66,7 +66,7 @@ public class Jump : Ability
                 if (AbilityOn)
                 {
                     //finished is only called in timed action after jumped has been set false
-                    Gravity.playerGravity.ToggleGravity(true);
+                    //Gravity.playerGravity.ToggleGravity(true);
                     ForceEnding();
                 }
                 twoFramesTimer = 3;

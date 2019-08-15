@@ -23,11 +23,10 @@ public class Charge : Ability
     Boost boost;
     int twoFramesTimer = 3;
 
-    public override bool Condition()
+    public override void CheckInput()
     {
-        return Input.GetMouseButtonDown(0);
+        if (Input.GetMouseButtonDown(0)) inputTimer = Time.time + inputTriggerTime;
     }
-
     private void Start()
     {
         

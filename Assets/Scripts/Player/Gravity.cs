@@ -9,7 +9,6 @@ public class Gravity : MonoBehaviour
     //bool onJavlin;
     Rigidbody2D rig;
     public static Gravity playerGravity;
-    bool isTouching = false;
     Vector2 hitDir;
 
     void Awake()
