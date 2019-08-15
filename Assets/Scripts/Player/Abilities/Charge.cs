@@ -23,13 +23,14 @@ public class Charge : Ability
     Boost boost;
     int twoFramesTimer = 3;
 
+    bool isDownDash;
+
     public override void CheckInput()
     {
         if (Input.GetMouseButtonDown(0)) inputTimer = Time.time + inputTriggerTime;
     }
     private void Start()
     {
-        
         input = "left shift";
         rig = GetComponent<Rigidbody2D>();
         cam = GameObject.FindGameObjectWithTag("MainCamera");
@@ -46,8 +47,9 @@ public class Charge : Ability
     public override void Action()
     {
         striked = false;
+        isDownDash = false;
         //Character_Controller.anim.SetBool("isCharging", true);
-
+        if (Input.GetMouseButtonDown(0)) inputCheck = true;
         timesDone++;
         Gravity.playerGravity.ToggleGravity(false);
 
@@ -110,6 +112,15 @@ public class Charge : Ability
     }
     public override void WhileIsOn()
     {
+        float angle = Vector2.SignedAngle(rig.velocity, Vector2.right);
+        if ((Input.GetMouseButton(0))&& angle > 60 && angle < 120)
+        {
+            if (timeLeft < 0.05f)
+            {
+                timer = Time.time + 0.05f;
+                isDownDash = true;
+            }
+        }
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
     }
     public void hitBoxCall(Collision2D coll)

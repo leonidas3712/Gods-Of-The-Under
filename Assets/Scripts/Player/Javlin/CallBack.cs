@@ -23,6 +23,7 @@ public class CallBack : MonoBehaviour {
         rig = javlin.GetComponent<Rigidbody2D>();
         javlin.GetComponent<Thrown_Javlin>().returning = true;
         javlin.GetComponent<Thrown_Javlin>().flying = false;
+        javlin.layer = 0;
         foreach (Collider2D coll in javlin.GetComponents<Collider2D>())
         {
             coll.isTrigger = true;

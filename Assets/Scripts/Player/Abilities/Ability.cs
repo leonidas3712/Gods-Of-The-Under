@@ -6,8 +6,7 @@ public class Ability : MonoBehaviour
     //skips sets an interval exeption(longer or shorter then regular)
     //all skips matter is to be implamented in the diriving class
     public float length, intervals, timesDone = 0, maxTimes = 1;
-    float timer = 0;
-    
+    protected float timer = 0,timeLeft;
     public bool AbilityOn = false;
     public string input;
     public Animator animator;
@@ -16,7 +15,7 @@ public class Ability : MonoBehaviour
     public delegate void InterruptionEvent();
     public event InterruptionEvent triggerInterruptions;
 
-    protected float inputTimer =0, inputTriggerTime = 0.1f;
+    protected float inputTimer = 0, inputTriggerTime = 0.1f;
 
     public virtual void Action() { }
     public virtual void Finish() { }
@@ -42,7 +41,7 @@ public class Ability : MonoBehaviour
 
     public virtual bool Condition()
     {
-        return inputTimer>Time.time;
+        return inputTimer > Time.time;
     }
 
     public virtual void CheckInput()
@@ -73,7 +72,11 @@ public class Ability : MonoBehaviour
             Finish();
         }
         if (AbilityOn)
+        {
             WhileIsOn();
+            timeLeft = timer - Time.time;
+        }
+
     }
 
     /*

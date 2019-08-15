@@ -33,6 +33,8 @@ public class Jump : Ability
         if (Character_Controller.walled)
         {
             GetComponent<Character_Controller>().unWall();
+            /*Charge charge = GetComponent<Charge>();
+            rig.velocity += charge.wallDiraction * jumpSpeed/2;*/
         }
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
