@@ -30,13 +30,14 @@ public class Thrown_Javlin : MonoBehaviour
             flying = false;
             rig.isKinematic = true;
             rig.velocity = Vector2.zero;
+            
             transform.parent = coll.collider.transform;
             foreach (Collider2D Mycoll in GetComponents<Collider2D>())
             {
                 Mycoll.isTrigger = true;
             }
             rig.freezeRotation = true;
-            coll.collider.GetComponent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
+            GetComponentInParent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
             charge.ResetTimesDone();
             throwAbility.ResetTimesDone();
             gameObject.layer = 0;

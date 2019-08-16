@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Walking : MonoBehaviour
 {
-    public float acceleration = 2, maxVelocity = 7;
+    public float acceleration = 2, maxVelocity = 7,drag = 1;
     Rigidbody2D rig;
-    AirDrag airDrag;
 
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        airDrag = GetComponent<AirDrag>();
     }
 
     public void Walk()
@@ -34,13 +32,17 @@ public class Walking : MonoBehaviour
             //else if (rig.velocity.x != maxVelocity) rig.velocity = new Vector2(maxVelocity, rig.velocity.y);
         }
 
-
-        if (!Input.GetKey("a") && !Input.GetKey("d"))
+        if((Input.GetKey("a") || Input.GetKey("d"))&&Mathf.Abs(rig.velocity.x)<=maxVelocity)
         {
-            if (Mathf.Abs(rig.velocity.x) <= maxVelocity + 0.5f || Gravity.grounded) rig.velocity = new Vector2(0, rig.velocity.y);
+            AirDrag.PlayerDrag.SetDragPofile(drag,0);
         }
 
-        if (Gravity.grounded && Mathf.Abs(rig.velocity.x) > maxVelocity + 0.5f) rig.velocity = Vector2.zero;
+       /* if (!Input.GetKey("a") && !Input.GetKey("d"))
+        {
+            if (/*Mathf.Abs(rig.velocity.x) <= maxVelocity + 0.5f || Gravity.grounded) rig.velocity = new Vector2(0, rig.velocity.y);
+        }*/
+
+        if (Gravity.grounded && Mathf.Abs(rig.velocity.x) > maxVelocity + 0.5f) AirDrag.PlayerDrag.SetDragPofile(drag, 0); ;
     }
 
     void MoveHorizontaly(float acc)
@@ -52,7 +54,7 @@ public class Walking : MonoBehaviour
         }
         else
         {
-            if (rig.velocity.x * sign <= 0 && Mathf.Abs(rig.velocity.x) <= maxVelocity)
+            if (rig.velocity.x * sign <= 0 && Mathf.Abs(rig.velocity.x) <= maxVelocity&& Gravity.grounded)
                 rig.velocity *= Vector2.up;
             rig.velocity = new Vector2(acc + rig.velocity.x, rig.velocity.y);
         }

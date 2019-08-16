@@ -120,6 +120,12 @@ public class Charge : Ability
                 timer = Time.time + 0.05f;
                 isDownDash = true;
             }
+            if (isDownDash)
+            {
+                mouse = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+                mouse = HelpfulFuncs.Norm1(mouse - transform.position) * ChargeMovmentSpeed;
+                rig.velocity = mouse;
+            }
         }
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
     }

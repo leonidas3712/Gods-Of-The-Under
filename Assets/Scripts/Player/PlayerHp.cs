@@ -11,7 +11,7 @@ public class PlayerHp : MonoBehaviour
     Character_Controller cont;
     Text hpText;
     Boost boost;
-
+    public float boostMultiplyer =1;
     Vector3 SpawnPoint, RevivePoint;
     [SerializeField]
 
@@ -28,7 +28,7 @@ public class PlayerHp : MonoBehaviour
     public void TakeDamage(int damage, Vector3 dir)
     {
         Hp -= damage;
-        boost.StartBoost(-dir*0.8f);
+        boost.StartBoost(-dir*boostMultiplyer);
         if (Hp <= 0)
         {
             if (!Character_Controller.javlinOn)
@@ -47,7 +47,7 @@ public class PlayerHp : MonoBehaviour
     public void TakeDamage(int damage, Vector3 dir, bool resp)
     {
         Hp -= damage;
-        boost.StartBoost(-dir * 0.8f);
+        boost.StartBoost(-dir * boostMultiplyer);
 
         if (Character_Controller.walled)
             cont.unWall();

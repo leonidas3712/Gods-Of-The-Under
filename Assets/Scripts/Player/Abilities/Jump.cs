@@ -36,6 +36,7 @@ public class Jump : Ability
             /*Charge charge = GetComponent<Charge>();
             rig.velocity += charge.wallDiraction * jumpSpeed/2;*/
         }
+
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     public override void Finish()
