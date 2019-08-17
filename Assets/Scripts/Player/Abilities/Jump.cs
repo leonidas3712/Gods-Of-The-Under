@@ -28,6 +28,7 @@ public class Jump : Ability
         timesDone++;
         jumped = true;
         rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
+        AirDrag.PlayerDrag.SetDragPofile(0.4f, 0);
         //Gravity.playerGravity.ToggleGravity(false);
         //needs to happen after physical staff is done so it wont touch the wall while its collider returns
         if (Character_Controller.walled)
@@ -36,7 +37,6 @@ public class Jump : Ability
             /*Charge charge = GetComponent<Charge>();
             rig.velocity += charge.wallDiraction * jumpSpeed/2;*/
         }
-
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     public override void Finish()

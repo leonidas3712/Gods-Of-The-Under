@@ -99,7 +99,7 @@ public class Charge : Ability
         else
         {
             Gravity.playerGravity.ToggleGravity(true);
-            rig.velocity = Vector2.zero;
+            rig.velocity *= 0.3f;
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
             if (striked)

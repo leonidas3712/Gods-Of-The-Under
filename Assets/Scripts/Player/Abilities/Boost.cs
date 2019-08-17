@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Boost : Ability
 {
-    Vector3 boostDirection;
+    Vector2 boostDirection;
     Rigidbody2D rig;
     public float boostStrength, drag = 0.3f;
-    public void StartBoost(Vector3 dir)
+    public void StartBoost(Vector2 dir)
     {
         boostDirection = dir;
         TriggerAbility();
