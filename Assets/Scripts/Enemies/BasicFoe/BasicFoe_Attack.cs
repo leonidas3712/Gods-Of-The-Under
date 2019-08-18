@@ -42,7 +42,8 @@ public class BasicFoe_Attack : FoeAbility
         {
             if (coll.collider.tag == "Player" && !attacked)
             {
-                coll.collider.GetComponent<PlayerHp>().TakeDamage(1, -PlayerDir);
+                
+                PlayerHp.playerHp.TakeDamage(1, -PlayerDir);
                 attacked = true;
                 ForceEnding();
                 hp.KnockBack(-PlayerDir);

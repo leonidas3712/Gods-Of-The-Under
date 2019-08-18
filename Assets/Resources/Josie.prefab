@@ -509,6 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 2
   maxVelocity: 8
+  drag: 0.8
 --- !u!114 &6162523230734184545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +532,7 @@ MonoBehaviour:
   canInterrupt: 1
   isInterruptable: 1
   boostStrength: 10
+  drag: 0.3
 --- !u!114 &6162523230734184544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragStrngth: 0.3
-  maxVelocity: 1
+  maxVelocity: 0
 --- !u!114 &1321324511
 MonoBehaviour:
   m_ObjectHideFlags: 0

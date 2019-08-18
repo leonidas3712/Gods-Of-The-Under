@@ -14,7 +14,8 @@ public class Throw : Ability
     public int damage =1;
 
     [SerializeField]
-    float flight_speed = 20,KnockBack_Strength = 20;
+    float flight_speed = 20, KnockBack_Strength = 20, start_flight_speed = 20, start_KnockBack_Strength = 1, flight_speed_growth = 0.2f, knockBack_Growth = 0.001f;
+
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class Throw : Ability
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();
         maxTimes = 1;
-        canInterrupt = true;
+        canInterrupt = false;
         isInterruptable = false;
     }
 
@@ -43,6 +44,24 @@ public class Throw : Ability
         }
     }
     public override void Action()
+    {
+        flight_speed = start_flight_speed;
+        KnockBack_Strength =  start_KnockBack_Strength;
+    }
+    public override void WhileIsOn()
+    {
+        if (Input.GetMouseButtonUp(1))
+        {
+            ForceEnding();
+        }
+        else
+        {
+            flight_speed += flight_speed_growth;
+            KnockBack_Strength += knockBack_Growth;
+        }
+    }
+
+    public override void Finish()
     {
         //finds mouse position
         Vector3 mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));

@@ -28,16 +28,12 @@ public class ShieldFoe : Enemy
                 sighted = true;
         }
 
-        /*if (Attack.AbilityOn)
-            Attack.DelayedAction();*/
         if (sighted && !hp.KnockBack_On)
         {
             if (Vector2.Distance(transform.position, Player.transform.position) < range)
             {
                 if (playerCharge.AbilityOn)
                 {
-                    /*Attack.Cond = true;
-                    Attack.DelayedAction();*/
                     if (!animator.GetBool("shieldUp") && !animator.GetBool("attack")) animator.SetBool("shieldUp", true);
                 }
                 else if (!animator.GetBool("attack") && !animator.GetBool("shieldUp")&& Vector2.Distance(transform.position, Player.transform.position) < range-2)
@@ -64,7 +60,7 @@ public class ShieldFoe : Enemy
     {
         if (collider.tag == "Player" && !attacked)
         {
-            collider.GetComponent<PlayerHp>().TakeDamage(2, -PlayerDir);
+            PlayerHp.playerHp.TakeDamage(2, -PlayerDir);
             attacked = true;
         }
         if (collider.tag == "hitBox" && !attacked)
@@ -72,9 +68,4 @@ public class ShieldFoe : Enemy
             attacked = true;
         }
     }
-   /* public override void OnCollisionEnter2D(Collision2D coll)
-    {
-        base.OnCollisionEnter2D(coll);
-        if(coll.collider.tag=="Player") coll.collider.GetComponent<PlayerHp>().TakeDamage(1, -PlayerDir);
-    }*/
 }

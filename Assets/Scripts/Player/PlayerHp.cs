@@ -11,8 +11,9 @@ public class PlayerHp : MonoBehaviour
     Character_Controller cont;
     Text hpText;
     Boost boost;
-    public float boostMultiplyer =1;
+    public float boostMultiplyer = 1;
     Vector3 SpawnPoint, RevivePoint;
+    public static PlayerHp playerHp;
     [SerializeField]
 
     private void Start()
@@ -24,11 +25,12 @@ public class PlayerHp : MonoBehaviour
         hpText = GameObject.Find("hp").GetComponent<Text>();
         boost = GetComponent<Boost>();
         syncHp();
+        playerHp = this;
     }
     public void TakeDamage(int damage, Vector3 dir)
     {
         Hp -= damage;
-        boost.StartBoost(-dir*boostMultiplyer);
+        boost.StartBoost(-dir * boostMultiplyer);
         if (Hp <= 0)
         {
             if (!Character_Controller.javlinOn)
@@ -70,9 +72,9 @@ public class PlayerHp : MonoBehaviour
         if (Hp + points <= maxHp)
         {
             Hp += points;
-            syncHp();
         }
-
+        else Hp = maxHp;
+        syncHp();
     }
     void respawn(Vector3 point)
     {
