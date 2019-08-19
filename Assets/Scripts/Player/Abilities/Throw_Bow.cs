@@ -49,14 +49,7 @@ public class Throw_Bow : Ability
         KnockBack_Strength = start_KnockBack_Strength;
         Gravity.playerGravity.ToggleGravity(false);
         AirDrag.dragActive = false;
-        if (!Gravity.grounded)
-        {
-            mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
-            Vector3 pos = transform.position;
-            //will be changed in controller input
-            mouse = HelpfulFuncs.Norm1(mouse - pos);
-            rig.velocity = -mouse * 6;
-        }
+        rig.velocity = HelpfulFuncs.Norm1(rig.velocity) * 8;
 
     }
     public override void WhileIsOn()
