@@ -21,8 +21,9 @@ public class Charge : Ability
     PlayerHp hp;
     Character_Controller charController;
     Boost boost;
+    Throw throwAbility;
     int twoFramesTimer = 3;
-
+    Throw_Bow bow;
     bool isDownDash;
 
     public override void CheckInput()
@@ -42,6 +43,8 @@ public class Charge : Ability
         charController = GetComponent<Character_Controller>();
         boost = GetComponent<Boost>();
         javlinStrike = GetComponent<Strike>();
+        throwAbility = GetComponent<Throw>();
+        bow = GetComponent<Throw_Bow>();
     }
 
     public override void Action()
@@ -117,7 +120,7 @@ public class Charge : Ability
         {
             if (timeLeft < 0.05f)
             {
-                timer = Time.time + 0.05f;
+                timer += 0.05f;
                 isDownDash = true;
             }
             if (isDownDash)
@@ -135,7 +138,8 @@ public class Charge : Ability
         {
             if (coll.collider.tag == "hitBox")
             {
-                strike(coll.transform.position - transform.position);
+                //((Vector2)(coll.transform.position - transform.position)-coll.GetContact(0).normal*30)
+                strike((Vector2)(coll.transform.position - transform.position));
                 GameObject parryEffect = (GameObject)Instantiate(Resources.Load("hitClash"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
                 Destroy(parryEffect, 0.6f);
                 ForceEnding();
@@ -143,7 +147,7 @@ public class Charge : Ability
             else
             if (coll.collider.tag == "foe")
             {
-                strike(coll.transform.position - transform.position);
+                strike((Vector2)(coll.transform.position - transform.position) - Vector2.up * 1.8f);
                 strikedFoe = true;
                 javlinStrike.Hit(coll.collider.gameObject);
                 ForceEnding();
@@ -171,9 +175,11 @@ public class Charge : Ability
         }
 
     }
-    void strike(Vector3 dir)
+    void strike(Vector2 dir)
     {
-        timesDone = 0;
+        ResetTimesDone();
+        throwAbility.ResetTimesDone();
+        bow.ResetTimesDone();
         striked = true;
         strikenFoeDir = HelpfulFuncs.Norm1(dir);
     }

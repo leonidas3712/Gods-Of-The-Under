@@ -197,8 +197,10 @@ GameObject:
   - component: {fileID: 6162523230734184570}
   - component: {fileID: 6162523230734184571}
   - component: {fileID: 6162523230734184568}
+  - component: {fileID: 4869401992123479066}
   - component: {fileID: 6162523230734184566}
   - component: {fileID: 6162523230734184567}
+  - component: {fileID: 1673651044428167376}
   - component: {fileID: 6162523230734184564}
   - component: {fileID: 6162523230734184565}
   - component: {fileID: 6162523230734184562}
@@ -206,6 +208,7 @@ GameObject:
   - component: {fileID: 6162523230734184545}
   - component: {fileID: 6162523230734184544}
   - component: {fileID: 1321324511}
+  - component: {fileID: 1338419716}
   m_Layer: 8
   m_Name: Josie
   m_TagString: Player
@@ -407,6 +410,29 @@ MonoBehaviour:
   isInterruptable: 1
   jumpSpeed: 30
   jumped: 0
+--- !u!114 &4869401992123479066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162523230734184334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bab3364a9259374f935c860cc5b5664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 0.28
+  intervals: 0
+  timesDone: 0
+  maxTimes: 1
+  AbilityOn: 0
+  input: 
+  animator: {fileID: 0}
+  canInterrupt: 1
+  isInterruptable: 1
+  jumpSpeed: 30
+  jumped: 0
 --- !u!114 &6162523230734184566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +471,36 @@ MonoBehaviour:
   dis: 1
   damage: 1
   flight_speed: 57
-  KnockBack_Strength: 2.2
+  KnockBack_Strength: 1.8
+--- !u!114 &1673651044428167376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162523230734184334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d218f36f6ccc949a96990ecc842711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 1
+  intervals: 0
+  timesDone: 0
+  maxTimes: 1
+  AbilityOn: 0
+  input: 
+  animator: {fileID: 0}
+  canInterrupt: 1
+  isInterruptable: 1
+  javlin: {fileID: 0}
+  dis: 1
+  damage: 1
+  flight_speed: 57
+  KnockBack_Strength: 1.8
+  start_flight_speed: 10
+  start_KnockBack_Strength: 0.8
+  maxWindDistance: 20
 --- !u!114 &6162523230734184564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,5 +612,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8ce9cca41ecd604892183e6116ba4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1338419716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162523230734184334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2671eec5aea7c438d42a9ec569eabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

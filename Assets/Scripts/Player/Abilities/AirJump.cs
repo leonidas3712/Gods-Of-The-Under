@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jump : Ability
+public class AirJump : Ability
 {
     Ability[] playerAbilities;
     Rigidbody2D rig;
@@ -11,18 +11,16 @@ public class Jump : Ability
     public bool jumped;
     int twoFramesTimer = 3;
     Invuln invuln;
-    Charge charge;
     void Start()
     {
         playerAbilities = GetComponents<Ability>();
         input = "space";
         rig = GetComponent<Rigidbody2D>();
         invuln = GetComponent<Invuln>();
-        charge = GetComponent<Charge>();
     }
     public override bool Condition()
     {
-        return base.Condition()&&( Gravity.grounded ||Character_Controller.walled);
+        return base.Condition() && (!Gravity.grounded);
     }
 
     public override void Action()
@@ -36,6 +34,8 @@ public class Jump : Ability
         if (Character_Controller.walled)
         {
             GetComponent<Character_Controller>().unWall();
+            /*Charge charge = GetComponent<Charge>();
+            rig.velocity += charge.wallDiraction * jumpSpeed/2;*/
         }
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
@@ -43,9 +43,9 @@ public class Jump : Ability
     {
         if (jumped && !Character_Controller.walled)
         {
-           // Gravity.playerGravity.ToggleGravity(true);
+            // Gravity.playerGravity.ToggleGravity(true);
             if (rig.velocity.y > 0)
-                rig.velocity = new Vector2(rig.velocity.x, jumpSpeed/5);
+                rig.velocity = new Vector2(rig.velocity.x, jumpSpeed / 5);
         }
     }
     public override void WhileIsOn()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Throw : Ability
+public class Throw_Bow : Ability
 {
     Rigidbody2D rig;
     public GameObject javlin;
@@ -14,8 +14,8 @@ public class Throw : Ability
     public int damage = 1;
 
     [SerializeField]
-    float flight_speed = 20, KnockBack_Strength = 20;
-
+    float flight_speed = 20, KnockBack_Strength = 20, start_flight_speed = 20, start_KnockBack_Strength = 1, maxWindDistance;
+    Vector3 mouse;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class Throw : Ability
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();
         maxTimes = 1;
-        canInterrupt = true;
+        canInterrupt = false;
         isInterruptable = false;
     }
 
@@ -45,11 +45,47 @@ public class Throw : Ability
     }
     public override void Action()
     {
+        flight_speed = start_flight_speed;
+        KnockBack_Strength = start_KnockBack_Strength;
+        Gravity.playerGravity.ToggleGravity(false);
+        AirDrag.dragActive = false;
+        if (!Gravity.grounded)
+        {
+            mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+            Vector3 pos = transform.position;
+            //will be changed in controller input
+            mouse = HelpfulFuncs.Norm1(mouse - pos);
+            rig.velocity = -mouse * 6;
+        }
+
+    }
+    public override void WhileIsOn()
+    {
+        if (Input.GetMouseButtonUp(1))
+        {
+            ForceEnding();
+        }
+        else
+        {
+            mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+            float dis = Vector2.Distance(transform.position, mouse);
+            mouse -= transform.position;
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mouse.x, mouse.y) * Mathf.Rad2Deg * -1);
+            if (dis > maxWindDistance) dis = maxWindDistance;
+            flight_speed = start_flight_speed * dis / maxWindDistance;
+            KnockBack_Strength = start_KnockBack_Strength * dis / maxWindDistance;
+        }
+    }
+
+    public override void Finish()
+    {
         //finds mouse position
-        Vector3 mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+        mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
         Vector3 pos = transform.position;
         //will be changed in controller input
         mouse = HelpfulFuncs.Norm1(mouse - pos);
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
 
         //the position in which the spear will apear
         pos = new Vector3(pos.x + mouse.x * 2f, pos.y + mouse.y * 2f, 0);
@@ -76,7 +112,8 @@ public class Throw : Ability
         timesDone = 1;
         //spawn the spear
         javlin = (GameObject)Instantiate(Resources.Load("prototype"), pos, Quaternion.Euler(0, 0, Mathf.Atan2(mouse.x, mouse.y) * Mathf.Rad2Deg * -1));
-
+        Gravity.playerGravity.ToggleGravity();
+        AirDrag.dragActive = true;
         javlin.GetComponent<Rigidbody2D>().velocity = mouse * flight_speed;
         if (!Gravity.grounded)
             boost.StartBoost(-mouse * KnockBack_Strength);

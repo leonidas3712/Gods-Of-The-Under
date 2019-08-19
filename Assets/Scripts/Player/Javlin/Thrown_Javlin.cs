@@ -12,12 +12,14 @@ public class Thrown_Javlin : MonoBehaviour
     Vector3 stickPosition;
     Charge charge;
     Throw throwAbility;
+    Throw_Bow bow;
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         charge =player.GetComponent<Charge>();
         throwAbility = player.GetComponent<Throw>();
+        bow = player.GetComponent<Throw_Bow>();
         gameObject.layer = 11;
     }
     private void OnCollisionEnter2D(Collision2D coll)
@@ -40,6 +42,7 @@ public class Thrown_Javlin : MonoBehaviour
             GetComponentInParent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
             charge.ResetTimesDone();
             throwAbility.ResetTimesDone();
+            bow.ResetTimesDone();
             gameObject.layer = 0;
         }
         //just staff

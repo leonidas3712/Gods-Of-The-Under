@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    public static bool walled, HasWallStick, HasThrow,javlinOn = true;
+    public static bool walled, HasWallStick, HasThrow, javlinOn = true;
     public static Animator anim;
     Charge charge;
     Jump jump;
@@ -16,7 +16,9 @@ public class Character_Controller : MonoBehaviour
     Boost boost;
     Ability[] playerAbilities;
     Throw throwAbility;
+    Throw_Bow bow;
     CallBack callBack;
+    AirJump airJump;
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
 
@@ -39,6 +41,8 @@ public class Character_Controller : MonoBehaviour
         playerAbilities = GetComponents<Ability>();
         throwAbility = GetComponent<Throw>();
         callBack = GetComponent<CallBack>();
+        airJump = GetComponent<AirJump>();
+        bow = GetComponent<Throw_Bow>();
         foreach (Ability ability in playerAbilities)
         {
             ability.triggerInterruptions += new Ability.InterruptionEvent(Interruptions);
@@ -73,9 +77,11 @@ public class Character_Controller : MonoBehaviour
             {
                 walking.Walk();
                 if (jump.Condition()) jump.TriggerAbility();
-            }
+                if (airJump.Condition()&&!jump.AbilityOn) airJump.TriggerAbility();
 
+            }
             if (throwAbility.Condition()) throwAbility.TriggerAbility();
+            if (bow.Condition()) bow.TriggerAbility();
 
             if (Input.GetKeyDown("left shift") && !javlinOn)
             {
@@ -90,7 +96,7 @@ public class Character_Controller : MonoBehaviour
     {
         foreach (Ability ability in playerAbilities)
         {
-            if (ability.AbilityOn&&ability.isInterruptable) ability.Interrupt();
+            if (ability.AbilityOn && ability.isInterruptable) ability.Interrupt();
         }
     }
 
@@ -131,5 +137,5 @@ public class Character_Controller : MonoBehaviour
         //GetComponent<Collider2D>().isTrigger = false;
     }
 
-    
+
 }
