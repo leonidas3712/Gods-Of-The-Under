@@ -77,17 +77,16 @@ public class Character_Controller : MonoBehaviour
             {
                 walking.Walk();
                 if (jump.Condition()) jump.TriggerAbility();
-                if (airJump.Condition()&&!jump.AbilityOn) airJump.TriggerAbility();
+                if (airJump.Condition() && !jump.AbilityOn) airJump.TriggerAbility();
 
             }
-            if (throwAbility.Condition()) throwAbility.TriggerAbility();
-            if (bow.Condition()) bow.TriggerAbility();
+        }
+        if (throwAbility.Condition()) throwAbility.TriggerAbility();
+        if (bow.Condition()) bow.TriggerAbility();
 
-            if (Input.GetKeyDown("left shift") && !javlinOn)
-            {
-                callBack.ExecuteCallBack();
-            }
-
+        if (Input.GetKeyDown("left shift") && !javlinOn)
+        {
+            callBack.ExecuteCallBack();
         }
         if (javlinOn && charge.Condition())
             charge.TriggerAbility();

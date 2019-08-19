@@ -84,7 +84,7 @@ public class Charge : Ability
             }
             GetComponent<Character_Controller>().unWall();
         }
-        rig.velocity = mouse;
+        rig.velocity += (Vector2)mouse;
         hitBox.SetActive(true);
     }
 
@@ -112,6 +112,17 @@ public class Charge : Ability
             strikedFoe = false;
             //Character_Controller.anim.SetBool("isCharging", false);
         }
+    }
+    public override void Interrupt()
+    {
+        timer = 0;
+        timer = Time.time + intervals;
+        AbilityOn = false;
+        hitBox.SetActive(false);
+        AirDrag.dragActive = true;
+        strikedFoe = false;
+        Gravity.playerGravity.ToggleGravity(true);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     public override void WhileIsOn()
     {

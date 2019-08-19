@@ -23,7 +23,7 @@ public class Boost : Ability
     public override void Action()
     {
         Gravity.playerGravity.ToggleGravity(false);
-        rig.velocity = boostDirection*boostStrength;
+        rig.velocity += boostDirection*boostStrength;
         AirDrag.PlayerDrag.SetDragPofile(drag,0);
     }
     public override void Finish()
