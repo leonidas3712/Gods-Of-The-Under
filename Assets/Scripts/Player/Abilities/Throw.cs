@@ -35,13 +35,9 @@ public class Throw : Ability
     {
         if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
     }
-    public override void Update()
+    private void Awake()
     {
-        base.Update();
-        if (Gravity.grounded && timesDone == 1 /*&& GetComponent<Javlin>().javlinOn*/)
-        {
-            ResetTimesDone();
-        }
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
     }
     public override void Action()
     {

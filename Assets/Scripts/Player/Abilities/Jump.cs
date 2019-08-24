@@ -12,6 +12,12 @@ public class Jump : Ability
     int twoFramesTimer = 3;
     Invuln invuln;
     Charge charge;
+    public static Jump playerJump;
+    private void Awake()
+    {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(reCharge);
+        playerJump = this;
+    }
     void Start()
     {
         playerAbilities = GetComponents<Ability>();
@@ -22,15 +28,20 @@ public class Jump : Ability
     }
     public override bool Condition()
     {
-        return base.Condition()&&( Gravity.grounded ||Character_Controller.walled);
+        return base.Condition() && (Gravity.grounded || Character_Controller.walled);
     }
 
     public override void Action()
     {
         timesDone++;
         jumped = true;
-        rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
-        AirDrag.PlayerDrag.SetDragPofile(0.4f, 0);
+        if (Input.GetKey("a"))
+            rig.velocity = new Vector2(-Walking.playerWalking.maxVelocity-2, jumpSpeed-2f);
+        else if (Input.GetKey("d"))
+            rig.velocity = new Vector2(Walking.playerWalking.maxVelocity+2, jumpSpeed-2f);
+        else
+            rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
+        AirDrag.PlayerDrag.SetDragPofile(0.15f, 0);
         //Gravity.playerGravity.ToggleGravity(false);
         //needs to happen after physical staff is done so it wont touch the wall while its collider returns
         if (Character_Controller.walled)
@@ -43,9 +54,9 @@ public class Jump : Ability
     {
         if (jumped && !Character_Controller.walled)
         {
-           // Gravity.playerGravity.ToggleGravity(true);
+            // Gravity.playerGravity.ToggleGravity(true);
             if (rig.velocity.y > 0)
-                rig.velocity = new Vector2(rig.velocity.x, jumpSpeed/5);
+                rig.velocity = new Vector2(rig.velocity.x, rig.velocity.y / 2);
         }
     }
     public override void WhileIsOn()
@@ -57,26 +68,10 @@ public class Jump : Ability
         }
     }
 
-    private void LateUpdate()
+    void reCharge()
     {
-        if (Gravity.grounded && jumped)
-        {
-            //needs to wait about 2 frames after space been pressed for the collision callback to stop accuring
-            if (twoFramesTimer > 0)
-                twoFramesTimer--;
-            else
-            {
-                if (AbilityOn)
-                {
-                    //finished is only called in timed action after jumped has been set false
-                    //Gravity.playerGravity.ToggleGravity(true);
-                    ForceEnding();
-                }
-                twoFramesTimer = 3;
-                ResetTimesDone();
-                jumped = false;
-            }
-
-        }
+        ResetTimesDone();
+        jumped = false;
     }
+
 }

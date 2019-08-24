@@ -417,7 +417,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162523230734184334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bab3364a9259374f935c860cc5b5664, type: 3}
   m_Name: 
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162523230734184334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e845bab83487dab438a66fab2c85bb41, type: 3}
   m_Name: 
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d218f36f6ccc949a96990ecc842711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 1
+  length: 0.3
   intervals: 0
   timesDone: 0
   maxTimes: 1
@@ -498,9 +498,9 @@ MonoBehaviour:
   damage: 1
   flight_speed: 57
   KnockBack_Strength: 1.8
-  start_flight_speed: 10
-  start_KnockBack_Strength: 0.8
-  maxWindDistance: 20
+  start_flight_speed: 57
+  start_KnockBack_Strength: 2.2
+  maxWindDistance: 8
 --- !u!114 &6162523230734184564
 MonoBehaviour:
   m_ObjectHideFlags: 0

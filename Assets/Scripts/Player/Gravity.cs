@@ -10,7 +10,8 @@ public class Gravity : MonoBehaviour
     Rigidbody2D rig;
     public static Gravity playerGravity;
     Vector2 hitDir;
-
+    public delegate void GroundCall();
+    public event GroundCall groundCall;
     void Awake()
     {
         rig = GetComponentInParent<Rigidbody2D>();
@@ -20,21 +21,28 @@ public class Gravity : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D coll)
     {
-        grounded = false;
-
-        hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
-        if (hitDir == Vector2.up)
+        if (!grounded)
         {
-            grounded = true;
-        }
-        if (grounded == false)
-        {
-            if (coll.collider.tag == "javlin")
+            hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
+            if (hitDir == Vector2.up)
             {
-                //anim.SetBool("grounded", true);
-                grounded = true;
+                SetTrue();
+            }
+            if (grounded == false)
+            {
+                if (coll.collider.tag == "javlin")
+                {
+                    //anim.SetBool("grounded", true);
+                    SetTrue();
+                }
             }
         }
+
+    }
+    void SetTrue()
+    {
+        groundCall();
+        grounded = true;
     }
     private void OnCollisionExit2D(Collision2D coll)
     {

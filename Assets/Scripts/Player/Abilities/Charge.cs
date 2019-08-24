@@ -30,6 +30,10 @@ public class Charge : Ability
     {
         if (Input.GetMouseButtonDown(0)) inputTimer = Time.time + inputTriggerTime;
     }
+    private void Awake()
+    {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
+    }
     private void Start()
     {
         input = "left shift";
@@ -116,7 +120,7 @@ public class Charge : Ability
     public override void WhileIsOn()
     {
         float angle = Vector2.SignedAngle(rig.velocity, Vector2.right);
-        if ((Input.GetMouseButton(0))&& angle > 60 && angle < 120)
+        if ((Input.GetMouseButton(0)) && angle > 50 && angle < 130)
         {
             if (timeLeft < 0.05f)
             {
@@ -132,25 +136,29 @@ public class Charge : Ability
         }
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
     }
-    public void hitBoxCall(Collision2D coll)
+    public void hitBoxCall(Collision2D coll, bool parryActive)
     {
         if (AbilityOn)
         {
-            if (coll.collider.tag == "hitBox")
+            if (parryActive)
             {
-                //((Vector2)(coll.transform.position - transform.position)-coll.GetContact(0).normal*30)
-                strike((Vector2)(coll.transform.position - transform.position));
-                GameObject parryEffect = (GameObject)Instantiate(Resources.Load("hitClash"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
-                Destroy(parryEffect, 0.6f);
-                ForceEnding();
+                if (coll.collider.tag == "hitBox")
+                {
+                    //((Vector2)(coll.transform.position - transform.position)-coll.GetContact(0).normal*30)
+                    strike((Vector2)(coll.transform.position - transform.position));
+                    GameObject parryEffect = (GameObject)Instantiate(Resources.Load("hitClash"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
+                    Destroy(parryEffect, 0.6f);
+                    ForceEnding();
+                    return;
+                }
             }
-            else
-            if (coll.collider.tag == "foe")
+            if (coll.collider.tag == "foe"||coll.collider.tag == "hitBox")
             {
                 strike((Vector2)(coll.transform.position - transform.position) - Vector2.up * 1.8f);
                 strikedFoe = true;
                 javlinStrike.Hit(coll.collider.gameObject);
                 ForceEnding();
+                return;
             }
             else
             {
@@ -182,13 +190,5 @@ public class Charge : Ability
         bow.ResetTimesDone();
         striked = true;
         strikenFoeDir = HelpfulFuncs.Norm1(dir);
-    }
-    private void OnCollisionEnter2D(Collision2D coll)
-    {
-        Vector2 hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
-        if (hitDir == Vector2.up || coll.collider.tag == "javlin")
-        {
-            ResetTimesDone();
-        }
     }
 }

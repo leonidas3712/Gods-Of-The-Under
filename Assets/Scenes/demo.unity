@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -392,6 +392,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -587,6 +588,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -663,7 +665,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1321324509}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 10.94
+    OrthographicSize: 13.74
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -686,7 +688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378371837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 86.300255, y: 24.43522, z: -10}
+  m_LocalPosition: {x: 84.32031, y: 29.92864, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 640668147}
@@ -794,6 +796,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -976,7 +979,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 629140530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -995,7 +998,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 629140530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -1406,11 +1409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 86.300255
+      value: 84.32031
       objectReference: {fileID: 0}
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.43522
+      value: 29.92864
       objectReference: {fileID: 0}
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1447,6 +1450,16 @@ PrefabInstance:
     - target: {fileID: 4782113399951676, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20933257515222674, guid: 0bc532d7107fff945a25ddfe1464c630,
+        type: 3}
+      propertyPath: orthographic size
+      value: 13.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 20933257515222674, guid: 0bc532d7107fff945a25ddfe1464c630,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc532d7107fff945a25ddfe1464c630, type: 3}
@@ -1594,6 +1607,7 @@ TilemapRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -2956,6 +2970,7 @@ TilemapRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -39358,12 +39373,12 @@ PrefabInstance:
     - target: {fileID: 6162523229926969349, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 86.3
+      value: 84.32
       objectReference: {fileID: 0}
     - target: {fileID: 6162523229926969349, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.5
+      value: 30.01
       objectReference: {fileID: 0}
     - target: {fileID: 6162523229926969349, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
@@ -39410,10 +39425,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4869401992123479066, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+    - target: {fileID: 6162523230734184561, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: maxVelocity
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184561, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: drag
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184561, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: acceleration
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184544, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: dragStrngth
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6162523230734184567, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
@@ -39422,28 +39452,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1673651044428167376, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
-      propertyPath: maxWindDistance
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1673651044428167376, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
-      propertyPath: start_flight_speed
-      value: 57
-      objectReference: {fileID: 0}
-    - target: {fileID: 1673651044428167376, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
-      propertyPath: start_KnockBack_Strength
-      value: 2.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1673651044428167376, guid: 5243a222f5663db4ab6bba8c78fdb18f,
-        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1673651044428167376, guid: 5243a222f5663db4ab6bba8c78fdb18f,
         type: 3}
+      propertyPath: maxWindDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184570, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: maxTimes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184568, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
+      propertyPath: jumpSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162523230734184568, guid: 5243a222f5663db4ab6bba8c78fdb18f,
+        type: 3}
       propertyPath: length
-      value: 0.3
+      value: 0.17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5243a222f5663db4ab6bba8c78fdb18f, type: 3}
@@ -39663,6 +39693,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -40133,6 +40164,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -40354,6 +40386,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

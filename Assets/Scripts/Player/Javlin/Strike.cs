@@ -14,7 +14,10 @@ public class Strike : MonoBehaviour
 
     public virtual void Hit(GameObject target)
     {
-        target.GetComponent<HP>().TakeDamage(damage, HelpfulFuncs.Norm1(target.transform.position - transform.position));
+        HP hp = target.GetComponent<HP>();
+        if (!hp)
+            hp = target.GetComponentInParent<HP>();
+        hp.TakeDamage(damage, HelpfulFuncs.Norm1(target.transform.position - transform.position));
         Heal.playerHeal.IncreaseStack(1);
     }
 }

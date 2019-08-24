@@ -73,12 +73,11 @@ public class Character_Controller : MonoBehaviour
     {
         if (!charge.AbilityOn)
         {
-            if (!boost.AbilityOn)
+            if (!boost.AbilityOn && !bow.AbilityOn)
             {
                 walking.Walk();
                 if (jump.Condition()) jump.TriggerAbility();
-                if (airJump.Condition()&&!jump.AbilityOn) airJump.TriggerAbility();
-
+                if (airJump.Condition() && !jump.AbilityOn) airJump.TriggerAbility();
             }
             if (throwAbility.Condition()) throwAbility.TriggerAbility();
             if (bow.Condition()) bow.TriggerAbility();
@@ -112,29 +111,37 @@ public class Character_Controller : MonoBehaviour
     }
     public void stickToWall(GameObject wall)
     {
-        //anim.SetBool("isWalled", true);
-        walled = true;
-        charge.ResetTimesDone();
-        jump.ResetTimesDone();
-        //rig.bodyType = RigidbodyType2D.Static;
-        rig.gravityScale = 0;
-        rig.velocity = Vector2.zero;
-        //GetComponent<Collider2D>().isTrigger = true;
-        if (charge.wallDiraction == Vector2.right)
-            transform.rotation = Quaternion.Euler(0, 0, -90);
-        else
-            transform.rotation = Quaternion.Euler(0, 0, 90);
-        wallOffset = transform.position - wall.transform.position;
-        stuckedOnWall = wall;
+        if (!walled)
+        {
+            //anim.SetBool("isWalled", true);
+            walled = true;
+            charge.ResetTimesDone();
+            jump.ResetTimesDone();
+            //rig.bodyType = RigidbodyType2D.Static;
+            Gravity.playerGravity.ToggleGravity(false);
+            rig.velocity = Vector2.zero;
+            //GetComponent<Collider2D>().isTrigger = true;
+            if (charge.wallDiraction == Vector2.right)
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+            else
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+            wallOffset = transform.position - wall.transform.position;
+            stuckedOnWall = wall;
+        }
+
     }
     public void unWall()
     {
-        //anim.SetBool("isWalled", false);
-        walled = false;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        Gravity.playerGravity.ToggleGravity();
-        //rig.bodyType = RigidbodyType2D.Dynamic;
-        //GetComponent<Collider2D>().isTrigger = false;
+        if (walled)
+        {
+            //anim.SetBool("isWalled", false);
+            walled = false;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            Gravity.playerGravity.ToggleGravity();
+            //rig.bodyType = RigidbodyType2D.Dynamic;
+            //GetComponent<Collider2D>().isTrigger = false;
+        }
+
     }
 
 

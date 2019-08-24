@@ -60,6 +60,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -160,6 +161,7 @@ PolygonCollider2D:
       - {x: -0.014910573, y: 2.1010036}
       - {x: 0, y: 1.9480294}
       - {x: -0.03171866, y: 2.1046526}
+      - {x: 0.018176883, y: 2.1095345}
       - {x: 0.06525501, y: 2.1059113}
       - {x: 0.052349422, y: 1.9383761}
       - {x: -0.1883538, y: 1.0165222}

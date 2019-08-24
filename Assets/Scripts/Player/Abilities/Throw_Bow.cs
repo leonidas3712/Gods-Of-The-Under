@@ -23,8 +23,6 @@ public class Throw_Bow : Ability
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();
         maxTimes = 1;
-        canInterrupt = false;
-        isInterruptable = false;
     }
 
     public override bool Condition()
@@ -35,25 +33,21 @@ public class Throw_Bow : Ability
     {
         if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
     }
-    public override void Update()
+    private void Awake()
     {
-        base.Update();
-        if (Gravity.grounded && timesDone == 1 /*&& GetComponent<Javlin>().javlinOn*/)
-        {
-            ResetTimesDone();
-        }
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
     }
     public override void Action()
     {
         flight_speed = start_flight_speed;
         KnockBack_Strength = start_KnockBack_Strength;
-        Gravity.playerGravity.ToggleGravity(false);
-        AirDrag.dragActive = false;
+       /* Gravity.playerGravity.ToggleGravity(false);
+        AirDrag.dragActive = false;*/
         mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
         Vector3 pos = transform.position;
         //will be changed in controller input
         mouse = HelpfulFuncs.Norm1(mouse - pos);
-        rig.velocity = mouse * 8;
+        rig.velocity = mouse * 25;
 
     }
     public override void WhileIsOn()
@@ -73,7 +67,13 @@ public class Throw_Bow : Ability
             KnockBack_Strength = start_KnockBack_Strength * dis / maxWindDistance;
         }
     }
-
+    public override void Interrupt()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        timer = 0;
+        timer = Time.time + intervals;
+        AbilityOn = false;
+    }
     public override void Finish()
     {
         //finds mouse position
@@ -109,8 +109,8 @@ public class Throw_Bow : Ability
         timesDone = 1;
         //spawn the spear
         javlin = (GameObject)Instantiate(Resources.Load("prototype"), pos, Quaternion.Euler(0, 0, Mathf.Atan2(mouse.x, mouse.y) * Mathf.Rad2Deg * -1));
-        Gravity.playerGravity.ToggleGravity();
-        AirDrag.dragActive = true;
+        /*Gravity.playerGravity.ToggleGravity();
+        AirDrag.dragActive = true;*/
         javlin.GetComponent<Rigidbody2D>().velocity = mouse * flight_speed;
         if (!Gravity.grounded)
             boost.StartBoost(-mouse * KnockBack_Strength);
