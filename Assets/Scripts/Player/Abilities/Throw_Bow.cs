@@ -12,13 +12,18 @@ public class Throw_Bow : Ability
     float dis = 2;
     Camera cam;
     public int damage = 1;
-
+    public static Throw_Bow playerThrow_Bow;
     [SerializeField]
     float flight_speed = 20, KnockBack_Strength = 20, start_flight_speed = 20, start_KnockBack_Strength = 1, maxWindDistance;
     Vector3 mouse;
 
+    private void Awake()
+    {
+        playerThrow_Bow = this;
+    }
     private void Start()
     {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();
@@ -32,10 +37,6 @@ public class Throw_Bow : Ability
     public override void CheckInput()
     {
         if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
-    }
-    private void Awake()
-    {
-        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
     }
     public override void Action()
     {

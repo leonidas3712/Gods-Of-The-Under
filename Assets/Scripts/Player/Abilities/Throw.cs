@@ -12,13 +12,14 @@ public class Throw : Ability
     float dis = 2;
     Camera cam;
     public int damage = 1;
-
+    public static Throw playerThrow;
     [SerializeField]
     float flight_speed = 20, KnockBack_Strength = 20;
 
 
     private void Start()
     {
+        playerThrow = this;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();

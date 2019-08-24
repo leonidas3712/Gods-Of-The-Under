@@ -22,9 +22,9 @@ public class Charge : Ability
     Character_Controller charController;
     Boost boost;
     Throw throwAbility;
-    int twoFramesTimer = 3;
     Throw_Bow bow;
     bool isDownDash;
+    public static Charge playerCharge;
 
     public override void CheckInput()
     {
@@ -32,10 +32,11 @@ public class Charge : Ability
     }
     private void Awake()
     {
-        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
+        playerCharge = this;
     }
     private void Start()
     {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
         input = "left shift";
         rig = GetComponent<Rigidbody2D>();
         cam = GameObject.FindGameObjectWithTag("MainCamera");

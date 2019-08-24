@@ -10,16 +10,10 @@ public class Thrown_Javlin : MonoBehaviour
     float spinDgree = 0;
     Quaternion rot;
     Vector3 stickPosition;
-    Charge charge;
-    Throw throwAbility;
-    Throw_Bow bow;
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
-        charge =player.GetComponent<Charge>();
-        throwAbility = player.GetComponent<Throw>();
-        bow = player.GetComponent<Throw_Bow>();
         gameObject.layer = 11;
     }
     private void OnCollisionEnter2D(Collision2D coll)
@@ -32,18 +26,20 @@ public class Thrown_Javlin : MonoBehaviour
             flying = false;
             rig.isKinematic = true;
             rig.velocity = Vector2.zero;
-            
+
             transform.parent = coll.collider.transform;
             foreach (Collider2D Mycoll in GetComponents<Collider2D>())
             {
                 Mycoll.isTrigger = true;
             }
             rig.freezeRotation = true;
-            GetComponentInParent<HP>().TakeDamage(player.GetComponent<Throw>().damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position)*0);
-            charge.ResetTimesDone();
-            throwAbility.ResetTimesDone();
-            bow.ResetTimesDone();
+            Charge.playerCharge.ResetTimesDone();
+            if (Throw.playerThrow)
+                Throw.playerThrow.ResetTimesDone();
+            if (Throw_Bow.playerThrow_Bow)
+                Throw_Bow.playerThrow_Bow.ResetTimesDone();
             gameObject.layer = 0;
+            coll.gameObject.GetComponent<HP>().TakeDamage(Throw_Bow.playerThrow_Bow.damage, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position) * 0);
         }
         //just staff
         else

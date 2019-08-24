@@ -15,11 +15,11 @@ public class Jump : Ability
     public static Jump playerJump;
     private void Awake()
     {
-        Gravity.playerGravity.groundCall += new Gravity.GroundCall(reCharge);
         playerJump = this;
     }
     void Start()
     {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(reCharge);
         playerAbilities = GetComponents<Ability>();
         input = "space";
         rig = GetComponent<Rigidbody2D>();
