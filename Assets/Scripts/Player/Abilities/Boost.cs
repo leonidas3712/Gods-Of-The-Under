@@ -12,10 +12,6 @@ public class Boost : Ability
         boostDirection = dir;
         TriggerAbility();
     }
-    public override void CheckInput()
-    {
-       
-    }
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();

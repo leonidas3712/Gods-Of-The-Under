@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 public class Ability : MonoBehaviour
 {
     //skips sets an interval exeption(longer or shorter then regular)
@@ -21,7 +22,7 @@ public class Ability : MonoBehaviour
     public virtual void Finish() { }
     public virtual void WhileIsOn() { }
 
-
+    
     public void ResetTimesDone()
     {
         timesDone = 0;
@@ -44,9 +45,9 @@ public class Ability : MonoBehaviour
         return inputTimer > Time.time;
     }
 
-    public virtual void CheckInput()
+    public virtual void CheckInput(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(input)) inputTimer = Time.time + inputTriggerTime;
+        inputTimer = Time.time + inputTriggerTime;
     }
 
     public virtual void TriggerAbility()
@@ -64,7 +65,6 @@ public class Ability : MonoBehaviour
 
     public virtual void Update()
     {
-        CheckInput();
         if (timer <= Time.time && AbilityOn == true)
         {
             timer = Time.time + intervals;

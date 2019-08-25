@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Throw_With_charge : Ability
 {
@@ -31,10 +32,11 @@ public class Throw_With_charge : Ability
     {
         return base.Condition() && Character_Controller.javlinOn;
     }
-    public override void CheckInput()
+    public override void CheckInput(InputAction.CallbackContext context)
     {
         if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
     }
+
     public override void Update()
     {
         base.Update();

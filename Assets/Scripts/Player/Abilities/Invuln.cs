@@ -35,7 +35,4 @@ public class Invuln : Ability
             GetComponent<SpriteRenderer>().color = color;
 
     }
-    public override void CheckInput()
-    {
-    }
 }

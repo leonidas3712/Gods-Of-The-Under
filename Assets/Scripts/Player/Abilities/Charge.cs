@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Charge : Ability
 {
@@ -25,14 +26,10 @@ public class Charge : Ability
     Throw_Bow bow;
     bool isDownDash;
     public static Charge playerCharge;
-
-    public override void CheckInput()
-    {
-        if (Input.GetMouseButtonDown(0)) inputTimer = Time.time + inputTriggerTime;
-    }
     private void Awake()
     {
         playerCharge = this;
+        PlayerInput.playerActions.Player.Charge.performed += CheckInput;
     }
     private void Start()
     {

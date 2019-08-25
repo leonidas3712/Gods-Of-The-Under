@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Jump : Ability
 {
@@ -16,6 +17,7 @@ public class Jump : Ability
     private void Awake()
     {
         playerJump = this;
+        PlayerInput.playerActions.Player.Jump.performed += CheckInput;
     }
     void Start()
     {
@@ -30,7 +32,6 @@ public class Jump : Ability
     {
         return base.Condition() && (Gravity.grounded || Character_Controller.walled);
     }
-
     public override void Action()
     {
         timesDone++;

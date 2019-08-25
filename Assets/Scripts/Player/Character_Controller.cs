@@ -82,11 +82,6 @@ public class Character_Controller : MonoBehaviour
             if (throwAbility.Condition()) throwAbility.TriggerAbility();
             if (bow.Condition()) bow.TriggerAbility();
 
-            if (Input.GetKeyDown("left shift") && !javlinOn)
-            {
-                callBack.ExecuteCallBack();
-            }
-
         }
         if (javlinOn && charge.Condition())
             charge.TriggerAbility();

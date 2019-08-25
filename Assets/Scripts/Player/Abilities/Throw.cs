@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Throw : Ability
 {
@@ -16,9 +17,16 @@ public class Throw : Ability
     [SerializeField]
     float flight_speed = 20, KnockBack_Strength = 20;
 
-
+    private void Awake()
+    {
+        if (enabled)
+        {
+            PlayerInput.playerActions.Player.Throw.performed += CheckInput;
+        }
+    }
     private void Start()
     {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
         playerThrow = this;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rig = GetComponent<Rigidbody2D>();
@@ -32,14 +40,7 @@ public class Throw : Ability
     {
         return base.Condition() && Character_Controller.javlinOn;
     }
-    public override void CheckInput()
-    {
-        if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
-    }
-    private void Awake()
-    {
-        Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
-    }
+
     public override void Action()
     {
         //finds mouse position

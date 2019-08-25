@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Throw_Bow : Ability
 {
@@ -20,6 +21,7 @@ public class Throw_Bow : Ability
     private void Awake()
     {
         playerThrow_Bow = this;
+        PlayerInput.playerActions.Player.Throw.performed += CheckInput;
     }
     private void Start()
     {
@@ -33,10 +35,6 @@ public class Throw_Bow : Ability
     public override bool Condition()
     {
         return base.Condition() && Character_Controller.javlinOn;
-    }
-    public override void CheckInput()
-    {
-        if (Input.GetMouseButtonDown(1)) inputTimer = Time.time + inputTriggerTime;
     }
     public override void Action()
     {

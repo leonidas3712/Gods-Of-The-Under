@@ -14,7 +14,7 @@ public class ShieldFoe : Enemy
     {
         base.Start();
         animator = GetComponent<Animator>();
-        playerCharge = Player.GetComponent<Charge>();
+        playerCharge = Charge.playerCharge;
     }
 
     void Update()

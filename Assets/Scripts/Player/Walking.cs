@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Walking : MonoBehaviour
 {
     public float acceleration = 2, maxVelocity = 7, drag = 1;
@@ -9,11 +10,11 @@ public class Walking : MonoBehaviour
     public static Walking playerWalking;
     private void Awake()
     {
-        Gravity.playerGravity.groundCall += new Gravity.GroundCall(setDrag);
         playerWalking = this;
     }
     private void Start()
     {
+        Gravity.playerGravity.groundCall += new Gravity.GroundCall(setDrag);
         rig = GetComponent<Rigidbody2D>();
     }
     public void Walk()
