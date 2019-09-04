@@ -14,7 +14,7 @@ public class PlayerHp : MonoBehaviour
     public float boostMultiplyer = 1;
     Vector3 SpawnPoint, RevivePoint;
     public static PlayerHp playerHp;
-    [SerializeField]
+    public RestShrine restShrine;
 
     private void Start()
     {
@@ -30,17 +30,12 @@ public class PlayerHp : MonoBehaviour
     public void TakeDamage(int damage, Vector3 dir)
     {
         Hp -= damage;
-        boost.StartBoost(-dir * boostMultiplyer);
         if (Hp <= 0)
         {
-            if (!Character_Controller.javlinOn)
-            {
-                Character_Controller.javlinOn = true;
-                Throw.thrown = false;
-                Destroy(GameObject.FindGameObjectWithTag("javlin"));
-            }
-            Revive();
+            Die();
+            return;
         }
+        boost.StartBoost(-dir * boostMultiplyer);
         if (Character_Controller.walled)
             cont.unWall();
         invuln.TriggerAbility();
@@ -61,12 +56,25 @@ public class PlayerHp : MonoBehaviour
         }
         if (Hp <= 0)
         {
-            Revive();
+            Die();
             return;
         }
         respawn(SpawnPoint);
         syncHp();
     }
+
+    void Die()
+    {
+        if (!Character_Controller.javlinOn)
+        {
+            Character_Controller.javlinOn = true;
+            Throw.thrown = false;
+            Destroy(GameObject.FindGameObjectWithTag("javlin"));
+        }
+        syncHp();
+        Revive();
+    }
+
     public void Heal(int points)
     {
         if (Hp + points <= maxHp)
@@ -84,9 +92,8 @@ public class PlayerHp : MonoBehaviour
     }
     void Revive()
     {
-        Hp = maxHp;
-        respawn(RevivePoint);
-        syncHp();
+        respawn(restShrine.transform.position);
+        restShrine.ActivateInteraction();
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
