@@ -72,6 +72,14 @@ public class PlayerControls : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""80724930-59a0-4314-85cd-6a5e7dff68c0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -294,6 +302,17 @@ public class PlayerControls : IInputActionCollection
                     ""action"": ""Walking"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""542a57dd-2850-4d54-aaab-36ace63d8a55"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard_Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -322,6 +341,7 @@ public class PlayerControls : IInputActionCollection
         m_Player_AimDirX = m_Player.GetAction("AimDirX");
         m_Player_AimDirY = m_Player.GetAction("AimDirY");
         m_Player_Walking = m_Player.GetAction("Walking");
+        m_Player_Interact = m_Player.GetAction("Interact");
     }
 
     ~PlayerControls()
@@ -378,6 +398,7 @@ public class PlayerControls : IInputActionCollection
     private readonly InputAction m_Player_AimDirX;
     private readonly InputAction m_Player_AimDirY;
     private readonly InputAction m_Player_Walking;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private PlayerControls m_Wrapper;
@@ -389,6 +410,7 @@ public class PlayerControls : IInputActionCollection
         public InputAction @AimDirX => m_Wrapper.m_Player_AimDirX;
         public InputAction @AimDirY => m_Wrapper.m_Player_AimDirY;
         public InputAction @Walking => m_Wrapper.m_Player_Walking;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -419,6 +441,9 @@ public class PlayerControls : IInputActionCollection
                 Walking.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalking;
                 Walking.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalking;
                 Walking.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalking;
+                Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -444,6 +469,9 @@ public class PlayerControls : IInputActionCollection
                 Walking.started += instance.OnWalking;
                 Walking.performed += instance.OnWalking;
                 Walking.canceled += instance.OnWalking;
+                Interact.started += instance.OnInteract;
+                Interact.performed += instance.OnInteract;
+                Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -475,5 +503,6 @@ public class PlayerControls : IInputActionCollection
         void OnAimDirX(InputAction.CallbackContext context);
         void OnAimDirY(InputAction.CallbackContext context);
         void OnWalking(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

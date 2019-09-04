@@ -10,6 +10,7 @@ TagManager:
   - camPoint
   - hitBox
   - javlin
+  - Interactable
   layers:
   - Default
   - TransparentFX

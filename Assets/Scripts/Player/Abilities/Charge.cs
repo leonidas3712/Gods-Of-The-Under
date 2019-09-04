@@ -100,6 +100,9 @@ public class Charge : Ability
         {
             isWalled = false;
             inputCheck = false;
+            Gravity.playerGravity.ToggleGravity(true);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            rig.velocity *= 0.3f;
             GetComponent<Character_Controller>().stickToWall(wall);
         }
         else
@@ -151,7 +154,7 @@ public class Charge : Ability
                     return;
                 }
             }
-            if (coll.collider.tag == "foe"||coll.collider.tag == "hitBox")
+            if (coll.collider.tag == "foe" || coll.collider.tag == "hitBox")
             {
                 strike((Vector2)(coll.transform.position - transform.position) - Vector2.up * 1.8f);
                 strikedFoe = true;
@@ -161,21 +164,18 @@ public class Charge : Ability
             }
             else
             {
-                if (Character_Controller.HasWallStick)
+                Vector2 hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
+                if (hitDir == Vector2.right && rig.velocity.x < 2)
                 {
-                    Vector2 hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
-                    if (hitDir == Vector2.right && rig.velocity.x < 2)
-                    {
-                        isWalled = true;
-                        wallDiraction = Vector2.right;
-                        wall = coll.gameObject;
-                    }
-                    else if (hitDir == Vector2.left && (rig.velocity.x >= -2))
-                    {
-                        isWalled = true;
-                        wallDiraction = Vector2.left;
-                        wall = coll.gameObject;
-                    }
+                    isWalled = true;
+                    wallDiraction = Vector2.right;
+                    wall = coll.gameObject;
+                }
+                else if (hitDir == Vector2.left && (rig.velocity.x >= -2))
+                {
+                    isWalled = true;
+                    wallDiraction = Vector2.left;
+                    wall = coll.gameObject;
                 }
                 ForceEnding();
             }

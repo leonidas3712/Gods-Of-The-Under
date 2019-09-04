@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RestShrine : MonoBehaviour
+public class RestShrine : Interactable
 {
-    private void OnTriggerEnter2D(Collider2D coll)
+    public override void ActivateInteraction()
     {
-        if (coll.tag == "Player")
-        {
-            coll.gameObject.GetComponent<PlayerRestCounter>().IncreaseRestCount();
-        }
+        PlayerRestCounter.playerRest.IncreaseRestCount();
     }
 }

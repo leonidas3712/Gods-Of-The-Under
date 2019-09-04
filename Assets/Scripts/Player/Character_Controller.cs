@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    public static bool walled, HasWallStick, HasThrow, javlinOn = true;
+    public static bool walled, javlinOn = true;
+    public bool HasWallStick;
     public static Animator anim;
+    public static Character_Controller controller;
     Charge charge;
     Jump jump;
     PlayerHp playerHp;
@@ -27,8 +29,7 @@ public class Character_Controller : MonoBehaviour
 
     private void Start()
     {
-        HasThrow = true;
-        HasWallStick = true;
+        controller = this;
         charge = GetComponent<Charge>();
         jump = GetComponent<Jump>();
         rig = GetComponent<Rigidbody2D>();
@@ -106,7 +107,7 @@ public class Character_Controller : MonoBehaviour
     }
     public void stickToWall(GameObject wall)
     {
-        if (!walled)
+        if (!walled&&HasWallStick)
         {
             //anim.SetBool("isWalled", true);
             walled = true;
