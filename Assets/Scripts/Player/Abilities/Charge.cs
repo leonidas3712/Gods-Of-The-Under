@@ -29,10 +29,11 @@ public class Charge : Ability
     private void Awake()
     {
         playerCharge = this;
-        PlayerInput.playerActions.Player.Charge.performed += CheckInput;
+
     }
     private void Start()
     {
+        PlayerInput.playerActions.Player.Charge.performed += CheckInput;
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
         input = "left shift";
         rig = GetComponent<Rigidbody2D>();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Heal : MonoBehaviour
 {
 
-    int lifeStack = 0;
+    int lifeStack = -1;
     PlayerHp hp;
     public static Heal playerHeal;
     private void Start()
@@ -16,10 +16,10 @@ public class Heal : MonoBehaviour
     void Update()
     {
         if (Gravity.grounded) lifeStack = 0;
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("e")&&lifeStack>0)
         {
             hp.Heal(lifeStack);
-            lifeStack = 0;
+            lifeStack = -1;
         }
     }
     public void IncreaseStack(int amount)

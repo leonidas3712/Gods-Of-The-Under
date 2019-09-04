@@ -21,10 +21,11 @@ public class Throw_Bow : Ability
     private void Awake()
     {
         playerThrow_Bow = this;
-        PlayerInput.playerActions.Player.Throw.performed += CheckInput;
+
     }
     private void Start()
     {
+        PlayerInput.playerActions.Player.Throw.performed += CheckInput;
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rig = GetComponent<Rigidbody2D>();

@@ -10,13 +10,11 @@ public class CallBack : MonoBehaviour {
     [SerializeField]
     public float returnSpeed = 15;
     public static CallBack call;
-    private void Awake()
-    {
-        PlayerInput.playerActions.Player.CallBack.performed += ExecuteCallBack;
-    }
+
     private void Start()
     {
         call = this;
+        PlayerInput.playerActions.Player.CallBack.performed += ExecuteCallBack;
     }
     public virtual void ExecuteCallBack(InputAction.CallbackContext context)
     {

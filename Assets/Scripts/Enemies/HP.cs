@@ -25,6 +25,7 @@ public class HP : MonoBehaviour
         {
             if (GetComponentInChildren<Thrown_Javlin>())
                 GetComponentInChildren<Thrown_Javlin>().PopOut();
+            PlayerPrefs.SetInt(GetComponent<AnyMapEnemy>().objectName + "_ShouldSpawn", 0);
             Destroy(gameObject);
         }
     }

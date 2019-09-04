@@ -64,6 +64,14 @@ public class PlayerControls : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Walking"",
+                    ""type"": ""Value"",
+                    ""id"": ""32f9bdd1-c07d-43af-a4c8-ec3a5cb4a9e4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -198,6 +206,94 @@ public class PlayerControls : IInputActionCollection
                     ""action"": ""AimDirY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""5dfd99a7-cfdb-4c71-96e3-6f1d107dfe5a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walking"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""e7e92ae5-5b91-4db1-aaa1-106864142f39"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard_Mouse"",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""369bf6fa-e89a-497f-852d-29eee85eddde"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard_Mouse"",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""85a1c847-6c85-46d0-a818-4f40cd65d69b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walking"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""d6461e40-758b-4218-907d-f57603bcca85"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""202ae9d3-213e-4ed7-a2a7-908dc10b2bc8"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""04d92482-f732-4b01-a0c4-e81e27e0b34a"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c22a499c-4ddc-4e43-87c6-72e74a191522"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -225,6 +321,7 @@ public class PlayerControls : IInputActionCollection
         m_Player_CallBack = m_Player.GetAction("CallBack");
         m_Player_AimDirX = m_Player.GetAction("AimDirX");
         m_Player_AimDirY = m_Player.GetAction("AimDirY");
+        m_Player_Walking = m_Player.GetAction("Walking");
     }
 
     ~PlayerControls()
@@ -280,6 +377,7 @@ public class PlayerControls : IInputActionCollection
     private readonly InputAction m_Player_CallBack;
     private readonly InputAction m_Player_AimDirX;
     private readonly InputAction m_Player_AimDirY;
+    private readonly InputAction m_Player_Walking;
     public struct PlayerActions
     {
         private PlayerControls m_Wrapper;
@@ -290,6 +388,7 @@ public class PlayerControls : IInputActionCollection
         public InputAction @CallBack => m_Wrapper.m_Player_CallBack;
         public InputAction @AimDirX => m_Wrapper.m_Player_AimDirX;
         public InputAction @AimDirY => m_Wrapper.m_Player_AimDirY;
+        public InputAction @Walking => m_Wrapper.m_Player_Walking;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -317,6 +416,9 @@ public class PlayerControls : IInputActionCollection
                 AimDirY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimDirY;
                 AimDirY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimDirY;
                 AimDirY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAimDirY;
+                Walking.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalking;
+                Walking.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalking;
+                Walking.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalking;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -339,6 +441,9 @@ public class PlayerControls : IInputActionCollection
                 AimDirY.started += instance.OnAimDirY;
                 AimDirY.performed += instance.OnAimDirY;
                 AimDirY.canceled += instance.OnAimDirY;
+                Walking.started += instance.OnWalking;
+                Walking.performed += instance.OnWalking;
+                Walking.canceled += instance.OnWalking;
             }
         }
     }
@@ -369,5 +474,6 @@ public class PlayerControls : IInputActionCollection
         void OnCallBack(InputAction.CallbackContext context);
         void OnAimDirX(InputAction.CallbackContext context);
         void OnAimDirY(InputAction.CallbackContext context);
+        void OnWalking(InputAction.CallbackContext context);
     }
 }

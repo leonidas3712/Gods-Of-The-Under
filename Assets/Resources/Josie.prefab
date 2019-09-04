@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f55b983f82ad54fb64a99d9bfa5aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityFinalSpeed: -22
+  gravityFinalSpeed: -25
   gravityAcceleration: 0
 --- !u!1 &6162523230528076535
 GameObject:
@@ -130,6 +130,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -207,8 +208,9 @@ GameObject:
   - component: {fileID: 6162523230734184561}
   - component: {fileID: 6162523230734184545}
   - component: {fileID: 6162523230734184544}
-  - component: {fileID: 1321324511}
   - component: {fileID: 1338419716}
+  - component: {fileID: 1242336715}
+  - component: {fileID: 761316452}
   m_Layer: 8
   m_Name: Josie
   m_TagString: Player
@@ -257,6 +259,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -399,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09af3be8ddc10214dba2b0ce6df52727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 0.28
+  length: 0.17
   intervals: 0
   timesDone: 0
   maxTimes: 1
@@ -408,7 +411,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   canInterrupt: 1
   isInterruptable: 1
-  jumpSpeed: 30
+  jumpSpeed: 25
   jumped: 0
 --- !u!114 &4869401992123479066
 MonoBehaviour:
@@ -500,7 +503,7 @@ MonoBehaviour:
   KnockBack_Strength: 1.8
   start_flight_speed: 57
   start_KnockBack_Strength: 2.2
-  maxWindDistance: 8
+  maxWindDistance: 3
 --- !u!114 &6162523230734184564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,8 +565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b3efe2f9359ec419fd628c7780ffb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 2
-  maxVelocity: 8
+  acceleration: 1.8
+  maxVelocity: 12
   drag: 0.8
 --- !u!114 &6162523230734184545
 MonoBehaviour:
@@ -600,20 +603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9052a5859e63a049b9eb57d7191134f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragStrngth: 0.3
+  dragStrngth: 0.2
   maxVelocity: 0
---- !u!114 &1321324511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6162523230734184334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ce9cca41ecd604892183e6116ba4de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1338419716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,5 +615,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2671eec5aea7c438d42a9ec569eabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1242336715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162523230734184334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c553e510d042043810f7eec44667e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &761316452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162523230734184334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ce9cca41ecd604892183e6116ba4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -17,10 +17,11 @@ public class Jump : Ability
     private void Awake()
     {
         playerJump = this;
-        PlayerInput.playerActions.Player.Jump.performed += CheckInput;
+        
     }
     void Start()
     {
+        PlayerInput.playerActions.Player.Jump.performed += CheckInput;
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(reCharge);
         playerAbilities = GetComponents<Ability>();
         input = "space";
