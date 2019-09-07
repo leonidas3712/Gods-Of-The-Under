@@ -16,18 +16,25 @@ public class Walking : MonoBehaviour
     private void Start()
     {
         PlayerInput.playerActions.Player.Walking.performed += SetWalkingDir;
+        PlayerInput.playerActions.Player.Walking.canceled += zeroDir;
+
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(setDrag);
         rig = GetComponent<Rigidbody2D>();
     }
     void SetWalkingDir(InputAction.CallbackContext context)
     {
-        if (context.ReadValue<Vector2>() == Vector2.zero) walkingDir = Vector2.zero;
+        walkingDir = context.ReadValue<Vector2>();
+        if (walkingDir.x > 0) walkingDir = Vector2.right;
         else
-            walkingDir = HelpfulFuncs.Norm1(context.ReadValue<Vector2>());
+        if (walkingDir.x <= 0) walkingDir = Vector2.left;
+    }
+    void zeroDir(InputAction.CallbackContext context)
+    {
+        walkingDir = Vector2.zero;
     }
     public void Walk()
     {
-        if (Input.GetKey("a"))
+        if (walkingDir == Vector2.left)
         {
             if (rig.velocity.x > -maxVelocity)
             {
@@ -36,7 +43,7 @@ public class Walking : MonoBehaviour
             //else if (rig.velocity.x != -maxVelocity) rig.velocity = new Vector2(-maxVelocity, rig.velocity.y);
         }
         else
-          if (Input.GetKey("d"))
+        if (walkingDir == Vector2.right)
         {
             if (rig.velocity.x < maxVelocity)
             {
@@ -45,39 +52,12 @@ public class Walking : MonoBehaviour
             //else if (rig.velocity.x != maxVelocity) rig.velocity = new Vector2(maxVelocity, rig.velocity.y);
         }
 
-        if ((Input.GetKey("a") || Input.GetKey("d")) && Mathf.Abs(rig.velocity.x) <= maxVelocity)
+        if ((walkingDir != Vector2.zero) && Mathf.Abs(rig.velocity.x) <= maxVelocity)
         {
             AirDrag.PlayerDrag.SetDragPofile(drag, 0);
         }
-
-        /* if (!Input.GetKey("a") && !Input.GetKey("d"))
-         {
-             if (/*Mathf.Abs(rig.velocity.x) <= maxVelocity + 0.5f || Gravity.grounded) rig.velocity = new Vector2(0, rig.velocity.y);
-         }*/
-
-        /* if (walkingDir == Vector2.left)
-          {
-              if (rig.velocity.x > -maxVelocity)
-              {
-                  MoveHorizontaly(-acceleration);
-              }
-              //else if (rig.velocity.x != -maxVelocity) rig.velocity = new Vector2(-maxVelocity, rig.velocity.y);
-          }
-          else
-         if (walkingDir == Vector2.right)
-          {
-              if (rig.velocity.x < maxVelocity)
-              {
-                  MoveHorizontaly(acceleration);
-              }
-              //else if (rig.velocity.x != maxVelocity) rig.velocity = new Vector2(maxVelocity, rig.velocity.y);
-          }
-
-          if ((walkingDir != Vector2.zero) && Mathf.Abs(rig.velocity.x) <= maxVelocity)
-          {
-              AirDrag.PlayerDrag.SetDragPofile(drag, 0);
-          }*/
     }
+
     void setDrag()
     {
         AirDrag.PlayerDrag.SetDragPofile(drag, 0);

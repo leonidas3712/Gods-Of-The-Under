@@ -17,14 +17,14 @@ public class Jump : Ability
     private void Awake()
     {
         playerJump = this;
-        
+
     }
     void Start()
     {
         PlayerInput.playerActions.Player.Jump.performed += CheckInput;
+        PlayerInput.playerActions.Player.Jump. canceled += stopJump;
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(reCharge);
         playerAbilities = GetComponents<Ability>();
-        input = "space";
         rig = GetComponent<Rigidbody2D>();
         invuln = GetComponent<Invuln>();
         charge = GetComponent<Charge>();
@@ -38,9 +38,9 @@ public class Jump : Ability
         timesDone++;
         jumped = true;
         if (Input.GetKey("a"))
-            rig.velocity = new Vector2(-Walking.playerWalking.maxVelocity-2, jumpSpeed-2f);
+            rig.velocity = new Vector2(-Walking.playerWalking.maxVelocity - 2, jumpSpeed - 2f);
         else if (Input.GetKey("d"))
-            rig.velocity = new Vector2(Walking.playerWalking.maxVelocity+2, jumpSpeed-2f);
+            rig.velocity = new Vector2(Walking.playerWalking.maxVelocity + 2, jumpSpeed - 2f);
         else
             rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
         AirDrag.PlayerDrag.SetDragPofile(0.15f, 0);
@@ -61,15 +61,11 @@ public class Jump : Ability
                 rig.velocity = new Vector2(rig.velocity.x, rig.velocity.y / 2);
         }
     }
-    public override void WhileIsOn()
+    void stopJump(InputAction.CallbackContext context)
     {
-        if (!Input.GetKey(input))
-        {
-            //interruptionCheck();
+        if (AbilityOn)
             ForceEnding();
-        }
     }
-
     void reCharge()
     {
         ResetTimesDone();

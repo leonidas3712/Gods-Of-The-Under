@@ -21,7 +21,7 @@ public class PlayerControls : IInputActionCollection
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""5fc9bec0-c4d4-4766-9d39-59184a2f0b7e"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -97,7 +97,7 @@ public class PlayerControls : IInputActionCollection
                 {
                     ""name"": """",
                     ""id"": ""9f94b7fd-9c28-42a6-b802-d437e9407585"",
-                    ""path"": ""<DualShockGamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
@@ -249,59 +249,15 @@ public class PlayerControls : IInputActionCollection
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""85a1c847-6c85-46d0-a818-4f40cd65d69b"",
-                    ""path"": ""2DVector"",
+                    ""name"": """",
+                    ""id"": ""032f25e5-5427-431d-a6cc-386347d4af91"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Walking"",
-                    ""isComposite"": true,
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""d6461e40-758b-4218-907d-f57603bcca85"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Walking"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""202ae9d3-213e-4ed7-a2a7-908dc10b2bc8"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Walking"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""04d92482-f732-4b01-a0c4-e81e27e0b34a"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Walking"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""c22a499c-4ddc-4e43-87c6-72e74a191522"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Controller"",
-                    ""action"": ""Walking"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -320,13 +276,11 @@ public class PlayerControls : IInputActionCollection
     ""controlSchemes"": [
         {
             ""name"": ""Keyboard_Mouse"",
-            ""basedOn"": """",
             ""bindingGroup"": ""Keyboard_Mouse"",
             ""devices"": []
         },
         {
             ""name"": ""Controller"",
-            ""basedOn"": """",
             ""bindingGroup"": ""Controller"",
             ""devices"": []
         }

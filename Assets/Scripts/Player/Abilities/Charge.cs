@@ -10,7 +10,7 @@ public class Charge : Ability
     GameObject cam;
     GameObject hitBox;
     GameObject wall;
-    Vector3 mouse, strikenFoeDir;
+    Vector3 aimDir, strikenFoeDir;
     public Vector2 wallDiraction, bounceDir;
     Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
@@ -34,6 +34,7 @@ public class Charge : Ability
     private void Start()
     {
         PlayerInput.playerActions.Player.Charge.performed += CheckInput;
+
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
         input = "left shift";
         rig = GetComponent<Rigidbody2D>();
@@ -49,7 +50,11 @@ public class Charge : Ability
         throwAbility = GetComponent<Throw>();
         bow = GetComponent<Throw_Bow>();
     }
-
+    void SetAimDir(InputAction.CallbackContext context)
+    {
+        aimDir = context.ReadValue<Vector2>();
+        print(aimDir);
+    }
     public override void Action()
     {
         striked = false;
@@ -62,32 +67,32 @@ public class Charge : Ability
         AirDrag.dragActive = false;
 
         //this segment will be changed after controller input will be implemented***
-        mouse = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
-        mouse = HelpfulFuncs.Norm1(mouse - transform.position) * ChargeMovmentSpeed;
+        aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+        aimDir = HelpfulFuncs.Norm1(aimDir - transform.position) * ChargeMovmentSpeed;
         //***
 
         //if the charge is set downwards
-        if (mouse.y < 0)
+        if (aimDir.y < 0)
             //if josie is on the ground
             if (Gravity.grounded)
             {
                 //take the y value off the direction vector
-                mouse = new Vector3(mouse.x, 0, 0);
+                aimDir = new Vector3(aimDir.x, 0, 0);
             }
         //if you are trying to charge into a wall 
         if (Character_Controller.walled)
         {
-            if ((mouse.x > 0 && wallDiraction == Vector2.left) || (mouse.x < 0 && wallDiraction == Vector2.right))
+            if ((aimDir.x > 0 && wallDiraction == Vector2.left) || (aimDir.x < 0 && wallDiraction == Vector2.right))
             {
-                if (mouse.y >= 0)
-                    mouse = new Vector3(0, ChargeMovmentSpeed, 0);
+                if (aimDir.y >= 0)
+                    aimDir = new Vector3(0, ChargeMovmentSpeed, 0);
                 else
-                    mouse = new Vector3(0, -ChargeMovmentSpeed, 0);
+                    aimDir = new Vector3(0, -ChargeMovmentSpeed, 0);
 
             }
             GetComponent<Character_Controller>().unWall();
         }
-        rig.velocity = mouse;
+        rig.velocity = aimDir;
         hitBox.SetActive(true);
     }
 
@@ -131,9 +136,9 @@ public class Charge : Ability
             }
             if (isDownDash)
             {
-                mouse = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
-                mouse = HelpfulFuncs.Norm1(mouse - transform.position) * ChargeMovmentSpeed;
-                rig.velocity = mouse;
+                aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+                aimDir = HelpfulFuncs.Norm1(aimDir - transform.position) * ChargeMovmentSpeed;
+                rig.velocity = aimDir;
             }
         }
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
