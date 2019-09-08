@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public bool grounded, sighted;
     public HP hp;
     int layerMask;
+    Vector2 hitDir;
 
     public virtual void Start()
     {
@@ -32,7 +33,8 @@ public class Enemy : MonoBehaviour
     }
     public virtual void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.GetContact(0).normal == Vector2.up)
+        hitDir = new Vector2(Mathf.Round(coll.GetContact(0).normal.x * 10) / 10, Mathf.Round(coll.GetContact(0).normal.y * 10) / 10);
+        if (hitDir == Vector2.up)
         {
             grounded = true;
             contactedColl = coll;
@@ -73,9 +75,7 @@ public class Enemy : MonoBehaviour
 
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
-
         }
-
         else if (x < 0)
             if (transform.localScale.x > 0)
             {

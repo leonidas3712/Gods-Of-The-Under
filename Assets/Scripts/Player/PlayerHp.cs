@@ -92,8 +92,18 @@ public class PlayerHp : MonoBehaviour
     }
     void Revive()
     {
-        respawn(restShrine.transform.position);
-        restShrine.ActivateInteraction();
+        if (restShrine)
+        {
+            respawn(restShrine.transform.position);
+            restShrine.ActivateInteraction();
+        }
+        else
+        {
+            respawn(SpawnPoint);
+            Hp = maxHp;
+            syncHp();
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D coll)

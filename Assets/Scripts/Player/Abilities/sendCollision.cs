@@ -8,7 +8,7 @@ public class sendCollision : MonoBehaviour
     float timer;
     private void OnEnable()
     {
-        timer = Time.time + 0.03f;
+        timer = Time.time + 0.06f;
         transform.tag = "hitBox";
     }
     private void Awake()

@@ -11,14 +11,14 @@ public class Charge : Ability
     GameObject hitBox;
     GameObject wall;
     Vector3 aimDir, strikenFoeDir;
-    public Vector2 wallDiraction, bounceDir;
+    public Vector2 wallDiraction, bounceDir,preChargeVel;
     Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
     public bool inputCheck, isWalled, striked, strikedFoe;
     //soposed to fix disync in collision enter
     [SerializeField]
     float curDamage;
-    public float ChargeMovmentSpeed, baseDamage = 1, knockBackMult = 1;
+    public float ChargeMovmentSpeed, baseDamage = 2, knockBackMult = 1;
     PlayerHp hp;
     Character_Controller charController;
     Boost boost;
@@ -57,6 +57,7 @@ public class Charge : Ability
     }
     public override void Action()
     {
+        preChargeVel = rig.velocity;
         striked = false;
         isDownDash = false;
         //Character_Controller.anim.SetBool("isCharging", true);
@@ -92,7 +93,7 @@ public class Charge : Ability
             }
             GetComponent<Character_Controller>().unWall();
         }
-        rig.velocity = aimDir;
+        rig.velocity =HelpfulFuncs.Norm1(rig.velocity)*2+ aimDir;
         hitBox.SetActive(true);
     }
 
@@ -152,7 +153,7 @@ public class Charge : Ability
                 if (coll.collider.tag == "hitBox")
                 {
                     //((Vector2)(coll.transform.position - transform.position)-coll.GetContact(0).normal*30)
-                    strike((Vector2)(coll.transform.position - transform.position));
+                    strike((Vector2)(coll.transform.position - transform.position) - Vector2.up * 1.8f);
                     GameObject parryEffect = (GameObject)Instantiate(Resources.Load("hitClash"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
                     Destroy(parryEffect, 0.6f);
                     ForceEnding();

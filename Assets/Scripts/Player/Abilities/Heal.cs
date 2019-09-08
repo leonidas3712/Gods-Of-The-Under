@@ -15,7 +15,7 @@ public class Heal : MonoBehaviour
     }
     void Update()
     {
-        if (Gravity.grounded) lifeStack = 0;
+        if (Gravity.grounded) lifeStack = -1;
         if (Input.GetKeyDown("e")&&lifeStack>0)
         {
             hp.Heal(lifeStack);
