@@ -7,7 +7,7 @@ public class ShieldFoe : Enemy
     Charge playerCharge;
     Animator animator;
     Vector2 PlayerDir;
-    
+
     public bool attacked;
 
     public override void Start()
@@ -20,6 +20,14 @@ public class ShieldFoe : Enemy
     void Update()
     {
         PlayerDir = Player.transform.position - transform.position;
+        if (PlayerDir.y > 0)
+        {
+            animator.SetBool("PlayerIsUp", true);
+        }
+        else
+        {
+            animator.SetBool("PlayerIsUp", false);
+        }
         if (!sighted && Vector2.Distance(transform.position, Player.transform.position) <= sightRange + 10)
         {
             if (SightPlayer(Vector2.right) || SightPlayer(Vector2.left)) sighted = true;
@@ -34,9 +42,12 @@ public class ShieldFoe : Enemy
             {
                 if (playerCharge.AbilityOn)
                 {
-                    if (!animator.GetBool("shieldUp") && !animator.GetBool("attack")) animator.SetBool("shieldUp", true);
+                    if (!animator.GetBool("shieldUp") && !animator.GetBool("attack"))
+                    {
+                        animator.SetBool("shieldUp", true);
+                    }
                 }
-                else if (!animator.GetBool("attack") && !animator.GetBool("shieldUp")&& Vector2.Distance(transform.position, Player.transform.position) < range-2)
+                else if (!animator.GetBool("attack") && !animator.GetBool("shieldUp") && Vector2.Distance(transform.position, Player.transform.position) < range - 2)
                 {
                     animator.SetBool("attack", true);
                     rig.velocity = Vector2.zero;
@@ -51,9 +62,9 @@ public class ShieldFoe : Enemy
                 Move(PlayerDir);
                 attacked = false;
             }
-            if(animator.GetCurrentAnimatorStateInfo(0).IsName("shieldUp")) rig.velocity = Vector2.zero;
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("shieldUp")) rig.velocity = Vector2.zero;
             else
-            Flip(-PlayerDir.x);
+                Flip(-PlayerDir.x);
         }
     }
     public void hitBoxCall(Collider2D collider)
