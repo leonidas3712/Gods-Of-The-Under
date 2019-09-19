@@ -11,7 +11,7 @@ public class Charge : Ability
     GameObject hitBox;
     GameObject wall;
     Vector3 aimDir, strikenFoeDir;
-    public Vector2 wallDiraction, bounceDir,preChargeVel;
+    public Vector2 wallDiraction, bounceDir, preChargeVel;
     Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
     public bool inputCheck, isWalled, striked, strikedFoe;
@@ -29,7 +29,6 @@ public class Charge : Ability
     private void Awake()
     {
         playerCharge = this;
-
     }
     private void Start()
     {
@@ -93,7 +92,7 @@ public class Charge : Ability
             }
             GetComponent<Character_Controller>().unWall();
         }
-        rig.velocity =HelpfulFuncs.Norm1(rig.velocity)*2+ aimDir;
+        rig.velocity = HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir;
         hitBox.SetActive(true);
     }
 
@@ -128,6 +127,7 @@ public class Charge : Ability
     public override void WhileIsOn()
     {
         float angle = Vector2.SignedAngle(rig.velocity, Vector2.right);
+
         if ((Input.GetMouseButton(0)) && angle > 50 && angle < 130)
         {
             if (timeLeft < 0.05f)
@@ -139,10 +139,19 @@ public class Charge : Ability
             {
                 aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
                 aimDir = HelpfulFuncs.Norm1(aimDir - transform.position) * ChargeMovmentSpeed;
-                rig.velocity = aimDir;
+                angle = Vector2.SignedAngle(aimDir, Vector2.right);
+                if (angle > 50 && angle < 130)
+                    rig.velocity = aimDir;
             }
         }
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
+    }
+    public override void Update()
+    {
+        base.Update();
+        aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
+        aimDir = HelpfulFuncs.Norm1(aimDir - transform.position);
+        print(Vector2.SignedAngle(aimDir, Vector2.right));
     }
     public void hitBoxCall(Collision2D coll, bool parryActive)
     {

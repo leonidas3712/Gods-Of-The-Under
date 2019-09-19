@@ -34,7 +34,10 @@ public class Ability : MonoBehaviour
         AbilityOn = false;
         Finish();
     }
-
+    public void CancelInterval()
+    {
+        timer = Time.time;
+    }
     public virtual void Interrupt()
     {
         ForceEnding();
@@ -56,6 +59,7 @@ public class Ability : MonoBehaviour
         {
             if (canInterrupt)
                 triggerInterruptions();
+            inputTimer = 0;
             AbilityOn = true;
             Action();
             WhileIsOn();

@@ -163,7 +163,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -347,19 +347,19 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.020735815, y: 0.1398273}
-      - {x: -0.03945925, y: 0.14262015}
-      - {x: -0.096167274, y: 0.10107269}
-      - {x: -0.1226395, y: 0.06230567}
-      - {x: -0.14110357, y: 0.012744864}
-      - {x: -0.1387957, y: -0.02310668}
-      - {x: -0.13323489, y: -0.06299998}
-      - {x: -0.11021081, y: -0.07775455}
-      - {x: -0.089513056, y: -0.078532524}
+    - - {x: 0.025305837, y: 0.08613134}
+      - {x: -0.031461515, y: 0.08206915}
+      - {x: -0.052753277, y: 0.081650704}
+      - {x: -0.07351356, y: 0.054308333}
+      - {x: -0.08055257, y: 0.0024625154}
+      - {x: -0.08966937, y: -0.039101355}
+      - {x: -0.06468696, y: -0.077852346}
+      - {x: -0.03937749, y: -0.08346688}
+      - {x: -0.046099044, y: -0.0739625}
       - {x: -0.026284665, y: -0.07947723}
       - {x: 0.012291573, y: -0.07981471}
       - {x: 0.005071409, y: 0.035578135}
-      - {x: 0.013477974, y: 0.093835294}
+      - {x: 0.024902627, y: 0.07555561}
 --- !u!114 &3333009553666087797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +442,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -526,7 +526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333009554433517476}
   m_LocalRotation: {x: -0, y: -0, z: 0.9151485, w: -0.403117}
-  m_LocalPosition: {x: -0.082, y: -0.008, z: -0.5172369}
+  m_LocalPosition: {x: -0.024, y: -0.017, z: -0.5172369}
   m_LocalScale: {x: -0.1038316, y: 0.10383161, z: 1.557474}
   m_Children: []
   m_Father: {fileID: 3333009553406238303}
@@ -549,7 +549,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

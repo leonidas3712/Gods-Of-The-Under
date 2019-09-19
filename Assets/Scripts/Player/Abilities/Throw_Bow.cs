@@ -15,7 +15,7 @@ public class Throw_Bow : Ability
     public int damage = 1;
     public static Throw_Bow playerThrow_Bow;
     [SerializeField]
-    float flight_speed = 20, KnockBack_Strength = 20, start_flight_speed = 20, start_KnockBack_Strength = 1, maxWindDistance;
+    float flight_speed = 20, KnockBack_Strength = 20, start_flight_speed = 20, start_KnockBack_Strength = 1, maxWindDistance,airDrag;
     Vector3 mouse;
 
     private void Awake()
@@ -48,7 +48,7 @@ public class Throw_Bow : Ability
         //will be changed in controller input
         mouse = HelpfulFuncs.Norm1(mouse - pos);
         rig.velocity = mouse * 25;
-
+        AirDrag.PlayerDrag.SetDragPofile(airDrag);
     }
     public override void WhileIsOn()
     {
@@ -76,6 +76,7 @@ public class Throw_Bow : Ability
     }
     public override void Finish()
     {
+
         //finds mouse position
         mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
         Vector3 pos = transform.position;
@@ -109,8 +110,6 @@ public class Throw_Bow : Ability
         timesDone = 1;
         //spawn the spear
         javlin = (GameObject)Instantiate(Resources.Load("prototype"), pos, Quaternion.Euler(0, 0, Mathf.Atan2(mouse.x, mouse.y) * Mathf.Rad2Deg * -1));
-        /*Gravity.playerGravity.ToggleGravity();
-        AirDrag.dragActive = true;*/
         javlin.GetComponent<Rigidbody2D>().velocity = mouse * flight_speed;
         if (!Gravity.grounded)
             boost.StartBoost(-mouse * KnockBack_Strength);

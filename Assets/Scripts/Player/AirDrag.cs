@@ -37,7 +37,7 @@ public class AirDrag : MonoBehaviour
         }
     }
 
-    public void SetDragPofile(float drag, float maxVel)
+    public void SetDragPofile(float drag, float maxVel = 0)
     {
         this.dragStrngth = drag;
         maxVelocity = maxVel;

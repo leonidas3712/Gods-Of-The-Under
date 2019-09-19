@@ -68,6 +68,7 @@ public class Character_Controller : MonoBehaviour
             anim.SetInteger("vertiVel", 0);
         if (rig.velocity.y < 0)
             anim.SetInteger("vertiVel", -1);*/
+
     }
 
     void mainControl()
@@ -112,6 +113,7 @@ public class Character_Controller : MonoBehaviour
             //anim.SetBool("isWalled", true);
             walled = true;
             charge.ResetTimesDone();
+            charge.CancelInterval();
             jump.ResetTimesDone();
             //rig.bodyType = RigidbodyType2D.Static;
             Gravity.playerGravity.ToggleGravity(false);

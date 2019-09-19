@@ -8,7 +8,7 @@ public class Jump : Ability
     Ability[] playerAbilities;
     Rigidbody2D rig;
     [SerializeField]
-    float jumpSpeed = 7;
+    float jumpSpeed = 7,drag;
     public bool jumped;
     int twoFramesTimer = 3;
     Invuln invuln;
@@ -17,7 +17,6 @@ public class Jump : Ability
     private void Awake()
     {
         playerJump = this;
-
     }
     void Start()
     {
@@ -43,7 +42,7 @@ public class Jump : Ability
             rig.velocity = new Vector2(Walking.playerWalking.maxVelocity + 2, jumpSpeed - 2f);
         else
             rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
-        AirDrag.PlayerDrag.SetDragPofile(0.15f, 0);
+        AirDrag.PlayerDrag.SetDragPofile(drag, 0);
         //Gravity.playerGravity.ToggleGravity(false);
         //needs to happen after physical staff is done so it wont touch the wall while its collider returns
         if (Character_Controller.walled)
