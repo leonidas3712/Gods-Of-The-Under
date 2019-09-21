@@ -12,6 +12,8 @@ public class Gravity : MonoBehaviour
     Vector2 hitDir;
     public delegate void GroundCall();
     public event GroundCall groundCall;
+
+    [SerializeField] float drag;
     void Awake()
     {
         rig = GetComponentInParent<Rigidbody2D>();
@@ -42,6 +44,7 @@ public class Gravity : MonoBehaviour
     void SetTrue()
     {
         groundCall();
+        AirDrag.PlayerDrag.SetDragPofile(drag);
         grounded = true;
     }
     private void OnCollisionExit2D(Collision2D coll)

@@ -21,15 +21,23 @@ public class Character_Controller : MonoBehaviour
     Throw_Bow bow;
     CallBack callBack;
     AirJump airJump;
+    Jump_PreCharge preJump;
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
 
     float stateNormTime;
     bool suckedLife;
 
-    private void Start()
+
+    public delegate void WallReset();
+    public event WallReset wallCall;
+    private void Awake()
     {
         controller = this;
+    }
+    private void Start()
+    {
+
         charge = GetComponent<Charge>();
         jump = GetComponent<Jump>();
         rig = GetComponent<Rigidbody2D>();
@@ -44,6 +52,7 @@ public class Character_Controller : MonoBehaviour
         callBack = GetComponent<CallBack>();
         airJump = GetComponent<AirJump>();
         bow = GetComponent<Throw_Bow>();
+        preJump = Jump_PreCharge.playerJump;
         foreach (Ability ability in playerAbilities)
         {
             ability.triggerInterruptions += new Ability.InterruptionEvent(Interruptions);
@@ -79,6 +88,7 @@ public class Character_Controller : MonoBehaviour
             {
                 walking.Walk();
                 if (jump.Condition()) jump.TriggerAbility();
+                if (preJump.Condition()) preJump.TriggerAbility();
                 if (airJump.Condition() && !jump.AbilityOn) airJump.TriggerAbility();
             }
             if (throwAbility.Condition()) throwAbility.TriggerAbility();
@@ -99,7 +109,11 @@ public class Character_Controller : MonoBehaviour
     void wallControls()
     {
         if (!charge.AbilityOn)
+        {
             if (jump.Condition()) jump.TriggerAbility();
+            if (preJump.Condition()) preJump.TriggerAbility();
+        }
+
         if (charge.Condition())
             charge.TriggerAbility();
         correctPosition = stuckedOnWall.transform.position + wallOffset;
@@ -108,13 +122,12 @@ public class Character_Controller : MonoBehaviour
     }
     public void stickToWall(GameObject wall)
     {
-        if (!walled&&HasWallStick)
+        if (!walled && HasWallStick)
         {
             //anim.SetBool("isWalled", true);
             walled = true;
-            charge.ResetTimesDone();
-            charge.CancelInterval();
-            jump.ResetTimesDone();
+
+            wallCall();
             //rig.bodyType = RigidbodyType2D.Static;
             Gravity.playerGravity.ToggleGravity(false);
             rig.velocity = Vector2.zero;

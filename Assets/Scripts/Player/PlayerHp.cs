@@ -15,7 +15,8 @@ public class PlayerHp : MonoBehaviour
     Vector3 SpawnPoint, RevivePoint;
     public static PlayerHp playerHp;
     public RestShrine restShrine;
-
+    public delegate void Call();
+    public event Call Damaged;
     private void Start()
     {
         Hp = maxHp;
@@ -29,6 +30,7 @@ public class PlayerHp : MonoBehaviour
     }
     public void TakeDamage(int damage, Vector3 dir)
     {
+        Damaged();
         Hp -= damage;
         if (Hp <= 0)
         {
@@ -43,6 +45,7 @@ public class PlayerHp : MonoBehaviour
     }
     public void TakeDamage(int damage, Vector3 dir, bool resp)
     {
+        Damaged();
         Hp -= damage;
         boost.StartBoost(-dir * boostMultiplyer);
 

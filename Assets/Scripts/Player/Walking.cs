@@ -18,7 +18,6 @@ public class Walking : MonoBehaviour
         PlayerInput.playerActions.Player.Walking.performed += SetWalkingDir;
         PlayerInput.playerActions.Player.Walking.canceled += zeroDir;
 
-        Gravity.playerGravity.groundCall += new Gravity.GroundCall(setDrag);
         rig = GetComponent<Rigidbody2D>();
     }
     void SetWalkingDir(InputAction.CallbackContext context)
@@ -52,16 +51,13 @@ public class Walking : MonoBehaviour
             //else if (rig.velocity.x != maxVelocity) rig.velocity = new Vector2(maxVelocity, rig.velocity.y);
         }
 
-        if ((walkingDir != Vector2.zero) && Mathf.Abs(rig.velocity.x) <= maxVelocity)
+        if ((walkingDir != Vector2.zero) && Mathf.Abs(rig.velocity.x) <= maxVelocity&&!Gravity.grounded)
         {
             AirDrag.PlayerDrag.SetDragPofile(drag, 0);
         }
     }
 
-    void setDrag()
-    {
-        AirDrag.PlayerDrag.SetDragPofile(drag, 0);
-    }
+
     void MoveHorizontaly(float acc)
     {
         float sign = acc / Mathf.Abs(acc);

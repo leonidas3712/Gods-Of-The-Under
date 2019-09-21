@@ -15,16 +15,16 @@ public class Charge : Ability
     Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
     public bool inputCheck, isWalled, striked, strikedFoe;
-    //soposed to fix disync in collision enter
+
     [SerializeField]
-    float curDamage;
-    public float ChargeMovmentSpeed, baseDamage = 2, knockBackMult = 1;
+    float drag;
+    public float ChargeMovmentSpeed, knockBackMult = 1;
     PlayerHp hp;
     Character_Controller charController;
     Boost boost;
     Throw throwAbility;
     Throw_Bow bow;
-    bool isDownDash;
+    bool isDownDash, wasWalled;
     public static Charge playerCharge;
     private void Awake()
     {
@@ -33,12 +33,12 @@ public class Charge : Ability
     private void Start()
     {
         PlayerInput.playerActions.Player.Charge.performed += CheckInput;
-
+        Character_Controller.controller.wallCall += ResetTimesDone;
+        Character_Controller.controller.wallCall += CancelInterval;
         Gravity.playerGravity.groundCall += new Gravity.GroundCall(ResetTimesDone);
-        input = "left shift";
+
         rig = GetComponent<Rigidbody2D>();
         cam = GameObject.FindGameObjectWithTag("MainCamera");
-        curDamage = baseDamage;
         hp = GetComponent<PlayerHp>();
         hitBox = transform.GetChild(0).gameObject;
         hitBox.SetActive(false);
@@ -63,9 +63,9 @@ public class Charge : Ability
         if (Input.GetMouseButtonDown(0)) inputCheck = true;
         timesDone++;
         Gravity.playerGravity.ToggleGravity(false);
-
+        AirDrag.PlayerDrag.SetDragPofile(drag, 0);
         AirDrag.dragActive = false;
-
+        wasWalled = false;
         //this segment will be changed after controller input will be implemented***
         aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
         aimDir = HelpfulFuncs.Norm1(aimDir - transform.position) * ChargeMovmentSpeed;
@@ -88,9 +88,9 @@ public class Charge : Ability
                     aimDir = new Vector3(0, ChargeMovmentSpeed, 0);
                 else
                     aimDir = new Vector3(0, -ChargeMovmentSpeed, 0);
-
             }
             GetComponent<Character_Controller>().unWall();
+            wasWalled = true;
         }
         rig.velocity = HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir;
         hitBox.SetActive(true);
@@ -107,14 +107,14 @@ public class Charge : Ability
             inputCheck = false;
             Gravity.playerGravity.ToggleGravity(true);
             transform.rotation = Quaternion.Euler(0, 0, 0);
-            rig.velocity *= 0.3f;
             GetComponent<Character_Controller>().stickToWall(wall);
         }
         else
         {
             Gravity.playerGravity.ToggleGravity(true);
-            rig.velocity *= 0.3f;
-
+            if (!wasWalled)
+                rig.velocity *= 0.3f;
+            else rig.velocity *= 0.6f;
             transform.rotation = Quaternion.Euler(0, 0, 0);
             if (striked)
             {
@@ -146,13 +146,7 @@ public class Charge : Ability
         }
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(rig.velocity.x, rig.velocity.y) * Mathf.Rad2Deg * -1);
     }
-    public override void Update()
-    {
-        base.Update();
-        aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
-        aimDir = HelpfulFuncs.Norm1(aimDir - transform.position);
-        print(Vector2.SignedAngle(aimDir, Vector2.right));
-    }
+
     public void hitBoxCall(Collision2D coll, bool parryActive)
     {
         if (AbilityOn)
@@ -171,8 +165,10 @@ public class Charge : Ability
             }
             if (coll.collider.tag == "foe" || coll.collider.tag == "hitBox")
             {
-                strike((Vector2)(coll.transform.position - transform.position) - Vector2.up * 1.8f);
+                strike((Vector2)(coll.transform.position - transform.position)- Vector2.up * 1.8f);
                 strikedFoe = true;
+                GameObject parryEffect = (GameObject)Instantiate(Resources.Load("blood"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
+                Destroy(parryEffect, 0.6f);
                 javlinStrike.Hit(coll.collider.gameObject);
                 ForceEnding();
                 return;
