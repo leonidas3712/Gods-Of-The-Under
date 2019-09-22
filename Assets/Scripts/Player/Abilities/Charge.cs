@@ -5,13 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Charge : Ability
 {
-
+    public static Charge playerCharge;
     Rigidbody2D rig;
     GameObject cam;
     GameObject hitBox;
     GameObject wall;
-    Vector3 aimDir, strikenFoeDir;
-    public Vector2 wallDiraction, bounceDir, preChargeVel;
+    Vector3 aimDir, strikenFoeDir,chargeDir;
+    Vector2 bounceDir;
+    public Vector2 wallDiraction;
     Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
     public bool inputCheck, isWalled, striked, strikedFoe;
@@ -25,7 +26,7 @@ public class Charge : Ability
     Throw throwAbility;
     Throw_Bow bow;
     bool isDownDash, wasWalled;
-    public static Charge playerCharge;
+
     private void Awake()
     {
         playerCharge = this;
@@ -56,7 +57,6 @@ public class Charge : Ability
     }
     public override void Action()
     {
-        preChargeVel = rig.velocity;
         striked = false;
         isDownDash = false;
         //Character_Controller.anim.SetBool("isCharging", true);
@@ -93,6 +93,7 @@ public class Charge : Ability
             wasWalled = true;
         }
         rig.velocity = HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir;
+        bounceDir = rig.velocity;
         hitBox.SetActive(true);
     }
 
@@ -100,28 +101,29 @@ public class Charge : Ability
     {
         hitBox.SetActive(false);
         AirDrag.dragActive = true;
-        //wall it up
+        Gravity.playerGravity.ToggleGravity(true);
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        
+        strikedFoe = false;
+        //Character_Controller.anim.SetBool("isCharging", false); 
+        if (!wasWalled)
+        {
+            rig.velocity *= 0.3f;
+        }
+        else
+        {
+            rig.velocity *= 0.6f;
+        }
         if (isWalled)
         {
             isWalled = false;
             inputCheck = false;
-            Gravity.playerGravity.ToggleGravity(true);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
             GetComponent<Character_Controller>().stickToWall(wall);
         }
-        else
+        if (striked)
         {
-            Gravity.playerGravity.ToggleGravity(true);
-            if (!wasWalled)
-                rig.velocity *= 0.3f;
-            else rig.velocity *= 0.6f;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (striked)
-            {
-                boost.StartBoost(-strikenFoeDir * knockBackMult);
-            }
-            strikedFoe = false;
-            //Character_Controller.anim.SetBool("isCharging", false);
+            boost.StartBoost(strikenFoeDir * knockBackMult);
         }
     }
     public override void WhileIsOn()
@@ -132,7 +134,7 @@ public class Charge : Ability
         {
             if (timeLeft < 0.05f)
             {
-                timer += 0.05f;
+                timer += 0.1f;
                 isDownDash = true;
             }
             if (isDownDash)
@@ -151,12 +153,15 @@ public class Charge : Ability
     {
         if (AbilityOn)
         {
+            bounceDir = ((Vector2)transform.position-coll.GetContact(0).point  + Vector2.up*0.5f);
+            //bounceDir = Vector2.Reflect(bounceDir, coll.GetContact(0).normal);
+
             if (parryActive)
             {
                 if (coll.collider.tag == "hitBox")
                 {
                     //((Vector2)(coll.transform.position - transform.position)-coll.GetContact(0).normal*30)
-                    strike((Vector2)(coll.transform.position - transform.position) - Vector2.up * 1.8f);
+                    strike(bounceDir);
                     GameObject parryEffect = (GameObject)Instantiate(Resources.Load("hitClash"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
                     Destroy(parryEffect, 0.6f);
                     ForceEnding();
@@ -165,7 +170,7 @@ public class Charge : Ability
             }
             if (coll.collider.tag == "foe" || coll.collider.tag == "hitBox")
             {
-                strike((Vector2)(coll.transform.position - transform.position)- Vector2.up * 1.8f);
+                strike(bounceDir);
                 strikedFoe = true;
                 GameObject parryEffect = (GameObject)Instantiate(Resources.Load("blood"), coll.GetContact(0).point, Quaternion.Euler(180, 0, 0));
                 Destroy(parryEffect, 0.6f);

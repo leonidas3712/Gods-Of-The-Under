@@ -276,7 +276,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.9669811, g: 0.9981209, b: 1, a: 1}
+  m_Color: {r: 0.55602527, g: 0.990566, b: 0.990566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -301,7 +301,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 7
+  m_GravityScale: 6.5
   m_Material: {fileID: 0}
   m_Interpolate: 2
   m_SleepingMode: 0
@@ -371,8 +371,6 @@ MonoBehaviour:
   canInterrupt: 1
   isInterruptable: 1
   wallDiraction: {x: 0, y: 0}
-  bounceDir: {x: 0, y: 0}
-  preChargeVel: {x: 0, y: 0}
   inputCheck: 0
   isWalled: 0
   striked: 0
@@ -597,7 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 2.3
-  maxVelocity: 10
+  maxVelocity: 12
   drag: 1
 --- !u!114 &6162523230734184545
 MonoBehaviour:

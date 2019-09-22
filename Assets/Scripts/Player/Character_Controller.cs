@@ -59,11 +59,6 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-    void OnCollisionStay2D(Collision2D coll)
-    {
-        if (coll.collider.tag == "foe") playerHp.TakeDamage(1, HelpfulFuncs.Norm1(coll.collider.transform.position - transform.position));
-
-    }
     private void Update()
     {
         if (walled)
