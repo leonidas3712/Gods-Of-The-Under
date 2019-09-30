@@ -22,6 +22,7 @@ public class Character_Controller : MonoBehaviour
     CallBack callBack;
     AirJump airJump;
     Jump_PreCharge preJump;
+    WallJump wallJump;
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
 
@@ -53,6 +54,7 @@ public class Character_Controller : MonoBehaviour
         airJump = GetComponent<AirJump>();
         bow = GetComponent<Throw_Bow>();
         preJump = Jump_PreCharge.playerJump;
+        wallJump = WallJump.playerJump;
         foreach (Ability ability in playerAbilities)
         {
             ability.triggerInterruptions += new Ability.InterruptionEvent(Interruptions);
@@ -82,8 +84,9 @@ public class Character_Controller : MonoBehaviour
             if (!boost.AbilityOn && !bow.AbilityOn)
             {
                 walking.Walk();
-                if (jump.Condition()) jump.TriggerAbility();
                 if (preJump.Condition()) preJump.TriggerAbility();
+                if (wallJump.Condition()) wallJump.TriggerAbility();
+                if (jump.Condition()) jump.TriggerAbility();
                 if (airJump.Condition() && !jump.AbilityOn) airJump.TriggerAbility();
             }
             if (throwAbility.Condition()) throwAbility.TriggerAbility();

@@ -73,6 +73,7 @@ public class Throw_Bow : Ability
         timer = 0;
         timer = Time.time + intervals;
         AbilityOn = false;
+        timesDone = 1;
     }
     public override void Finish()
     {

@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 6162523230734184571}
   - component: {fileID: 6162523230734184568}
   - component: {fileID: 4846780981317420186}
+  - component: {fileID: 6472081521670687343}
   - component: {fileID: 4869401992123479066}
   - component: {fileID: 6162523230734184566}
   - component: {fileID: 6162523230734184567}
@@ -437,8 +438,32 @@ MonoBehaviour:
   animator: {fileID: 0}
   canInterrupt: 0
   isInterruptable: 1
-  maxJumpSpeed: 28
+  maxJumpSpeed: 35
   drag: 0.05
+  jumped: 0
+--- !u!114 &6472081521670687343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162523230734184334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9753c696793ed14e9c76fb688a000d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 0.23
+  intervals: 0
+  timesDone: 0
+  maxTimes: 1
+  AbilityOn: 0
+  input: 
+  animator: {fileID: 0}
+  canInterrupt: 1
+  isInterruptable: 1
+  jumpSpeed: 20
+  drag: 0.12
   jumped: 0
 --- !u!114 &4869401992123479066
 MonoBehaviour:
