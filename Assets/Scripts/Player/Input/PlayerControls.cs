@@ -80,6 +80,14 @@ public class PlayerControls : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""747f98e2-7a1c-41ef-b485-0ea17ca8083e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -269,6 +277,17 @@ public class PlayerControls : IInputActionCollection
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63364296-2308-4587-b04a-aa66455408c3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard_Mouse"",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -296,6 +315,7 @@ public class PlayerControls : IInputActionCollection
         m_Player_AimDirY = m_Player.GetAction("AimDirY");
         m_Player_Walking = m_Player.GetAction("Walking");
         m_Player_Interact = m_Player.GetAction("Interact");
+        m_Player_Heal = m_Player.GetAction("Heal");
     }
 
     ~PlayerControls()
@@ -353,6 +373,7 @@ public class PlayerControls : IInputActionCollection
     private readonly InputAction m_Player_AimDirY;
     private readonly InputAction m_Player_Walking;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Heal;
     public struct PlayerActions
     {
         private PlayerControls m_Wrapper;
@@ -365,6 +386,7 @@ public class PlayerControls : IInputActionCollection
         public InputAction @AimDirY => m_Wrapper.m_Player_AimDirY;
         public InputAction @Walking => m_Wrapper.m_Player_Walking;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Heal => m_Wrapper.m_Player_Heal;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -398,6 +420,9 @@ public class PlayerControls : IInputActionCollection
                 Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                Heal.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeal;
+                Heal.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeal;
+                Heal.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeal;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -426,6 +451,9 @@ public class PlayerControls : IInputActionCollection
                 Interact.started += instance.OnInteract;
                 Interact.performed += instance.OnInteract;
                 Interact.canceled += instance.OnInteract;
+                Heal.started += instance.OnHeal;
+                Heal.performed += instance.OnHeal;
+                Heal.canceled += instance.OnHeal;
             }
         }
     }
@@ -458,5 +486,6 @@ public class PlayerControls : IInputActionCollection
         void OnAimDirY(InputAction.CallbackContext context);
         void OnWalking(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnHeal(InputAction.CallbackContext context);
     }
 }

@@ -12,7 +12,8 @@ public class PlayerHp : MonoBehaviour
     Text hpText;
     Boost boost;
     public float boostMultiplyer = 1;
-    Vector3 SpawnPoint, RevivePoint;
+    
+    public Vector3 SpawnPoint, RevivePoint;
     public static PlayerHp playerHp;
     public RestShrine restShrine;
     public delegate void Call();
@@ -28,45 +29,25 @@ public class PlayerHp : MonoBehaviour
         syncHp();
         playerHp = this;
     }
+
     public void TakeDamage(int damage, Vector3 dir)
     {
         Damaged();
+        Heal.playerHeal.TakeDamage(damage, dir);
         Hp -= damage;
+        syncHp();
         if (Hp <= 0)
         {
-            Die();
+            Reincarnate.playerReinc.TriggerAbility();
             return;
         }
         boost.StartBoost(-dir * boostMultiplyer);
         if (Character_Controller.walled)
             cont.unWall();
         invuln.TriggerAbility();
-        syncHp();
+        
     }
-    public void TakeDamage(int damage, Vector3 dir, bool resp)
-    {
-        Damaged();
-        Hp -= damage;
-        boost.StartBoost(-dir * boostMultiplyer);
-
-        if (Character_Controller.walled)
-            cont.unWall();
-        if (!Character_Controller.javlinOn)
-        {
-            Character_Controller.javlinOn = true;
-            Throw.thrown = false;
-            Destroy(GameObject.FindGameObjectWithTag("javlin"));
-        }
-        if (Hp <= 0)
-        {
-            Die();
-            return;
-        }
-        respawn(SpawnPoint);
-        syncHp();
-    }
-
-    void Die()
+    public void Die()
     {
         if (!Character_Controller.javlinOn)
         {
@@ -78,7 +59,7 @@ public class PlayerHp : MonoBehaviour
         Revive();
     }
 
-    public void Heal(int points)
+    public void HealHp(int points)
     {
         if (Hp + points <= maxHp)
         {
@@ -87,8 +68,17 @@ public class PlayerHp : MonoBehaviour
         else Hp = maxHp;
         syncHp();
     }
-    void respawn(Vector3 point)
+    public void respawn(Vector3 point)
     {
+        invuln.ForceEnding();
+        if (Character_Controller.walled)
+            cont.unWall();
+        if (!Character_Controller.javlinOn)
+        {
+            Character_Controller.javlinOn = true;
+            Throw.thrown = false;
+            Destroy(GameObject.FindGameObjectWithTag("javlin"));
+        }
         transform.position = point;
         rig.velocity = Vector2.zero;
         print("respawn");
@@ -121,7 +111,7 @@ public class PlayerHp : MonoBehaviour
             SpawnPoint = coll.transform.position;
         }
     }
-    void syncHp()
+    public void syncHp()
     {
         hpText.text = "";
         for (int i = 0; i < Hp; i++)

@@ -13,11 +13,13 @@ public class Spikes : MonoBehaviour {
         }
         if (victem.GetComponent<PlayerHp>())
         {
-            victem.GetComponent<PlayerHp>().TakeDamage(1, HelpfulFuncs.Norm1(coll.GetContact(0).point - (Vector2)victem.transform.position),true);
+            victem.GetComponent<PlayerHp>().TakeDamage(1, HelpfulFuncs.Norm1(coll.GetContact(0).point - (Vector2)victem.transform.position));
+            victem.GetComponent<PlayerHp>().respawn(victem.GetComponent<PlayerHp>().SpawnPoint);
         }
         if(victem.GetComponentInParent<PlayerHp>())
         {
-            victem.GetComponentInParent<PlayerHp>().TakeDamage(1, HelpfulFuncs.Norm1(coll.GetContact(0).point - (Vector2)victem.transform.position), true);
+            victem.GetComponentInParent<PlayerHp>().TakeDamage(1, HelpfulFuncs.Norm1(coll.GetContact(0).point - (Vector2)victem.transform.position));
+            victem.GetComponentInParent<PlayerHp>().respawn(victem.GetComponentInParent<PlayerHp>().SpawnPoint);
         }
         else if (victem.tag == "javlin")
         {

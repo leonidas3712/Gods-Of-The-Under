@@ -15,11 +15,10 @@ public class Charge : Ability
     public Vector2 wallDiraction;
     Strike javlinStrike;
     //whether the charge input where pressed the intire charge or not
-    public bool inputCheck, isWalled, striked, strikedFoe;
+    bool inputCheck, isWalled, striked, strikedFoe;
 
     [SerializeField]
-    float drag;
-    public float ChargeMovmentSpeed, knockBackMult = 1;
+    float drag, ChargeMovmentSpeed, knockBackMult, VelocityMultiplyer,minVelocityAddition;
     PlayerHp hp;
     Character_Controller charController;
     Boost boost;
@@ -68,7 +67,7 @@ public class Charge : Ability
         wasWalled = false;
         //this segment will be changed after controller input will be implemented***
         aimDir = cam.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
-        aimDir = HelpfulFuncs.Norm1(aimDir - transform.position) * ChargeMovmentSpeed;
+        aimDir = HelpfulFuncs.Norm1(aimDir - transform.position);
         //***
 
         //if the charge is set downwards
@@ -77,7 +76,9 @@ public class Charge : Ability
             if (Gravity.grounded)
             {
                 //take the y value off the direction vector
-                aimDir = new Vector3(aimDir.x, 0, 0);
+                if (aimDir.x >= 0) aimDir.x = 1;
+                else aimDir.x = -1;
+                 aimDir = new Vector3(aimDir.x, 0, 0);
             }
         //if you are trying to charge into a wall 
         if (Character_Controller.walled)
@@ -85,16 +86,27 @@ public class Charge : Ability
             if ((aimDir.x > 0 && wallDiraction == Vector2.left) || (aimDir.x < 0 && wallDiraction == Vector2.right))
             {
                 if (aimDir.y >= 0)
-                    aimDir = new Vector3(0, ChargeMovmentSpeed, 0);
+                    aimDir = new Vector3(0, 1, 0);
                 else
-                    aimDir = new Vector3(0, -ChargeMovmentSpeed, 0);
+                    aimDir = new Vector3(0, -1, 0);
             }
             GetComponent<Character_Controller>().unWall();
             wasWalled = true;
         }
-        rig.velocity = HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir;
+
+        rig.velocity = (Vector2)(HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir*(ChargeMovmentSpeed+CalculateVelocityAddition()));
         bounceDir = rig.velocity;
         hitBox.SetActive(true);
+    }
+
+    float CalculateVelocityAddition()
+    {
+        if (rig.velocity == Vector2.zero) return 0;
+        float mag = 1 - Vector2.Angle(rig.velocity,aimDir)/90;
+        if (mag < 0) mag = 0;
+        mag *= rig.velocity.magnitude*VelocityMultiplyer;
+        if (mag > minVelocityAddition) return mag;
+        return 0;
     }
 
     public override void Finish()

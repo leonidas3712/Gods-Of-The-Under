@@ -63,10 +63,14 @@ public class Character_Controller : MonoBehaviour
 
     private void Update()
     {
-        if (walled)
-            wallControls();
-        else
-            mainControl();
+        if (!Reincarnate.playerReinc.AbilityOn)
+        {
+            if (walled)
+                wallControls();
+            else
+                mainControl();
+        }
+
 
         /*if (rig.velocity.y > 0)
             anim.SetInteger("vertiVel", 1);

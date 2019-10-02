@@ -47,9 +47,9 @@ public class Jump_PreCharge : NonTimedAbility
             jumpSpeed = maxJumpSpeed * ((length - timeLeft) / length);
             if (jumpSpeed > maxJumpSpeed) jumpSpeed = maxJumpSpeed;
             if (Input.GetKey("a"))
-                rig.velocity = new Vector2(-Walking.playerWalking.maxVelocity - 7, jumpSpeed - 7f);
+                rig.velocity = new Vector2(-Walking.playerWalking.groundMaxVelocity - 7, jumpSpeed - 7f);
             else if (Input.GetKey("d"))
-                rig.velocity = new Vector2(Walking.playerWalking.maxVelocity + 7, jumpSpeed - 7f);
+                rig.velocity = new Vector2(Walking.playerWalking.groundMaxVelocity + 7, jumpSpeed - 7f);
             else
                 rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
             AirDrag.PlayerDrag.SetDragPofile(drag, 0);

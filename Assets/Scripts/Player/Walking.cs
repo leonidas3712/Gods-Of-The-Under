@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 
 public class Walking : MonoBehaviour
 {
-    public float acceleration = 2, maxVelocity = 7, drag = 1;
+    public float groundAccelartion, airAccelartion, airMaxVelocity, groundMaxVelocity, drag;
+
+    float acceleration = 2,maxVelocity;
     Rigidbody2D rig;
     public static Walking playerWalking;
     Vector2 walkingDir;
@@ -57,7 +59,14 @@ public class Walking : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Gravity.grounded) acceleration = groundAccelartion;
+        else acceleration = airAccelartion;
+        if (Gravity.grounded) maxVelocity = groundMaxVelocity;
+        else maxVelocity = airMaxVelocity;
 
+    }
     void MoveHorizontaly(float acc)
     {
         float sign = acc / Mathf.Abs(acc);

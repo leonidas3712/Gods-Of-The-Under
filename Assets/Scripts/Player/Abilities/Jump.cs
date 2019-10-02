@@ -34,9 +34,9 @@ public class Jump : Ability
         timesDone++;
         jumped = true;
         if (Input.GetKey("a"))
-            rig.velocity = new Vector2(-Walking.playerWalking.maxVelocity - 2, jumpSpeed - 2f);
+            rig.velocity = new Vector2(-Walking.playerWalking.groundMaxVelocity - 2, jumpSpeed - 2f);
         else if (Input.GetKey("d"))
-            rig.velocity = new Vector2(Walking.playerWalking.maxVelocity + 2, jumpSpeed - 2f);
+            rig.velocity = new Vector2(Walking.playerWalking.groundMaxVelocity + 2, jumpSpeed - 2f);
         else
             rig.velocity = new Vector2(rig.velocity.x, jumpSpeed);
         AirDrag.PlayerDrag.SetDragPofile(drag, 0);
