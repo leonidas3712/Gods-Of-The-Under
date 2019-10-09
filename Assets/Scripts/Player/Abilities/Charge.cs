@@ -10,7 +10,7 @@ public class Charge : Ability
     GameObject cam;
     GameObject hitBox;
     GameObject wall;
-    Vector3 aimDir, strikenFoeDir,chargeDir;
+    Vector3 aimDir, strikenFoeDir, chargeDir;
     Vector2 bounceDir;
     public Vector2 wallDiraction;
     Strike javlinStrike;
@@ -18,7 +18,7 @@ public class Charge : Ability
     bool inputCheck, isWalled, striked, strikedFoe;
 
     [SerializeField]
-    float drag, ChargeMovmentSpeed, knockBackMult, VelocityMultiplyer,minVelocityAddition;
+    float drag, ChargeMovmentSpeed, knockBackMult, VelocityMultiplyer, minVelocityAddition;
     PlayerHp hp;
     Character_Controller charController;
     Boost boost;
@@ -54,6 +54,12 @@ public class Charge : Ability
         aimDir = context.ReadValue<Vector2>();
         print(aimDir);
     }
+    public override void CheckInput(InputAction.CallbackContext context)
+    {
+        if (Reincarnate.playerReinc)
+            if (!Reincarnate.playerReinc.AbilityOn)
+                base.CheckInput(context);
+    }
     public override void Action()
     {
         striked = false;
@@ -78,7 +84,7 @@ public class Charge : Ability
                 //take the y value off the direction vector
                 if (aimDir.x >= 0) aimDir.x = 1;
                 else aimDir.x = -1;
-                 aimDir = new Vector3(aimDir.x, 0, 0);
+                aimDir = new Vector3(aimDir.x, 0, 0);
             }
         //if you are trying to charge into a wall 
         if (Character_Controller.walled)
@@ -94,7 +100,7 @@ public class Charge : Ability
             wasWalled = true;
         }
 
-        rig.velocity = (Vector2)(HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir*(ChargeMovmentSpeed+CalculateVelocityAddition()));
+        rig.velocity = (Vector2)(HelpfulFuncs.Norm1(rig.velocity) * 2 + aimDir * (ChargeMovmentSpeed + CalculateVelocityAddition()));
         bounceDir = rig.velocity;
         hitBox.SetActive(true);
     }
@@ -102,9 +108,9 @@ public class Charge : Ability
     float CalculateVelocityAddition()
     {
         if (rig.velocity == Vector2.zero) return 0;
-        float mag = 1 - Vector2.Angle(rig.velocity,aimDir)/90;
+        float mag = 1 - Vector2.Angle(rig.velocity, aimDir) / 90;
         if (mag < 0) mag = 0;
-        mag *= rig.velocity.magnitude*VelocityMultiplyer;
+        mag *= rig.velocity.magnitude * VelocityMultiplyer;
         if (mag > minVelocityAddition) return mag;
         return 0;
     }
@@ -116,7 +122,7 @@ public class Charge : Ability
         Gravity.playerGravity.ToggleGravity(true);
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        
+
         strikedFoe = false;
         //Character_Controller.anim.SetBool("isCharging", false); 
         if (!wasWalled)
@@ -165,7 +171,7 @@ public class Charge : Ability
     {
         if (AbilityOn)
         {
-            bounceDir = ((Vector2)transform.position-coll.GetContact(0).point  + Vector2.up*0.5f);
+            bounceDir = ((Vector2)transform.position - coll.GetContact(0).point + Vector2.up * 0.5f);
             //bounceDir = Vector2.Reflect(bounceDir, coll.GetContact(0).normal);
 
             if (parryActive)

@@ -30,7 +30,6 @@ public class Throw_Bow : Ability
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rig = GetComponent<Rigidbody2D>();
         boost = GetComponent<Boost>();
-        maxTimes = 1;
     }
 
     public override bool Condition()
@@ -73,7 +72,7 @@ public class Throw_Bow : Ability
         timer = 0;
         timer = Time.time + intervals;
         AbilityOn = false;
-        timesDone = 1;
+        timesDone ++;
     }
     public override void Finish()
     {
@@ -108,7 +107,7 @@ public class Throw_Bow : Ability
 
         //************************************************throw the javlin part************************************************
         Character_Controller.javlinOn = false;
-        timesDone = 1;
+        timesDone ++;
         //spawn the spear
         javlin = (GameObject)Instantiate(Resources.Load("prototype"), pos, Quaternion.Euler(0, 0, Mathf.Atan2(mouse.x, mouse.y) * Mathf.Rad2Deg * -1));
         javlin.GetComponent<Rigidbody2D>().velocity = mouse * flight_speed;

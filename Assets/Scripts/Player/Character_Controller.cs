@@ -23,8 +23,10 @@ public class Character_Controller : MonoBehaviour
     AirJump airJump;
     Jump_PreCharge preJump;
     WallJump wallJump;
+    Reincarnate reinc;
     Vector3 wallOffset, correctPosition;
     GameObject stuckedOnWall, hitbox, targetLink;
+
 
     float stateNormTime;
     bool suckedLife;
@@ -55,6 +57,7 @@ public class Character_Controller : MonoBehaviour
         bow = GetComponent<Throw_Bow>();
         preJump = Jump_PreCharge.playerJump;
         wallJump = WallJump.playerJump;
+        reinc = Reincarnate.playerReinc;
         foreach (Ability ability in playerAbilities)
         {
             ability.triggerInterruptions += new Ability.InterruptionEvent(Interruptions);
@@ -99,6 +102,7 @@ public class Character_Controller : MonoBehaviour
         }
         if (javlinOn && charge.Condition())
             charge.TriggerAbility();
+        if (reinc.Condition()) reinc.TriggerAbility();
     }
     void Interruptions()
     {

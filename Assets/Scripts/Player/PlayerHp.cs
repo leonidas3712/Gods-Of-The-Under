@@ -12,12 +12,16 @@ public class PlayerHp : MonoBehaviour
     Text hpText;
     Boost boost;
     public float boostMultiplyer = 1;
-    
+
     public Vector3 SpawnPoint, RevivePoint;
     public static PlayerHp playerHp;
     public RestShrine restShrine;
     public delegate void Call();
     public event Call Damaged;
+    private void Awake()
+    {
+        playerHp = this;
+    }
     private void Start()
     {
         Hp = maxHp;
@@ -27,10 +31,10 @@ public class PlayerHp : MonoBehaviour
         hpText = GameObject.Find("hp").GetComponent<Text>();
         boost = GetComponent<Boost>();
         syncHp();
-        playerHp = this;
+
     }
 
-    public void TakeDamage(int damage, Vector3 dir)
+    public void TakeDamage(int damage, Vector3 dir, bool activateInvuln = true)
     {
         Damaged();
         Heal.playerHeal.TakeDamage(damage, dir);
@@ -38,17 +42,19 @@ public class PlayerHp : MonoBehaviour
         syncHp();
         if (Hp <= 0)
         {
-            Reincarnate.playerReinc.TriggerAbility();
+            Die();
             return;
         }
         boost.StartBoost(-dir * boostMultiplyer);
         if (Character_Controller.walled)
             cont.unWall();
-        invuln.TriggerAbility();
-        
+        if (activateInvuln)
+            invuln.TriggerAbility();
+
     }
     public void Die()
     {
+        Reincarnate.playerReinc.Interrupt();
         if (!Character_Controller.javlinOn)
         {
             Character_Controller.javlinOn = true;

@@ -17,12 +17,9 @@ public class ReincarnationJavlin : MonoBehaviour
         //hited an enemy
         if (coll.collider.tag == "foe" && flying)
         {
-            if (coll.gameObject.GetComponent<HP>().Hp < 3)
-            {
-                Reincarnate.playerReinc.Hit(coll.transform.position);
-                coll.gameObject.GetComponent<HP>().TakeDamage(1000,Vector2.zero);
-            }
-            
+            Reincarnate.playerReinc.Hit(transform.position);
+            coll.gameObject.GetComponent<HP>().TakeDamage(1, Vector2.zero);
+            PlayerHp.playerHp.HealHp(1);
         }
         Destroy(gameObject);
     }

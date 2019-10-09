@@ -76,6 +76,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Reincarnetion",
+                    "type": "Button",
+                    "id": "5f8a7663-f079-4c8c-89e4-ac5d16ada39d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -274,6 +282,17 @@
                     "processors": "",
                     "groups": "Keyboard_Mouse",
                     "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "23b54a67-9bec-4df7-8090-f9b19dd356e3",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard_Mouse",
+                    "action": "Reincarnetion",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

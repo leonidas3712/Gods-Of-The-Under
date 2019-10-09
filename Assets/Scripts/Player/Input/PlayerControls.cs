@@ -88,6 +88,14 @@ public class PlayerControls : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reincarnetion"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f8a7663-f079-4c8c-89e4-ac5d16ada39d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -288,6 +296,17 @@ public class PlayerControls : IInputActionCollection
                     ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23b54a67-9bec-4df7-8090-f9b19dd356e3"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard_Mouse"",
+                    ""action"": ""Reincarnetion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -316,6 +335,7 @@ public class PlayerControls : IInputActionCollection
         m_Player_Walking = m_Player.GetAction("Walking");
         m_Player_Interact = m_Player.GetAction("Interact");
         m_Player_Heal = m_Player.GetAction("Heal");
+        m_Player_Reincarnetion = m_Player.GetAction("Reincarnetion");
     }
 
     ~PlayerControls()
@@ -374,6 +394,7 @@ public class PlayerControls : IInputActionCollection
     private readonly InputAction m_Player_Walking;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Heal;
+    private readonly InputAction m_Player_Reincarnetion;
     public struct PlayerActions
     {
         private PlayerControls m_Wrapper;
@@ -387,6 +408,7 @@ public class PlayerControls : IInputActionCollection
         public InputAction @Walking => m_Wrapper.m_Player_Walking;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Heal => m_Wrapper.m_Player_Heal;
+        public InputAction @Reincarnetion => m_Wrapper.m_Player_Reincarnetion;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -423,6 +445,9 @@ public class PlayerControls : IInputActionCollection
                 Heal.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeal;
                 Heal.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeal;
                 Heal.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeal;
+                Reincarnetion.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReincarnetion;
+                Reincarnetion.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReincarnetion;
+                Reincarnetion.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReincarnetion;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -454,6 +479,9 @@ public class PlayerControls : IInputActionCollection
                 Heal.started += instance.OnHeal;
                 Heal.performed += instance.OnHeal;
                 Heal.canceled += instance.OnHeal;
+                Reincarnetion.started += instance.OnReincarnetion;
+                Reincarnetion.performed += instance.OnReincarnetion;
+                Reincarnetion.canceled += instance.OnReincarnetion;
             }
         }
     }
@@ -487,5 +515,6 @@ public class PlayerControls : IInputActionCollection
         void OnWalking(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
+        void OnReincarnetion(InputAction.CallbackContext context);
     }
 }

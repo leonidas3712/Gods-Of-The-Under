@@ -8,16 +8,21 @@ public class Reincarnate : Ability
     Rigidbody2D rig;
     public GameObject javlin;
     public static Reincarnate playerReinc;
+    bool thrown;
     [SerializeField]
     Camera cam;
     [SerializeField]
     float flight_speed = 20;
     Vector3 mouse;
+    private void Awake()
+    {
+        playerReinc = this;
+    }
     private void Start()
     {
-        PlayerInput.playerActions.Player.Throw.performed += Hurl;
+        PlayerInput.playerActions.Player.Reincarnetion.performed += CheckInput;
+        PlayerInput.playerActions.Player.Charge.performed += Hurl;
         rig = GetComponent<Rigidbody2D>();
-        playerReinc = this;
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
     public override void Action()
@@ -28,8 +33,14 @@ public class Reincarnate : Ability
             Character_Controller.javlinOn = true;
             Throw_Bow.thrown = false;
             Destroy(GameObject.FindGameObjectWithTag("javlin"));
-            
         }
+    }
+    public void Hit(Vector3 targetPosition)
+    {
+        transform.position = targetPosition;
+        Charge.playerCharge.ResetTimesDone();
+        Throw_Bow.playerThrow_Bow.ResetTimesDone();
+        ForceEnding();
     }
     public override void Interrupt()
     {
@@ -38,20 +49,15 @@ public class Reincarnate : Ability
         AbilityOn = false;
         rig.bodyType = RigidbodyType2D.Dynamic;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        PlayerHp.playerHp.HealHp(1);
-        rig.velocity = Vector2.up * 3;
-    }
-    public void Hit(Vector3 targetPosition)
-    {
-        Interrupt();
-        transform.position = targetPosition;
-        Charge.playerCharge.ResetTimesDone();
+        thrown = false;
     }
     public override void Finish()
     {
-        PlayerHp.playerHp.Die();
+        thrown = false;
         rig.bodyType = RigidbodyType2D.Dynamic;
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        rig.velocity = Vector2.up * 3;
+        PlayerHp.playerHp.TakeDamage(1, Vector3.zero, false);
     }
     public override void WhileIsOn()
     {
@@ -63,7 +69,8 @@ public class Reincarnate : Ability
 
     void Hurl(InputAction.CallbackContext con)
     {
-        if (!AbilityOn) return;
+        if (!AbilityOn || thrown) return;
+        thrown = true;
         mouse = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - cam.transform.position.z));
         Vector3 pos = transform.position;
         //will be changed in controller input
