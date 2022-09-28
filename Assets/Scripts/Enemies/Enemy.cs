@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         rig = GetComponent<Rigidbody2D>();
         hp = GetComponent<HP>();
-        layerMask = ~(LayerMask.GetMask("Enemies"));
+        layerMask = ~(LayerMask.GetMask("Enemies", "Ignore Raycast"));
     }
 
     public virtual void Move(Vector3 dir)

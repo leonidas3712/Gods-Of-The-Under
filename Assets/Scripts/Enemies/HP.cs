@@ -32,7 +32,7 @@ public class HP : MonoBehaviour
     public void KnockBack(Vector3 dir)
     {
         KnockBack_On = true;
-        rig.gravityScale = 0;
+        //rig.gravityScale = 0;
         timer = Time.time + KnockBack_Length;
         rig.velocity = dir * KnockBack_Strength;
     }
@@ -41,7 +41,7 @@ public class HP : MonoBehaviour
         if (timer <= Time.time && KnockBack_On)
         {
             //starts slowing down
-            rig.gravityScale = 6;
+            //rig.gravityScale = 6;
             if (rig.velocity.x > 0)
                 rig.velocity = new Vector2(rig.velocity.x - 0.8f, rig.velocity.y);
             else
