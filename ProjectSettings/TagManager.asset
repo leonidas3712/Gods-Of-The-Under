@@ -9,6 +9,8 @@ TagManager:
   - RevivePoint
   - camPoint
   - hitBox
+  - javlin
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - 
   - Player
   - Enemies
-  - 
-  - 
-  - 
+  - groundChecker
+  - IgnorePlayer
+  - backgrond
   - 
   - 
   - 
