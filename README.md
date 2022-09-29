@@ -8,26 +8,23 @@ playable here https://omridahary.itch.io/gods-of-the-under-demo
 
 here is a gdd i wrote back in 2019:
 
-GDD: Gods of The Under(gotu)
+# GDD: Gods of The Under(gotu)
 
-Overview:
+### Overview:
 Genre: souls like, Metroidvania/ HK-like
 Briefly – the game is 2d side view open world platformer where the player explores the game while solving puzzles and fighting enemies. The key here is exploration. The player plays the character of Josie (her name will not be mentioned in the game, it’s for the use of the developers), a girl who woke up underground with no memories and now is somehow connected with a spear (or a fork or trident or lance, to be decided). the spear gives josie certain supernatural abilities such as the dash (the main attack of the game) and taking other creatures life force (to be named) and reincarnate in shrines (save points of sorts) on death. Throughout the game josie will explore the game world, its secrets and her own.
 
-The game feel and flow:
-Exploration:
+### The game feel and flow:
+#### Exploration:
 The game main objective is to make the player experience exploration, discovery and the satisfaction of overcoming challenges by themself. Every aspect of the game as described in this document is designed and will be designed to project these feelings to the player. 
 One of the main devices that will be used to get the above effect is actually things that won’t be done. We’ll avoid showing direct tutorials, putting waypoints on maps, showing full maps from the beginning of the game and basically any sort of direct external instruction given to the player. This is meant to increase the feeling of immerssiveness, because all inputs given to the player will come from the game world itself, mostly hidden in the level design or the art or soundtrack (the player will be shown the basic controls and of course will have access to controls settings which they can change).
 Another device is: constantly erasing the difference between game mechanics and world/story facts. Meaning every game mechanic/option will be implemented with an “excuse” for its existence story wise and will be somehow reinforced or even used as a story element throughout the game. For example: the player gains the ability to have a second after their death in which they can throw the spear (will be explained later on) at an enemy and use said enemy’s life force to reincarnate in the enemy’s position. This will be used both as a combat mechanic and as a puzzle solving tool (the change in position) and to unlock a secret ending which will be explained later.
 The player will be dropped to the world and could move around it to the limits of their abilities only. While exploring the map the player will find new abilities that will allow them to navigate to areas that weren’t reachable before. their motivation to move forward will not be set with any official objective (no quest list) but with small stimulations like a npc voice calling from the edge of the level. By continuously putting interesting encounters such as new npcs, collectables (for upgrades and what not), lore pieces and bosses the player will simply develop an urge to explore the game (that and the obvious itch to overcome challenges such as that puzzles in the game(platforming)).  Of course, all of these will be parts of the whole, meaning they will be connected or follow the same style and theme, not just random cool stuff. And overall there will be a story and an ending to follow and look to progress (explained later on).
 
-Combat:
-The combat will be intentional, hard and fast. Every attack the player won’t evade will come with a great price (to their health) which means the player will have to come up with tactics for a fight and not just rush head forward. 
-Josie herself will have the feel of a feather, a sharp feather. She will feel light but her dash will be fast and precise.
 
-Gameplay and mechanics:
+### Gameplay and mechanics:
 
-main mechanics:
+#### main mechanics:
 josie can walk in horizontally and jump. The longer the jump button is pressed the higher she will reach.
 Dash – a fast movement in a certain direction (360), aimed by mouse or analog stick. Dash is also the main attack and will inflict damage to enemies on hit. At least at the beginning the player could dash only once without hitting the ground but can gain another dash midair in certain ways. 
 dash will be recharged (still with intervals between each dash) after:
@@ -47,21 +44,21 @@ Reincarnate – the player throws the spear on an enemy; the enemy dies and the 
 Option 1: the player gets a second after their death to preform a throw and reincarnate.
 Option 2: reincarnation will happen when the spear is thrown on an enemy with low health
 
-Combat:
+### Combat:
 Combat in GOTU will be hard, thoughtful, intentional, fast, airborne (explained in this section) and fluid.  The dash itself (the main attack) is fast and has a wide range of movement (every direction), having it recharge after every hitting exchange with the enemy (as long as the player doesn’t get hit) and have a little knock back from each blow(either parry or hit) allows the player to run the battle mainly airborne. Those also make the flow of the battle, well… fluid. After every move another one can be made. That being said there are certain intervals between each dash so if the player tries to just spam dash, they are bound to get hit within the intervals. Enemies will deal a lot of damage to the player so they will need to time their moves well. 
 There will be a great verity of enemies, not necessarily sophisticated enemies but some that could be put together to create challenges. From a simple one that can only fly around randomly to a foe with a weapon that has an attack pattern that could be performed in 3 directions (up and sideways).
 
 
-Platforming/Puzzles: 
+### Platforming/Puzzles: 
 The game will use the navigational qualities of all the main mechanics (from last section) combined with enemies in key points. There will be a mixture between precision and control puzzles and thinking puzzles (not much I can say without showing examples).
 
-Progression:
+### Progression:
 As been said, this is a Metroidvania. It means that the exploration order of the map is not linear, the player goes back a lot to places they has already been, to discover new stuff that opened while exploring somewhere else. For example, a ledge that was too high to get to in the first time the player passed by it, will be accessible later after unlocking Throw or Wall Stick. 
 In these places that are unlocked in time we will put collectibles, npcs, puzzles and even whole areas.
 The entire game map will consist of areas, that will consist of rooms that will consist of encounters. Encounters are puzzles or fights or npcs. A room can have multiply encounters within and encounters can be mixed within themselves. each area will have a certain style (music, art, enemies, even puzzles). After completing encounter once, somehow a way of passing through the encounter without actually solving it each time will open, either by a change in the encounter itself or by a power the player gain that render the encounter skippable or easy or maybe because once the solution is known the puzzle is easy.
 Each time the player reaches a shrine(checkpoint) and interact with it, enemies on the map will respawn and their life will be maxed out. (darksouls) on death the player will respawn in the last shrine they interacted with. Shrines can be interacted with infinite times.
 
-Possible upgrades: 
+### Possible upgrades: 
 If there were upgrades to find around the map (not new abilities but things that increases the player power) they would be upgrades that increases the skill cap not just increases their attack damage output. That means upgrades that will reward playing skillfully and pulling dangerous moves. Examples:
 •	After two hits given while airborne, the third will do more damage
 •	After few hits airborne, gain extra midair dash
@@ -74,9 +71,11 @@ Optional concept:
 Theme the game around blood. Turning blood into a more spiritual thing. When josie takes life out of an enemy she takes their blood in. the game currency will be hearts, different tiers of enemies will leave different tiers of hearts on death and some will leave more than one.
 Hearts will be used to buy small stuff like maps, more life, keys (to doors) etc.
 
-Story:
+# Story:
 World background:
-From the chaos came a voice.
+
+#### From the chaos came a voice.
+
 From the chaos of the dying of eight stars an entity is born. In the entire second of its existence, it sends its will towards the universe then disappear. 
 While echoing through the stars the voice came across a world full of light. Millions of small lights, tangled together, blinking, radiating and disappearing. 
 He decides he likes it and therefore stays. 
